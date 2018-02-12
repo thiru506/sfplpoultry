@@ -1,0 +1,53 @@
+<div class="row">
+	<div class="col-lg-12 head-margin"><br><br>
+		<ul class="breadcrumb breadgrum-margin">
+			<li><a data-ui-sref="dashboard.home">Home</a></li>
+			<li><a data-ui-sref="dashboard.divisionMaster">Division Master</a></li>
+			<li class="active">Add New</li>
+		</ul>
+		<h1 class="page-header no-margin">Division Master SetUp</h1>
+	</div>
+</div>
+
+	<div class="row">
+		<form class="form-horizontal" name="userform">
+			<div class="col-lg-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Division Master Setup</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="control-label col-xs-5">Company ID*</label>
+							<div class="col-xs-7">
+									<select class="form-control" data-ng-model="comp" data-ng-change="changeCompany()" data-ng-options="company.id as company.companyId for company in companies">
+										<option value="">Select Company Id</option>
+			  						</select>
+ 							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-5">Company Name*</label>
+							<div class="col-xs-7">
+								<input type="text" class="form-control" data-ng-model="form.companyMaster.name" disabled>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-5">Division ID*</label>
+							<div class="col-xs-7">
+								<input type="text" class="form-control" data-ng-model="form.divisionId" placeholder="Division ID" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-5">Division Name*</label>
+							<div class="col-xs-7">
+								<input type="text" class="form-control" data-ng-model="form.name"  placeholder="Division Name" required>
+							</div>
+						</div>
+
+						<div class="panel-body">
+ 							<button type="button" class="btn btn-warning pull-left cancel-btn" data-ng-click="cancelAdd()">Cancel</button>
+							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addDivision()">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>

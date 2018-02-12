@@ -1,0 +1,32 @@
+.login-panel.panel.panel-default.mbr-login{
+	background-color: #00AAE4;
+	box-shadow: 0 2px 4px 3px rgba(24, 143, 255,0.3);
+	text-align: center;
+	width: 100%;
+	margin: 120px 50px 50px -150px;
+	min-height: 400px;
+	 
+}
+.form-group.margin-top {
+    margin-top: 30px;
+}
+.panel-heading.stylee {
+	background-color: #00AAE4;
+}
+.panel-title.padding {	
+    padding: 10px 0px 10px 0px;
+}
+.col-md-6.right {
+    float: right;
+	width:300px;
+}
+.col-md-6.center {
+    float: center;
+	width:300px;
+}
+.label-cus {
+    font-size: 20px;
+    font-family: times new roman;
+    margin: 10px 20px 0px 0px;
+	line-height:20px;
+}
