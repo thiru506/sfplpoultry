@@ -16,10 +16,49 @@ angular.module('sbAdminApp')
     $scope.confirm = modals.resolve;
     $scope.deny = modals.reject;
 }])	
-.controller('subDivisionMasterCtrl',['$scope',"$rootScope",'modals','companies','divisions','subdivisions','$http','$state', function($scope,$rootScope,modals,companies,divisions,subdivisions,$http,$state) {
+.controller('unitMasterCtrl',['$scope',"$rootScope",'modals','units','$http','$state', function($scope,$rootScope,modals,units,$http,$state) {
+	$scope.form={};
+	$scope.units=units;
+	$scope.pagi=$rootScope.pagination.init($scope.units);
+
+	
+ 	
+}])
+.controller('addUnitCtrl',['$scope',"$rootScope",'companies','modals','divisions','subdivisions','$http','$state', function($scope,$rootScope,companies,modals,divisions,subdivisions,$http,$state) {
 	$scope.form={};
 	$scope.companies=companies;
-	$scope.divisions=divisions;
+	$scope.divisons=divisions;	
+	$scope.subdivisons=subdivisions;	
+	console.log('sub divi',$scope.subdivisons);
+	$scope.changeSubDivision=function(){
+ 		$scope.form.subDivisionMaster=$rootScope.getById(subdivisions,$scope.subdivi);
+		console.log('form-sub',$scope.form.subDivisionMaster);
+	}
+ 	
+	$scope.addUnit=function(){
+   
+  			$http.post('units/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Unit Added Successfully");
+				$state.go('dashboard.unitMaster',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+ 		
+	}
+	$scope.cancelAdd=function(){
+		if($scope.userform.$dirty){
+			var promise = modals.open("confirm",{ message: "Unsaved Data! Are you sure to Cancel ?"});
+			promise.then(function handleResolve( response ) {$state.go('dashboard.unitMaster',{},{reload:true});},
+					function handleReject( error ) {});
+		}else{
+			$state.go('dashboard.unitMaster',{},{reload:true});
+		}
+		
+	}
+	
+}])
+.controller('subDivisionMasterCtrl',['$scope',"$rootScope",'modals','subdivisions','$http','$state', function($scope,$rootScope,modals,subdivisions,$http,$state) {
+	$scope.form={};
 	$scope.subdivisions=subdivisions;
 	$scope.pagi=$rootScope.pagination.init($scope.subdivisions);
 
@@ -45,7 +84,6 @@ angular.module('sbAdminApp')
     			}).error(function(data){
     				$rootScope.notify.handleError(data);
     			})
-			
  		
 	}
 	$scope.cancelAdd=function(){

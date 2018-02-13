@@ -127,8 +127,6 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
          templateUrl:'views/subDivisionMaster.html',
          url:'/subDivisionMaster',
           resolve: {
-    		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){console.log(resp.data); return resp.data})}],
-    		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){console.log(resp.data); return resp.data})}],
     		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){console.log('sub',resp.data); return resp.data})}]
 
      	   },
@@ -139,10 +137,29 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   resolve: {
  		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){console.log(resp.data); return resp.data})}],
  		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){console.log(resp.data); return resp.data})}]
-
   	   },
   	   templateUrl:'views/addSubDivision.html',
   	   url:'/addSubDivision'
+     })
+      .state('dashboard.unitMaster',{
+         templateUrl:'views/unitMaster.html',
+         url:'/unitMaster',
+          resolve: {
+    		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){console.log('sub',resp.data); return resp.data})}]
+
+     	   },
+         controller:'unitMasterCtrl'
+      })
+      .state('dashboard.addUnit',{
+  	   controller: 'addUnitCtrl',
+  	   resolve: {
+ 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){console.log(resp.data); return resp.data})}],
+ 		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){console.log(resp.data); return resp.data})}],
+ 		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){console.log(resp.data); return resp.data})}]
+
+  	   },
+  	   templateUrl:'views/addUnit.html',
+  	   url:'/addUnit'
      })
      
 }]);
