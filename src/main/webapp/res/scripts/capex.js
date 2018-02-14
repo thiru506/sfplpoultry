@@ -24,6 +24,103 @@ angular.module('sbAdminApp')
 	
  	
 }])
+.controller('assetClassCtrl',['$scope',"$rootScope",'modals','assetClasses','$http','$state', function($scope,$rootScope,modals,assetClasses,$http,$state) {
+	$scope.form={};
+	$scope.assetClasses=assetClasses;
+	$scope.pagi=$rootScope.pagination.init($scope.assetClasses);
+ 	
+	$scope.addAsset=function(){
+		
+   		if($scope.form.name==null || $scope.form.name==""){
+			$rootScope.notify.showError("Asset Name is Mandatory");
+		}else{
+ 			$http.post('assetClass/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Asset Added Successfully");
+				$scope.form=null;
+				$state.go('dashboard.assetClass',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+ 		}
+		
+	}
+ 	
+	 $scope.editAssetClass = function (asset) {
+ 	    		$scope.editAsset={};
+	    		$scope.editAsset=asset;
+   	 }
+	 
+	 $scope.updateAsset=function(){	
+		 
+  			if($scope.editAsset.name==null || $scope.editAsset.name==""){
+				$rootScope.notify.showError("Asset Name is Mandatory");
+			}else{
+ 				$http.post('assetClass/update/'+$rootScope.userInfo.id,$scope.editAsset).success(function(data){
+					$rootScope.notify.showSuccess("Asset details Updated Successfully");
+					$state.go('dashboard.assetClass',{},{reload:true});
+	    			}).error(function(data){
+	    				$rootScope.notify.handleError(data);
+	    			})	
+			}		
+	}
+	 
+	 $scope.deleteAsset=function(asset){
+ 			var promise = modals.open("confirm",{ message: "Are you sure to delete "+asset.name+" ?"});
+	        promise.then(
+	        		function handleResolve( response ) {
+	        			$http.post('assetClass/delete/'+$rootScope.userInfo.id+"/"+asset.id).success(function(data){
+	        				$rootScope.notify.showSuccess("Asset Deleted Successfully");
+	        				$state.go('dashboard.assetClass',{},{reload:true});
+	            		}).error(function(data){
+	            				$rootScope.notify.handleError(data);
+	            		})
+	            });
+		}
+	
+ 	
+}])
+.controller('assetCategoriesCtrl',['$scope',"$rootScope",'modals','assetClasses','assetCategories','$http','$state', function($scope,$rootScope,modals,assetClasses,assetCategories,$http,$state) {
+	$scope.form={};
+	$scope.assetCategories=assetCategories;
+	$scope.assetClasses=assetClasses;
+	$scope.pagi=$rootScope.pagination.init($scope.assetCategories);
+	
+	$scope.changeAsset=function(){
+		console.log('ssss',$scope.asset);
+ 		$scope.form.assetClassMaster=$rootScope.getById(assetClasses,$scope.asset);
+ 	}
+ 	
+	$scope.addAssetCategory=function(){
+
+		if($scope.form.name==null || $scope.form.name==""){
+			$rootScope.notify.showError("Asset Category Name is Mandatory");
+		}else{
+ 			$http.post('assetCategories/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Added Successfully");
+				$scope.form=null;
+				$state.go('dashboard.assetCategories',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+ 		}
+		
+	}
+ 
+	$scope.deleteAsset=function(assetCategories){
+ 			var promise = modals.open("confirm",{ message: "Are you sure to delete "+assetCategories.name+" ?"});
+	        promise.then(
+	        		function handleResolve( response ) {
+	        			$http.post('assetCategories/delete/'+$rootScope.userInfo.id+"/"+assetCategories.id).success(function(data){
+	        				$rootScope.notify.showSuccess(" Deleted Successfully");
+	        				$state.go('dashboard.assetCategories',{},{reload:true});
+	            		}).error(function(data){
+	            				$rootScope.notify.handleError(data);
+	            		})
+	            });
+		}
+	
+ 	
+}])
 .controller('capexRegCtrl',['$scope',"$rootScope",'modals','$http','$state', function($scope,$rootScope,modals,$http,$state) {
   
 	

@@ -1,17 +1,17 @@
 .login-panel.panel.panel-default.mbr-login{
-	background-color: #00AAE4;
+	background-color: #ffffff;
 	box-shadow: 0 2px 4px 3px rgba(24, 143, 255,0.3);
 	text-align: center;
 	width: 100%;
 	margin: 120px 50px 50px -150px;
-	min-height: 400px;
+	min-height: 300px;
 	 
 }
 .form-group.margin-top {
     margin-top: 30px;
 }
 .panel-heading.stylee {
-	background-color: #00AAE4;
+	background-color: #ffffff;
 }
 .panel-title.padding {	
     padding: 10px 0px 10px 0px;

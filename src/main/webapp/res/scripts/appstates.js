@@ -86,7 +86,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
        templateUrl:'views/companyMaster.html',
        url:'/CompanyMaster',
         resolve: {
- 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){console.log(resp.data); return resp.data})}]
+ 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){  return resp.data})}]
    	   },
        controller:'CompanyMasterCtrl'
     })
@@ -111,14 +111,14 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
          templateUrl:'views/divisionMaster.html',
          url:'/divisionMaster',
           resolve: {
-   		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){console.log(resp.data); return resp.data})}]
+   		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){  return resp.data})}]
      	   },
          controller:'DivisionMasterCtrl'
       })
       .state('dashboard.addDivision',{
   	   controller: 'addDivisionCtrl',
   	   resolve: {
- 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){console.log(resp.data); return resp.data})}]
+ 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){  return resp.data})}]
   	   },
   	   templateUrl:'views/addDivision.html',
   	   url:'/addDivision'
@@ -127,7 +127,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
          templateUrl:'views/subDivisionMaster.html',
          url:'/subDivisionMaster',
           resolve: {
-    		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){console.log('sub',resp.data); return resp.data})}]
+    		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){ return resp.data})}]
 
      	   },
          controller:'subDivisionMasterCtrl'
@@ -135,8 +135,8 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
       .state('dashboard.addSubDivision',{
   	   controller: 'addSubDivisionCtrl',
   	   resolve: {
- 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){console.log(resp.data); return resp.data})}],
- 		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){console.log(resp.data); return resp.data})}]
+ 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){  return resp.data})}],
+ 		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){  return resp.data})}]
   	   },
   	   templateUrl:'views/addSubDivision.html',
   	   url:'/addSubDivision'
@@ -145,7 +145,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
          templateUrl:'views/unitMaster.html',
          url:'/unitMaster',
           resolve: {
-    		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){console.log('sub',resp.data); return resp.data})}]
+    		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){ return resp.data})}]
 
      	   },
          controller:'unitMasterCtrl'
@@ -153,9 +153,9 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
       .state('dashboard.addUnit',{
   	   controller: 'addUnitCtrl',
   	   resolve: {
- 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){console.log(resp.data); return resp.data})}],
- 		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){console.log(resp.data); return resp.data})}],
- 		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){console.log(resp.data); return resp.data})}]
+ 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){  return resp.data})}],
+ 		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){  return resp.data})}],
+ 		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}]
 
   	   },
   	   templateUrl:'views/addUnit.html',
@@ -163,13 +163,18 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
      })
      .state('dashboard.assetClass',{
   	   controller: 'assetClassCtrl',
-  	   resolve: { },
+  	   resolve: {
+   		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){return resp.data})}]
+  	   },
   	   templateUrl:'views/assetClass.html',
   	   url:'/assetClass'
      })
      .state('dashboard.assetCategories',{
   	   controller: 'assetCategoriesCtrl',
-  	   resolve: { },
+  	   resolve: {
+   		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){return resp.data})}],
+   		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}]
+   	   },
   	   templateUrl:'views/assetCategories.html',
   	   url:'/assetCategories'
      })
