@@ -161,5 +161,23 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   templateUrl:'views/addUnit.html',
   	   url:'/addUnit'
      })
+     .state('dashboard.assetClass',{
+  	   controller: 'assetClassCtrl',
+  	   resolve: { },
+  	   templateUrl:'views/assetClass.html',
+  	   url:'/assetClass'
+     })
+     .state('dashboard.assetCategories',{
+  	   controller: 'assetCategoriesCtrl',
+  	   resolve: { },
+  	   templateUrl:'views/assetCategories.html',
+  	   url:'/assetCategories'
+     })
+     .state('dashboard.capexReg',{
+  	   controller: 'capexRegCtrl',
+  	   resolve: { },
+  	   templateUrl:'views/capexRegistration.html',
+  	   url:'/capexBudgetForm'
+     })
      
 }]);

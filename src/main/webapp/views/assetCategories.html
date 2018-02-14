@@ -1,0 +1,86 @@
+
+<div class="row">
+	<div class="col-lg-12 head-margin"><br><br>
+		<ul class="breadcrumb breadgrum-margin">
+			<li><a data-ui-sref="dashboard.home">Home</a></li>
+			<li><a data-ui-sref="dashboard.assetCategories">Asset Categories Master</a></li>
+		</ul>
+		<h1 class="page-header no-margin">Asset Categories Master SetUp</h1>
+	</div>
+</div>
+	<div class="row">
+		<form class="form-horizontal" name="userform">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Asset Categories Master Setup</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="inline control-label col-xs-2">Asset Class*</label>
+							<div class="col-xs-3">
+							 	<select class="form-control" data-ng-model="subdivi" data-ng-change="" data-ng-options="">
+								 	<option value="">Select Asset</option>
+								</select>
+   							</div>
+							<label class="inline control-label col-xs-2">Asset Class Name*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="" disabled>
+							</div>
+						</div>
+ 						<div class="form-group">
+							<label class="control-label col-xs-2">Asset Type Name*</label>
+							<div class="col-xs-3">
+ 								<input type="text" class="form-control" data-ng-model="">
+ 							</div>
+							<label class="control-label col-xs-2">Asset Type ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="" >
+							</div>
+						</div>
+						<div class="panel-body">
+  							<button type="button" class="btn btn-warning pull-left cancel-btn" data-ng-click="">Delete</button>
+							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="">Add</button>
+						</div>
+						<div class="panel-footer">
+ 							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+ 										<div class="panel-body">
+											<div class="table-responsive">
+												 <table class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th width="25%">Asset ID</th>
+															<th width="25%">Asset Class</th>
+															<th width="20%">Asset Type Name</th>
+															<th width="20%">Asset Type ID</th>															
+ 												 		</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>XXXX </td>
+															<td>XXX	</td>
+															<td>XXX</td>
+															<td>XXX	</td>
+ 														</tr>
+ 													</tbody>
+												</table>
+												</div>
+											<!-- /.table-responsive -->
+										</div>
+										<!-- /.panel-body -->
+									</div>
+									<!-- /.panel -->
+								</div>
+								<!-- /.col-lg-6 -->
+							</div>
+						</div>
+						<div class="panel-body">
+ 							<button type="button" class="btn btn-warning pull-left cancel-btn" data-ng-click="cancelAdd()">Cancel</button>
+							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addUnit()">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+ 

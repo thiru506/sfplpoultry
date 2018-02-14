@@ -24,6 +24,11 @@ angular.module('sbAdminApp')
 	
  	
 }])
+.controller('capexRegCtrl',['$scope',"$rootScope",'modals','$http','$state', function($scope,$rootScope,modals,$http,$state) {
+  
+	
+ 	
+}])
 .controller('addUnitCtrl',['$scope',"$rootScope",'companies','modals','divisions','subdivisions','$http','$state', function($scope,$rootScope,companies,modals,divisions,subdivisions,$http,$state) {
 	$scope.form={};
 	$scope.companies=companies;
