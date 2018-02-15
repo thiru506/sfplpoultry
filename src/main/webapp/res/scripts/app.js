@@ -32,6 +32,25 @@ var app=angular
 	  $rootScope.usertype[1]="User";
 	  
   
+	  $rootScope.collapseVar = 0;
+	  $rootScope.multiCollapseVar = 0;
+      
+	  $rootScope.check = function(x){
+        
+        if(x==$rootScope.collapseVar)
+        		$rootScope.collapseVar = 0;
+        else
+        		$rootScope.collapseVar = x;
+      };
+      
+      $rootScope.multiCheck = function(y){
+        
+        if(y==$rootScope.multiCollapseVar)
+        		$rootScope.multiCollapseVar = 0;
+        else
+        		$rootScope.multiCollapseVar = y;
+      };
+	
 	  $rootScope.notify={
 			  error:false,
 			  success:false,

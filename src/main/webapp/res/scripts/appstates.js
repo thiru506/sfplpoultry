@@ -155,7 +155,13 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   resolve: {
  		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){  return resp.data})}],
  		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){  return resp.data})}],
- 		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}]
+ 		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}],
+  		   facilities : ['$http','$rootScope',function($http,$rootScope){return $http.get('facilities/all').then(function(resp){return resp.data})}],
+  		   buildings : ['$http','$rootScope',function($http,$rootScope){return $http.get('buildings/all').then(function(resp){return resp.data})}],
+  		 coldRooms : ['$http','$rootScope',function($http,$rootScope){return $http.get('coldRoom/all').then(function(resp){return resp.data})}],
+  		 staffQuarters : ['$http','$rootScope',function($http,$rootScope){return $http.get('staffQuarters/all').then(function(resp){return resp.data})}],
+   		   sheds : ['$http','$rootScope',function($http,$rootScope){return $http.get('sheds/all').then(function(resp){return resp.data})}],
+
 
   	   },
   	   templateUrl:'views/addUnit.html',
@@ -184,5 +190,44 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   templateUrl:'views/capexRegistration.html',
   	   url:'/capexBudgetForm'
      })
+     .state('dashboard.sheds',{
+  	   controller: 'shedsCtrl',
+  	   resolve: { 
+   		   sheds : ['$http','$rootScope',function($http,$rootScope){return $http.get('sheds/all').then(function(resp){return resp.data})}],
+  	   },
+  	   templateUrl:'views/sheds.html',
+  	   url:'/sheds'
+     })
+     .state('dashboard.staffQuarters',{
+  	   controller: 'staffQuartersCtrl',
+  	   resolve: {
+  		 staffQuarters : ['$http','$rootScope',function($http,$rootScope){return $http.get('staffQuarters/all').then(function(resp){return resp.data})}],
+  	   },
+  	   templateUrl:'views/staffQuarters.html',
+  	   url:'/staffQuarters'
+     })
+     .state('dashboard.coldRoom',{
+  	   controller: 'coldRoomCtrl',
+  	   resolve: {
+  		 coldRooms : ['$http','$rootScope',function($http,$rootScope){return $http.get('coldRoom/all').then(function(resp){return resp.data})}],
+  	   },
+  	   templateUrl:'views/coldRoom.html',
+  	   url:'/coldRoom'
+     })
+     .state('dashboard.buildings',{
+  	   controller: 'buildingsCtrl',
+  	   resolve: {  
+  		   buildings : ['$http','$rootScope',function($http,$rootScope){return $http.get('buildings/all').then(function(resp){return resp.data})}],
+  	   },
+  	   templateUrl:'views/buildings.html',
+  	   url:'/buildings'
+     }).state('dashboard.facilities',{
+    	   controller: 'facilitiesCtrl',
+      	   resolve: {
+      		   facilities : ['$http','$rootScope',function($http,$rootScope){return $http.get('facilities/all').then(function(resp){return resp.data})}],
+      	   },
+      	   templateUrl:'views/facilities.html',
+      	   url:'/facilities'
+         })
      
 }]);

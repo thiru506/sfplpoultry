@@ -1,37 +1,35 @@
 package com.capex.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "UnitMaster")
-public class UnitMaster {
+@Table(name = "Sheds")
+public class Sheds {
 
+	
 	@Id
  	@GeneratedValue
   	@Column(name = "id", unique = true, nullable = false)
   	private int id;
- 
+
 	@Column(name = "name")
  	private String name;
 	
-  	@LazyCollection(LazyCollectionOption.FALSE)
- 	@OneToMany(mappedBy="unitMaster",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-	@JsonManagedReference
-  	private Set<UnitLocations> unitLocations;
+  	
+	@OneToMany(mappedBy = "sheds",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<UnitLocations> unitLocations;
+
 
 	public int getId() {
 		return id;
@@ -49,14 +47,13 @@ public class UnitMaster {
 		this.name = name;
 	}
 
-	public Set<UnitLocations> getUnitLocations() {
+	public List<UnitLocations> getUnitLocations() {
 		return unitLocations;
 	}
 
-	public void setUnitLocations(Set<UnitLocations> unitLocations) {
+	public void setUnitLocations(List<UnitLocations> unitLocations) {
 		this.unitLocations = unitLocations;
-	}	
-  
-	
+	}
+
 	
 }

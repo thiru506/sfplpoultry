@@ -43,55 +43,64 @@
 								<div class="col-xs-3">
 									<input type="text" class="form-control" data-ng-model="form.name"  placeholder="Unit Name" required>
 								</div>
-								<label class="inline control-label col-xs-2">Location*</label>
-								<div class="col-xs-3">
-								 	<select class="form-control" data-ng-model="location">
-									 	<option value="">Select Location</option>
-									 	<option value="1">sheds</option>
-									 	<option value="2">Staff Quarters</option>
-									 	<option value="3">Cold Room</option>
-									 	<option value="4">Buildings</option>
-									 	<option value="5">Facilities</option>
-									</select>
-	 							</div>
-							</div>
+ 							</div>
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="panel panel-default">
-										<div class="panel-heading">
-											<label>Locations</label>
-										</div>
-										<!-- /.panel-heading -->
-										<div class="panel-body">
+ 										<div class="panel-body">
 											<div class="table-responsive">
 												 <table class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th width="25%">Sheds</th>
-															<th width="25%">Building</th>
-															<th width="20%">Cold Room</th>
-															<th width="20%">Cycle Stands</th>															
-															<th width="10%">Actions</th>
-												 		</tr>
+															<th width="40%">Locations</th>
+															<th width="40%"></th>
+															<th width="20%">Actions</th>
+ 												 		</tr>
 													</thead>
 													<tbody>
 														<tr>
-															<td><select class="form-control" data-ng-model="sheds" data-ng-options="">
-																 	<option value="">Select Sheds</option>
+															<td>
+															 	<select class="form-control"  data-ng-model="location">
+																 	<option value="">Select Location</option>
+																 	<option value="1">sheds</option>
+																 	<option value="2">Staff Quarters</option>
+																 	<option value="3">Cold Room</option>
+																 	<option value="4">Buildings</option>
+																 	<option value="5">Facilities</option>
 																</select>
 															</td>
-															<td><select class="form-control" data-ng-model="building" data-ng-options="">
-																 	<option value="">Select Building</option>
+															<td data-ng-show="emptyDown"><select class="form-control">
+																 	<option value="">--Select--</option>
+ 																</select>
+															</td>
+															
+															<td data-ng-if="location==1">
+															 	<select class="form-control" data-ng-change="changeLocation()" data-ng-model="shedd" data-ng-options="shed.id as shed.name for shed in sheds">
+																 	<option value="">Select Shed</option>
+																</select>
+ 															</td>
+															<td data-ng-if="location==2">
+															 	<select class="form-control" data-ng-change="changeLocation()" data-ng-model="staff" data-ng-options="staff.id as staff.name for staff in staffQuarters">
+																 	<option value="">Select Staff Quarters</option>
 																</select>
 															</td>
-															<td><select class="form-control" data-ng-model="coldRoom" data-ng-options="">
+															<td data-ng-if="location==3">
+															 	<select class="form-control" data-ng-change="changeLocation()" data-ng-model="coldy" data-ng-options="cold.id as cold.name for cold in coldRooms">
 																 	<option value="">Select Cold Room</option>
 																</select>
 															</td>
-															<td><select class="form-control" data-ng-model="coldRoom" data-ng-options="">
-																 	<option value="">Select Cycle Stands</option>
+															
+															<td data-ng-if="location==4">
+															 	<select class="form-control" data-ng-change="changeLocation()" data-ng-model="buildy" data-ng-options="build.id as build.name for build in buildings">
+																 	<option value="">Select Buildings</option>
 																</select>
+
 															</td>
+															<td data-ng-if="location==5">
+															 	<select class="form-control" data-ng-change="changeLocation()" data-ng-model="faci" data-ng-options="facility.id as facility.name for facility in facilities">
+																 	<option value="">Select Facilities</option>
+																</select>
+ 															</td>
 															<td><button type="button" class="btn btn-primary btn-circle btn-sl" data-ng-click="addRow()">
 															<i class="fa fa-plus"></i></button>
 															</td>
@@ -99,8 +108,7 @@
 														<tr data-ng-repeat="">
 															<td></td>
 															<td></td>
-															<td></td>
-															<td><button type="button" class="btn btn-danger btn-circle btn-sl" data-ng-click="deleteRow($index)">
+ 															<td><button type="button" class="btn btn-danger btn-circle btn-sl" data-ng-click="deleteRow($index)">
 															<i class="fa fa-close"></i></button></td>
 															</tr>
 													</tbody>

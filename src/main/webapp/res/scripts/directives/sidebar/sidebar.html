@@ -29,7 +29,27 @@
              <li ui-sref-active="active">
                 <a ui-sref="dashboard.assetCategories"><i class="fa fa-user fa-fw"></i> Asset Categories Master<span></span></a>
             </li>
-            
+             <li ng-class="{active: collapseVar==1}">
+                <a href="" ng-click="check(1)"><i class="fa fa-buysellads fa-fw"></i> Unit Locations<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" collapse="collapseVar!=1">
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.sheds">Sheds</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.staffQuarters">Staff Quarters</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.coldRoom">Cold Room</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.buildings">Buildings</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.facilities">Facilities</a>
+                    </li>
+                </ul>
+             </li>
            </ul>
     </div>
     <!-- /.sidebar-collapse -->
