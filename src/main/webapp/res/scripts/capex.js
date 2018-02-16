@@ -24,6 +24,116 @@ angular.module('sbAdminApp')
 	
  	
 }])
+.controller('locationsCtrl',['$scope',"$rootScope",'modals','locations','$http','$state', function($scope,$rootScope,modals,locations,$http,$state) {
+	$scope.form={};
+	$scope.locations=locations;
+	$scope.pagi=$rootScope.pagination.init($scope.locations);
+ 	
+	$scope.addLocation=function(){
+		
+   		if($scope.form.name==null || $scope.form.name==""){
+			$rootScope.notify.showError("Location Name is Mandatory");
+		}else{
+ 			$http.post('locations/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Location Added Successfully");
+				$scope.form=null;
+				$state.go('dashboard.locations',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+ 		}
+		
+	}
+ 	
+	 $scope.editLocationClass = function (location) {
+ 	    		$scope.editLocation={};
+	    		$scope.editLocation=location;
+   	 }
+	 
+	 $scope.updateLocation=function(){	
+		 
+  			if($scope.editLocation.name==null || $scope.editLocation.name==""){
+				$rootScope.notify.showError("Location Name is Mandatory");
+			}else{
+ 				$http.post('locations/update/'+$rootScope.userInfo.id,$scope.editLocation).success(function(data){
+					$rootScope.notify.showSuccess("Location details Updated Successfully");
+					$state.go('dashboard.locations',{},{reload:true});
+	    			}).error(function(data){
+	    				$rootScope.notify.handleError(data);
+	    			})	
+			}		
+	}
+	 
+	 $scope.deleteLocation=function(location){
+ 			var promise = modals.open("confirm",{ message: "Are you sure to delete "+location.name+" ?"});
+	        promise.then(
+	        		function handleResolve( response ) {
+	        			$http.post('locations/delete/'+$rootScope.userInfo.id+"/"+location.id).success(function(data){
+	        				$rootScope.notify.showSuccess("Shed Deleted Successfully");
+	        				$state.go('dashboard.locations',{},{reload:true});
+	            		}).error(function(data){
+	            				$rootScope.notify.handleError(data);
+	            		})
+	            });
+		}
+	
+ 	
+}])
+.controller('locationNameCtrl',['$scope',"$rootScope",'modals','locationNames','$http','$state', function($scope,$rootScope,modals,locationNames,$http,$state) {
+	$scope.form={};
+	$scope.locationNames=locationNames;
+	$scope.pagi=$rootScope.pagination.init($scope.locationNames);
+ 	
+	$scope.addLocationName=function(){
+		
+   		if($scope.form.name==null || $scope.form.name==""){
+			$rootScope.notify.showError("Location Name is Mandatory");
+		}else{
+ 			$http.post('locationName/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Location Added Successfully");
+				$scope.form=null;
+				$state.go('dashboard.locationNames',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+ 		}
+		
+	}
+ 	
+	 $scope.editlocationNameClass = function (location) {
+ 	    		$scope.editLocationName={};
+	    		$scope.editLocationName=location;
+    	 }
+	 
+	 $scope.updateLocationName=function(){	
+		 
+  			if($scope.editLocationName.name==null || $scope.editLocationName.name==""){
+				$rootScope.notify.showError("Location Name is Mandatory");
+			}else{
+ 				$http.post('locationName/update/'+$rootScope.userInfo.id,$scope.editLocationName).success(function(data){
+					$rootScope.notify.showSuccess("Location Name details Updated Successfully");
+					$state.go('dashboard.locationNames',{},{reload:true});
+	    			}).error(function(data){
+	    				$rootScope.notify.handleError(data);
+	    			})	
+			}		
+	}
+	 
+	 $scope.deleteLocationName=function(location){
+ 			var promise = modals.open("confirm",{ message: "Are you sure to delete "+location.name+" ?"});
+	        promise.then(
+	        		function handleResolve( response ) {
+	        			$http.post('locationNames/delete/'+$rootScope.userInfo.id+"/"+location.id).success(function(data){
+	        				$rootScope.notify.showSuccess("Deleted Successfully");
+	        				$state.go('dashboard.locationNames',{},{reload:true});
+	            		}).error(function(data){
+	            				$rootScope.notify.handleError(data);
+	            		})
+	            });
+		}
+	
+ 	
+}])
 .controller('shedsCtrl',['$scope',"$rootScope",'modals','sheds','$http','$state', function($scope,$rootScope,modals,sheds,$http,$state) {
 	$scope.form={};
 	$scope.sheds=sheds;
@@ -401,8 +511,8 @@ angular.module('sbAdminApp')
 	
  	
 }])
-.controller('addUnitCtrl',['$scope',"$rootScope",'companies','modals','divisions','subdivisions','facilities','buildings','coldRooms','staffQuarters','sheds','$http','$state', 
-				function($scope,$rootScope,companies,modals,divisions,subdivisions,facilities,buildings,coldRooms,staffQuarters,sheds,$http,$state) {
+.controller('addUnitCtrl',['$scope',"$rootScope",'companies','modals','divisions','subdivisions','facilities','buildings','coldRooms','staffQuarters','sheds','locations','locationNames','$http','$state', 
+				function($scope,$rootScope,companies,modals,divisions,subdivisions,facilities,buildings,coldRooms,staffQuarters,sheds,locations,locationNames,$http,$state) {
 	$scope.form={};
 	$scope.companies=companies;
 	$scope.divisons=divisions;	
@@ -412,16 +522,62 @@ angular.module('sbAdminApp')
 	$scope.coldRooms=coldRooms;
 	$scope.staffQuarters=staffQuarters;
 	$scope.sheds=sheds;
+	$scope.locations=locations;
+	$scope.locationNames=locationNames;
 	$scope.emptyDown=true;
-	console.log('sub divi',$scope.subdivisons);
+
 	$scope.changeSubDivision=function(){
  		$scope.form.subDivisionMaster=$rootScope.getById(subdivisions,$scope.subdivi);
-		console.log('form-sub',$scope.form.subDivisionMaster);
-	}
+ 	}
  	
-	$scope.changeLocation=function(){
- 		$scope.emptyDown=false;
+	$scope.locationsShow=function(){
+		
 	}
+			
+	/*	
+	$scope.location1=false;
+	$scope.location2=false;
+	$scope.location3=false;
+	$scope.location4=false;
+	$scope.location5=false;
+
+
+	$scope.changeLocation=function(){
+  		
+  		if($scope.location==1){
+  			$scope.location1=true;
+  			$scope.location2=false;
+  			$scope.location3=false;
+  			$scope.location4=false;
+  			$scope.location5=false;
+   		}else if($scope.location==2){
+  			$scope.location1=false;
+  			$scope.location2=true;
+  			$scope.location3=false;
+  			$scope.location4=false;
+  			$scope.location5=false;
+  		}else if($scope.location==3){
+  			$scope.location1=false;
+  			$scope.location2=false;
+  			$scope.location3=true;
+  			$scope.location4=false;
+  			$scope.location5=false;
+  		}else if($scope.location==4){
+  			$scope.location1=false;
+  			$scope.location2=false;
+  			$scope.location3=false;
+  			$scope.location4=true;
+  			$scope.location5=false;
+  		}else if($scope.location==5){
+  			$scope.location1=false;
+  			$scope.location2=false;
+  			$scope.location3=false;
+  			$scope.location4=false;
+  			$scope.location5=true;
+  		}
+
+	}  **/
+	
 	$scope.addUnit=function(){
    
   			$http.post('units/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
@@ -442,40 +598,78 @@ angular.module('sbAdminApp')
 		}
 		
 	}
-	$scope.unitMaster={};
+	
+/*	
+	$scope.unitLocations={};
 	$scope.form.unitMaster=[];
 	$scope.form.unitMaster.unitLocations=[];
+	$scope.table=[];
+	$scope.tabb={};
 	$scope.addRow=function(){
+		
+		console.log('loc',$scope.location);
   		if($scope.location==1){
-  			console.log('sssss',$scope.shedd);
-  			$scope.unitMaster.sheds=$rootScope.getById(sheds,$scope.shedd);
-  			console.log($scope.unitMaster.sheds);
-
-   			$scope.form.unitMaster.unitLocations.push($scope.unitMaster.sheds);
+   			$scope.unitLocations.sheds=$rootScope.getById(sheds,$scope.shedd);
+  			$scope.unitLocations.locations=$rootScope.getById(locations,$scope.location);
+ 			$scope.form.unitMaster.unitLocations.push($scope.unitLocations);
+  			
+ 			$scope.tabb.locations=$rootScope.getById(locations,$scope.location);
+ 			$scope.tabb.name=$rootScope.getById(sheds,$scope.shedd);
+ 			$scope.table.push($scope.tabb);
   			$scope.location=null;
-  			console.log($scope.form.unitMaster);
-  		}else if($scope.location==2){
-  			$scope.unitMaster.staffQuarters=$rootScope.getById(staffQuarters,$scope.staff);
-  			$scope.form.unitMaster.unitLocations.push($scope.unitMaster.staffQuarters);
+  			$scope.shedd=null;
+  			console.log('tab',$scope.table);
+   		}else if($scope.location==2){
+   			$scope.unitLocations.staffQuarters=$rootScope.getById(staffQuarters,$scope.staff);
+  			$scope.unitLocations.locations=$rootScope.getById(locations,$scope.location);
+ 			$scope.form.unitMaster.unitLocations.push($scope.unitLocations);
+  			
+ 			$scope.tabb.locations=$rootScope.getById(locations,$scope.location);
+ 			$scope.tabb.name=$rootScope.getById(sheds,$scope.staff);
+ 			$scope.table.push($scope.tabb);
   			$scope.location=null;
-  		}else if($scope.location==3){
+  			$scope.staff=null;
+  			console.log('tab',$scope.table);
+   			
+   			
+   		}else if($scope.location==3){
   			$scope.unitMaster.coldRoom=$rootScope.getById(coldRooms,$scope.coldy);
   			$scope.form.unitMaster.unitLocations.push($scope.unitMaster.coldRoom);
   			$scope.location=null;
+  			$scope.coldy=null;
   		}else if($scope.location==4){
   			$scope.unitMaster.buildings=$rootScope.getById(buildings,$scope.buildy);
   			$scope.form.unitMaster.unitLocations.push($scope.unitMaster.location);
   			$scope.location=null;
+  			$scope.buildy=null;
   		}else if($scope.location==5){
+  			alert($scope.selected);
+  			alert($scope.customSelected);
   			$scope.unitMaster.facilities=$rootScope.getById(facilities,$scope.faci);
   			$scope.form.unitMaster.unitLocations.push($scope.unitMaster.facilities);
   			$scope.location=null;
+  			$scope.faci=null;
   		}
-  		console.log($scope.form.unitMaster.unitLocations);
-  	}
- 	
+   	}
+ */	
+	$scope.unitLocations={};
+	$scope.form.unitMaster={};
+	$scope.form.unitMaster.unitLocations=[];
+	$scope.addRow=function(){
+		$scope.unitLocations={};
+		console.log('sel',$scope.selected);
+		
+		$scope.unitLocations.locationNames=$rootScope.getById(locationNames,$scope.selected.id);
+		$scope.unitLocations.locations=$rootScope.getById(locations,$scope.location);
+		$scope.form.unitMaster.unitLocations.push($scope.unitLocations);
+		console.log($scope.form.unitMaster.unitLocations);
+		$scope.location=null;
+		$scope.selected=null;
+		$scope.unitLocations=null;
+ 	}
+	
  	$scope.deleteRow=function(index){
- 		$scope.form.unitMaster.splice(index,1);	
+ 		$scope.form.unitMaster.unitLocations.splice(index,1);	
  	}
  	
 	

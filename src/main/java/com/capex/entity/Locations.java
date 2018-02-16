@@ -13,10 +13,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Sheds")
-public class Sheds {
+@Table(name = "Locations")
+public class Locations {
 
-	
 	@Id
  	@GeneratedValue
   	@Column(name = "id", unique = true, nullable = false)
@@ -25,8 +24,10 @@ public class Sheds {
 	@Column(name = "name")
  	private String name;
 	
-  	
- 
+	@OneToMany(mappedBy = "locations",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<UnitLocations> unitLocations;
+
 	public int getId() {
 		return id;
 	}
@@ -43,4 +44,14 @@ public class Sheds {
 		this.name = name;
 	}
 
- }
+	public List<UnitLocations> getUnitLocations() {
+		return unitLocations;
+	}
+
+	public void setUnitLocations(List<UnitLocations> unitLocations) {
+		this.unitLocations = unitLocations;
+	}
+	
+	
+
+}

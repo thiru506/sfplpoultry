@@ -23,12 +23,7 @@ public class ColdRoom {
 	@Column(name = "name")
  	private String name;
 	
- 	@ManyToOne
-	@JsonBackReference
-	@JoinColumn(name="unitLocation")
- 	private UnitLocations unitLocations;
-
-	public int getId() {
+ 	public int getId() {
 		return id;
 	}
 
@@ -43,14 +38,5 @@ public class ColdRoom {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public UnitLocations getUnitLocations() {
-		return unitLocations;
-	}
-
-	public void setUnitLocations(UnitLocations unitLocations) {
-		this.unitLocations = unitLocations;
-	}
-
-	
+ 	
 }

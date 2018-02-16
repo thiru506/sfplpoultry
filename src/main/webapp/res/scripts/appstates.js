@@ -161,6 +161,8 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   		 coldRooms : ['$http','$rootScope',function($http,$rootScope){return $http.get('coldRoom/all').then(function(resp){return resp.data})}],
   		 staffQuarters : ['$http','$rootScope',function($http,$rootScope){return $http.get('staffQuarters/all').then(function(resp){return resp.data})}],
    		   sheds : ['$http','$rootScope',function($http,$rootScope){return $http.get('sheds/all').then(function(resp){return resp.data})}],
+  		   locations : ['$http','$rootScope',function($http,$rootScope){return $http.get('locations/all').then(function(resp){return resp.data})}],
+  		   locationNames : ['$http','$rootScope',function($http,$rootScope){return $http.get('locationName/all').then(function(resp){return resp.data})}],
 
 
   	   },
@@ -221,13 +223,29 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   },
   	   templateUrl:'views/buildings.html',
   	   url:'/buildings'
-     }).state('dashboard.facilities',{
+     })
+     .state('dashboard.facilities',{
     	   controller: 'facilitiesCtrl',
       	   resolve: {
       		   facilities : ['$http','$rootScope',function($http,$rootScope){return $http.get('facilities/all').then(function(resp){return resp.data})}],
       	   },
       	   templateUrl:'views/facilities.html',
       	   url:'/facilities'
-         })
-     
+     })
+     .state('dashboard.locations',{
+    	   controller: 'locationsCtrl',
+      	   resolve: {
+      		   locations : ['$http','$rootScope',function($http,$rootScope){return $http.get('locations/all').then(function(resp){return resp.data})}],
+      	   },
+      	   templateUrl:'views/locations.html',
+      	   url:'/locations'
+     })
+     .state('dashboard.locationNames',{
+    	   controller: 'locationNameCtrl',
+      	   resolve: {
+      		   locationNames : ['$http','$rootScope',function($http,$rootScope){return $http.get('locationName/all').then(function(resp){return resp.data})}],
+      	   },
+      	   templateUrl:'views/locationNames.html',
+      	   url:'/locationNames'
+     })
 }]);

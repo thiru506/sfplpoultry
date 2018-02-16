@@ -28,27 +28,15 @@ public class UnitLocations {
 	@JoinColumn(name="unit")
  	private UnitMaster unitMaster;
  	
+ 	@ManyToOne
+	@JoinColumn(name = "locationsId")
+	private Locations locations;
+ 	
 	@ManyToOne
-	@JoinColumn(name = "shedId")
-	private Sheds sheds;
+	@JoinColumn(name = "LocationNameId")
+	private LocationName locationName;
 
-	@ManyToOne
-	@JoinColumn(name = "staffQuartersId")
-	private StaffQuarters staffQuarters;
-	
-	@ManyToOne
-	@JoinColumn(name = "buildingsId")
-	private Buildings buildings;
-	
-	@ManyToOne
-	@JoinColumn(name = "facilitiesId")
-	private Facilities facilities;
-	
-	@ManyToOne
-	@JoinColumn(name = "coldRoomId")
-	private Sheds coldRoom;
-
- 	public int getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -72,45 +60,23 @@ public class UnitLocations {
 		this.unitMaster = unitMaster;
 	}
 
-	public Sheds getSheds() {
-		return sheds;
+	public Locations getLocations() {
+		return locations;
 	}
 
-	public void setSheds(Sheds sheds) {
-		this.sheds = sheds;
+	public void setLocations(Locations locations) {
+		this.locations = locations;
 	}
 
-	public StaffQuarters getStaffQuarters() {
-		return staffQuarters;
+	public LocationName getLocationName() {
+		return locationName;
 	}
 
-	public void setStaffQuarters(StaffQuarters staffQuarters) {
-		this.staffQuarters = staffQuarters;
+	public void setLocationName(LocationName locationName) {
+		this.locationName = locationName;
 	}
 
-	public Buildings getBuildings() {
-		return buildings;
-	}
-
-	public void setBuildings(Buildings buildings) {
-		this.buildings = buildings;
-	}
-
-	public Facilities getFacilities() {
-		return facilities;
-	}
-
-	public void setFacilities(Facilities facilities) {
-		this.facilities = facilities;
-	}
-
-	public Sheds getColdRoom() {
-		return coldRoom;
-	}
-
-	public void setColdRoom(Sheds coldRoom) {
-		this.coldRoom = coldRoom;
-	}
 
 	
+
 }
