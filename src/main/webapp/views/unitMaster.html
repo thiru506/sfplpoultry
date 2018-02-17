@@ -22,6 +22,7 @@
                         <thead>
                             <tr>
                             	<th>S.No</th>
+                            	<th>Unit Name</th>
                                  <th>Company Name</th>
                                  <th>Division Name</th>
                                  <th>Sub Division Name</th>
@@ -29,20 +30,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr data-ng-repeat="subdivision in subdivisions | pagination: pagi.curPage * pagi.pageSize | limitTo: pagi.pageSize | filter: searchKeyword">
-                            	<td>{{$index+1}}</td>
-          	                    <td>{{subdivision.divisionMaster.companyMaster.name}}</td>
-                                 <td>{{subdivision.divisionMaster.name}}</td>
-                                 <td>{{subdivision.name}}</td>
+                            <tr data-ng-repeat="unit in units | pagination: pagi.curPage * pagi.pageSize | limitTo: pagi.pageSize | filter: searchKeyword">
+                            	<td data-ui-sref="dashboard.viewUnit({id:unit.id})">{{$index+1}}</td>
+          	                    <td data-ui-sref="dashboard.viewUnit({id:unit.id})">{{unit.name}}</td>
+          	                    <td data-ui-sref="dashboard.viewUnit({id:unit.id})">{{unit.subDivisionMaster.divisionMaster.companyMaster.name}}</td>
+                                 <td data-ui-sref="dashboard.viewUnit({id:unit.id})">{{unit.subDivisionMaster.divisionMaster.name}}</td>
+                                 <td data-ui-sref="dashboard.viewUnit({id:unit.id})">{{unit.subDivisionMaster.name}}</td>
      								<td>
                                 		<div class="dropdown">
                                 			<a class="dropdown-toggle" data-toggle="dropdown">
   											<div class="dot"></div><div class="dot"></div><div class="dot"></div>
   										</a>
   										<ul class="dropdown-menu pull-right">
-            									<li><a data-ui-sref="dashboard.editSubDivision({id:subdivision.id})"><i class="fa fa-pencil-square-o fa-fw"></i> Edit</a></li>
+            									<li><a data-ui-sref="dashboard.editUnit({id:unit.id})"><i class="fa fa-pencil-square-o fa-fw"></i> Edit</a></li>
             									<li class="divider"></li>
-            									<li data-ng-click="deleteSubDivision(subdivision)"><a><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+            									<li data-ng-click="deleteUnit(unit)"><a><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
   										</ul>
 									</div>
                                 </td>

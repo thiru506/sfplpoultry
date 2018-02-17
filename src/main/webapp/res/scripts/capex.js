@@ -24,6 +24,11 @@ angular.module('sbAdminApp')
 	
  	
 }])
+.controller('unitViewCtrl',['$scope',"$rootScope",'modals','unit','$http','$state', function($scope,$rootScope,modals,unit,$http,$state) {
+ 	$scope.unit=unit;
+  
+ 	
+}])
 .controller('locationsCtrl',['$scope',"$rootScope",'modals','locations','$http','$state', function($scope,$rootScope,modals,locations,$http,$state) {
 	$scope.form={};
 	$scope.locations=locations;
@@ -579,6 +584,8 @@ angular.module('sbAdminApp')
 	}  **/
 	
 	$scope.addUnit=function(){
+		
+		console.log($scope.form);
    
   			$http.post('units/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("Unit Added Successfully");
@@ -654,22 +661,22 @@ angular.module('sbAdminApp')
  */	
 	$scope.unitLocations={};
 	$scope.form.unitMaster={};
-	$scope.form.unitMaster.unitLocations=[];
+	$scope.form.unitLocations=[];
 	$scope.addRow=function(){
 		$scope.unitLocations={};
 		console.log('sel',$scope.selected);
 		
-		$scope.unitLocations.locationNames=$rootScope.getById(locationNames,$scope.selected.id);
+		$scope.unitLocations.locationName=$rootScope.getById(locationNames,$scope.selected.id);
 		$scope.unitLocations.locations=$rootScope.getById(locations,$scope.location);
-		$scope.form.unitMaster.unitLocations.push($scope.unitLocations);
-		console.log($scope.form.unitMaster.unitLocations);
+		$scope.form.unitLocations.push($scope.unitLocations);
+		console.log($scope.form.unitLocations);
 		$scope.location=null;
 		$scope.selected=null;
 		$scope.unitLocations=null;
  	}
 	
  	$scope.deleteRow=function(index){
- 		$scope.form.unitMaster.unitLocations.splice(index,1);	
+ 		$scope.form.unitLocations.splice(index,1);	
  	}
  	
 	

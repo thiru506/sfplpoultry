@@ -72,9 +72,9 @@
 															<i class="fa fa-plus"></i></button>
 															</td>
 														</tr>
-														<tr data-ng-repeat="tab in form.unitMaster.unitLocations">
+														<tr data-ng-repeat="tab in form.unitLocations">
 															<td>{{tab.locations.name}}</td>
-															<td>{{tab.locationNames.name}}</td>
+															<td>{{tab.locationName.name}}</td>
  															<td><button type="button" class="btn btn-danger btn-circle btn-sl" data-ng-click="deleteRow($index)">
 															<i class="fa fa-close"></i></button></td>
 															</tr>

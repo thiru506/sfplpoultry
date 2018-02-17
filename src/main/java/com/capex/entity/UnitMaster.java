@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,6 +29,10 @@ public class UnitMaster {
  
 	@Column(name = "name")
  	private String name;
+	
+	@ManyToOne
+	@JoinColumn(name = "subDivisionId")
+	private SubDivisionMaster subDivisionMaster;
 	
   	@LazyCollection(LazyCollectionOption.FALSE)
  	@OneToMany(mappedBy="unitMaster",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
@@ -55,6 +61,14 @@ public class UnitMaster {
 
 	public void setUnitLocations(Set<UnitLocations> unitLocations) {
 		this.unitLocations = unitLocations;
+	}
+
+	public SubDivisionMaster getSubDivisionMaster() {
+		return subDivisionMaster;
+	}
+
+	public void setSubDivisionMaster(SubDivisionMaster subDivisionMaster) {
+		this.subDivisionMaster = subDivisionMaster;
 	}	
   
 	

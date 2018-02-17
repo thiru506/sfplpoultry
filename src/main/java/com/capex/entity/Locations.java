@@ -23,7 +23,7 @@ public class Locations {
 
 	@Column(name = "name")
  	private String name;
-	
+	 	
 	@OneToMany(mappedBy = "locations",cascade=CascadeType.ALL)
 	@JsonIgnore
 	private List<UnitLocations> unitLocations;
@@ -51,7 +51,6 @@ public class Locations {
 	public void setUnitLocations(List<UnitLocations> unitLocations) {
 		this.unitLocations = unitLocations;
 	}
-	
-	
 
-}
+
+ }

@@ -1,5 +1,6 @@
 package com.capex.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,17 +24,17 @@ public class UnitLocations {
 	@Column(name = "name")
  	private String name;
 
- 	@ManyToOne
+ 	@ManyToOne(cascade=CascadeType.ALL)
 	@JsonBackReference
 	@JoinColumn(name="unit")
  	private UnitMaster unitMaster;
- 	
- 	@ManyToOne
+ 		
+  	@ManyToOne
 	@JoinColumn(name = "locationsId")
 	private Locations locations;
- 	
-	@ManyToOne
-	@JoinColumn(name = "LocationNameId")
+
+ 	@ManyToOne
+	@JoinColumn(name = "locationNameId")
 	private LocationName locationName;
 
 	public int getId() {
@@ -76,7 +77,6 @@ public class UnitLocations {
 		this.locationName = locationName;
 	}
 
-
-	
-
+ 	
+ 
 }

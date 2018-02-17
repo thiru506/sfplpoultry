@@ -248,4 +248,15 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
       	   templateUrl:'views/locationNames.html',
       	   url:'/locationNames'
      })
+      .state('dashboard.viewUnit',{
+       templateUrl:'views/viewUnit.html',
+       url:'/unit/view/:id',
+       params: { 
+			id:null
+		},
+       resolve: {
+  				unit:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('units/getUnit/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log(resp.data); return resp.data; });}],
+  	   },
+       controller:'unitViewCtrl'
+    })
 }]);
