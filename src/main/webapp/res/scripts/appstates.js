@@ -188,7 +188,11 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
      })
      .state('dashboard.capexReg',{
   	   controller: 'capexRegCtrl',
-  	   resolve: { },
+  	   resolve: { 
+ 		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}],
+		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){console.log(resp.data); return resp.data})}]
+
+  	   },
   	   templateUrl:'views/capexRegistration.html',
   	   url:'/capexBudgetForm'
      })

@@ -511,8 +511,18 @@ angular.module('sbAdminApp')
 	
  	
 }])
-.controller('capexRegCtrl',['$scope',"$rootScope",'modals','$http','$state', function($scope,$rootScope,modals,$http,$state) {
-  
+.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','$http','$state', function($scope,$rootScope,modals,subdivisions,units,$http,$state) {
+	$scope.subdivisons=subdivisions;
+	$scope.units=units;
+	$scope.form={};
+
+	var date = new Date();
+	$scope.sysDate = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+ 
+	$scope.unitChange=function(){
+  		$scope.form.unit=$rootScope.getById(units,$scope.unitt);
+ 	}
+
 	
  	
 }])

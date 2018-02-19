@@ -17,67 +17,63 @@
 						<div class="form-group">
 							<label class="inline control-label col-xs-2">Capex Requisition No*</label>
 							<div class="col-xs-3">
-								<input type="text" class="form-control" data-ng-model="" disabled>
+								<input type="text" class="form-control"  disabled>
    							</div>
 							<label class="inline control-label col-xs-2">Capex Requisition Date*</label>
 							<div class="col-xs-3">
-								<input type="text" class="form-control" data-ng-model="" disabled>
-							</div>
-						</div>
- 						<div class="form-group">
-							<label class="control-label col-xs-2">Capex to be incured by*</label>
-							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
-								 	<option value="">Select </option>
-								</select> 		
-							</div>
-							<label class="control-label col-xs-2">Company ID*</label>
-							<div class="col-xs-3">
-								<input type="text" class="form-control" data-ng-model="" disabled>
-							</div>
-						</div>
- 						<div class="form-group">
-							<label class="control-label col-xs-2">Division*</label>
-							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
-								 	<option value="">Select </option>
-								</select> 		
-							</div>
-							<label class="control-label col-xs-2">Division ID*</label>
-							<div class="col-xs-3">
-								<input type="text" class="form-control" data-ng-model="" disabled>
-							</div>
-						</div>
- 						<div class="form-group">
-							<label class="control-label col-xs-2">Sub Division*</label>
-							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
-								 	<option value="">Select </option>
-								</select> 		
-							</div>
-							<label class="control-label col-xs-2">Sub Division ID*</label>
-							<div class="col-xs-3">
-								<input type="text" class="form-control" data-ng-model="" disabled>
+								<input type="text" class="form-control" data-ng-model="sysDate" disabled>
 							</div>
 						</div>
  						<div class="form-group">
 							<label class="control-label col-xs-2">Unit*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control" data-ng-model="unitt" data-ng-change="unitChange()" data-ng-options="unit.id as unit.name for unit in units">
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
 							<label class="control-label col-xs-2">Department*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control"  >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-xs-2">Sub Division*</label>
+							<div class="col-xs-3">
+								 <input type="text" class="form-control" data-ng-model="form.unit.subDivisionMaster.name" disabled>
+ 							</div>
+							<label class="control-label col-xs-2">Sub Division ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="form.unit.subDivisionMaster.subDivisionId" disabled>
+							</div>
+						</div>
+						
  						<div class="form-group">
+							<label class="control-label col-xs-2">Capex to be incured by*</label>
+							<div class="col-xs-3">
+								 <input type="text" class="form-control" data-ng-model="form.unit.subDivisionMaster.divisionMaster.companyMaster.name" disabled>
+  							</div>
+							<label class="control-label col-xs-2">Company ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="form.unit.subDivisionMaster.divisionMaster.companyMaster.companyId" disabled>
+							</div>
+						</div>
+ 						<div class="form-group">
+							<label class="control-label col-xs-2">Division*</label>
+							<div class="col-xs-3">
+							<input type="text" class="form-control" data-ng-model="form.unit.subDivisionMaster.divisionMaster.name" disabled>
+ 							</div>
+							<label class="control-label col-xs-2">Division ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="form.unit.subDivisionMaster.divisionMaster.divisionId" disabled>
+							</div>
+						</div>
+  						<div class="form-group">
 							<label class="control-label col-xs-2">Capex Description*</label>
 							<div class="col-xs-8">
-								<input type="text" class="form-control" data-ng-model=""  placeholder="Capex Description" required>
+								<input type="text" class="form-control"   placeholder="Capex Description" required>
   							</div>
  						</div>
 						
@@ -85,13 +81,13 @@
 						<div class="form-group">
 							<label class="control-label col-xs-2">Location*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control"  >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
 							<label class="control-label col-xs-2">Cold Room*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control"  >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
@@ -99,13 +95,13 @@
  						<div class="form-group">
 							<label class="control-label col-xs-2">Shed*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control"  >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
 							<label class="control-label col-xs-2">Facilities*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control"  >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
@@ -113,7 +109,7 @@
  						<div class="form-group">
 							<label class="control-label col-xs-2">Building*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control"  >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
@@ -121,39 +117,31 @@
  						<div class="form-group">
 							<label class="control-label col-xs-2">Asset Class Name*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control"  >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
 							<label class="control-label col-xs-2">Asset Type Name*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="" data-ng-options="">
+								<select class="form-control"  >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
 						</div>
 						<div class="row">
-							<div class="panel-body" data-ng-init="tab=5;">
-					      		<ul class="nav nav-tabs nav-justified">
-									<li data-ng-class="{'active': tab==5}"><a data-ng-click="tab=5;"><strong>Yearly</strong></a></li>
-					          		<li data-ng-class="{'active': tab==4}"><a  data-ng-click="tab=4;"><strong>Q1</strong></a></li>
-									<li data-ng-class="{'active': tab==3}"><a data-ng-click="tab=3;"><strong>Q2</strong></a></li>
-									<li data-ng-class="{'active': tab==2}"><a  data-ng-click="tab=2;"><strong>Q3</strong></a></li>
-									<li data-ng-class="{'active': tab==1}"><a  data-ng-click="tab=1;"><strong>Q4</strong></a></li>
- 								</ul>
-								<div class="tab-content">
-										<div class="tab-pane fade" data-ng-class="{'active': tab==5,'in':tab==5}">
-											<br><br>
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+ 										<div class="panel-body">
 											<div class="form-group">
 												<label class="control-label col-xs-2">Year*</label>
 												<div class="col-xs-3">
-													<select class="form-control" data-ng-model="" data-ng-options="">
+													<select class="form-control"  >
 														<option value="">Select </option>
 													</select> 		
 												</div>
 												<label class="control-label col-xs-2">Month*</label>
 												<div class="col-xs-3">
-													<select class="form-control" data-ng-model="" data-ng-options="">
+													<select class="form-control"  >
 														<option value="">Select </option>
 													</select> 		
 												</div>
@@ -161,54 +149,26 @@
 											<div class="form-group">
 												<label class="control-label col-xs-2">Cost*</label>
 												<div class="col-xs-3">
-													<input type="text" class="form-control" data-ng-model="" disabled>
+													<input type="text" class="form-control"  >
 												</div>
 												<label class="control-label col-xs-2">Taxes*</label>
 												<div class="col-xs-3">
-													<input type="text" class="form-control" data-ng-model="" disabled>
+													<input type="text" class="form-control"  >
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-xs-2">Total Cost/Tax*</label>
 												<div class="col-xs-3">
-													<input type="text" class="form-control" data-ng-model="" disabled>
+													<input type="text" class="form-control"  >
 												</div>
-											</div>			
-					 					</div>
-					 			</div>
-								<div class="tab-content">
-										<div class="tab-pane fade" data-ng-class="{'active': tab==4,'in':tab==4}">
-											<br><br>
-											 
-					 				
-					 					</div>
-					 			</div>
-					            <div class="tab-content">
-										<div class="tab-pane fade" data-ng-class="{'active': tab==3,'in':tab==3}">
-											<br><br>
-											 
-					 				
-					 					</div>
-					 			</div>
-					 			<div class="tab-content">
-					                <div class="tab-pane fade" data-ng-class="{'active': tab==1,'in':tab==1}">
-					                    		<br><br>
-					
-					             	 </div>
-					              </div>
-								<div class="tab-content">
-					                <div class="tab-pane fade" data-ng-class="{'active': tab==2,'in':tab==2}">
-					                    		<br><br>
-					              	
-					             	 </div>
-					              </div>
-					         </div>
-				         </div>
+  											</div>
+ 									</div>
+ 								</div>
+ 							</div>
    							<div class="row">
 								<div class="col-lg-12">
 									<div class="panel panel-default">
- 										<div class="panel-body">
-											<div class="table-responsive">
+ 											<div class="table-responsive">
 												 <table class="table table-striped table-bordered">
 													<thead>
 														<tr>
@@ -245,9 +205,7 @@
 												</table>
 												</div>
 											<!-- /.table-responsive -->
-										</div>
-										<!-- /.panel-body -->
-									</div>
+ 									</div>
 									<!-- /.panel -->
 								</div>
 								<!-- /.col-lg-6 -->
@@ -259,6 +217,7 @@
 						</div>
 					</div>
 				</div>
+			</div>
 			</div>
 		</form>
 	</div>
