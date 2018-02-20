@@ -511,18 +511,27 @@ angular.module('sbAdminApp')
 	
  	
 }])
-.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','$http','$state', function($scope,$rootScope,modals,subdivisions,units,$http,$state) {
+.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','assetCategories','$http','$state',
+				function($scope,$rootScope,modals,subdivisions,units,assetCategories,$http,$state) {
 	$scope.subdivisons=subdivisions;
 	$scope.units=units;
 	$scope.form={};
+	$scope.assetCategories=assetCategories;
+	$scope.locations=[];
 
 	var date = new Date();
 	$scope.sysDate = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
  
 	$scope.unitChange=function(){
   		$scope.form.unit=$rootScope.getById(units,$scope.unitt);
+  		console.log($scope.form.unit);
+   		$scope.locations=$scope.form.unit.unitLocations;
+   		console.log($scope.locations);
  	}
 
+	$scope.assetCatChange=function(){
+  		$scope.form.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCat);
+ 	}
 	
  	
 }])

@@ -81,7 +81,7 @@
 						<div class="form-group">
 							<label class="control-label col-xs-2">Location*</label>
 							<div class="col-xs-3">
-								<select class="form-control"  >
+								<select class="form-control" data-ng-model="loc"  data-ng-options="location.id as location.locations.name for location in locations">
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
@@ -115,17 +115,15 @@
 							</div>
  						</div>
  						<div class="form-group">
-							<label class="control-label col-xs-2">Asset Class Name*</label>
+							<label class="control-label col-xs-2">Asset Type*</label>
 							<div class="col-xs-3">
-								<select class="form-control"  >
+								<select class="form-control" data-ng-model="assetCat" data-ng-change="assetCatChange()" data-ng-options="asset.id as asset.name for asset in assetCategories" >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
-							<label class="control-label col-xs-2">Asset Type Name*</label>
+ 							<label class="control-label col-xs-2">Asset Class*</label>
 							<div class="col-xs-3">
-								<select class="form-control"  >
-								 	<option value="">Select </option>
-								</select> 		
+								<input type="text" class="form-control" data-ng-model="form.assetCategoriesMaster.assetClassMaster.name" disabled>
 							</div>
 						</div>
 						<div class="row">

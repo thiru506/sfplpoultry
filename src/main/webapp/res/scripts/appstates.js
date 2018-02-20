@@ -190,7 +190,9 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   controller: 'capexRegCtrl',
   	   resolve: { 
  		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}],
-		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){console.log(resp.data); return resp.data})}]
+		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){console.log(resp.data); return resp.data})}],
+   		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}],
+
 
   	   },
   	   templateUrl:'views/capexRegistration.html',
