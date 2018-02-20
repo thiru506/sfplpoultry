@@ -566,12 +566,13 @@ angular.module('sbAdminApp')
 	
  	
 }])
-.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','assetCategories','uoms','$http','$state',
-				function($scope,$rootScope,modals,subdivisions,units,assetCategories,uoms,$http,$state) {
+.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','assetCategories','assetClasses','uoms','$http','$state',
+				function($scope,$rootScope,modals,subdivisions,units,assetCategories,assetClasses,uoms,$http,$state) {
 	$scope.subdivisons=subdivisions;
 	$scope.units=units;
 	$scope.form={};
-	$scope.uoms=uoms
+	$scope.uoms=uoms;
+	$scope.assetClasses=assetClasses;
 	$scope.assetCategories=assetCategories;
 	$scope.locations=[];
 	
@@ -585,10 +586,22 @@ angular.module('sbAdminApp')
     		$scope.locations=$scope.form.unit.unitLocations;
   	}
 
-	$scope.assetCatChange=function(){
-  		$scope.form.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCat);
+	$scope.assetCategoriesMaster=[];
+	$scope.assetClassChange=function(){
+  		$scope.form.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
+  		$scope.getAssetCategoriesByAssetClassId(assetCategories,$scope.form.assetClassMaster.assetClassId);
  	}
 	
+	
+	
+	  $scope.getAssetCategoriesByAssetClassId=function(list,id){
+		  $scope.selectedAssets=[];
+  			angular.forEach(list, function(obj){
+ 	        		if(obj.assetClassMaster.assetClassId==id){
+ 	        			$scope.selectedAssets.push(obj);
+	        		}
+ 			});
+ 	  }
 	$scope.changeLoc=function(){
   		$scope.form.location=$rootScope.getById($scope.locations,$scope.loc);
   	}

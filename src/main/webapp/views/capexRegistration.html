@@ -84,15 +84,18 @@
 							</div>
 						</div>
   						<div class="form-group">
-							<label class="control-label col-xs-2">Asset Type*</label>
-							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="assetCat" data-ng-change="assetCatChange()" data-ng-options="asset.id as asset.name for asset in assetCategories" >
-								 	<option value="">Select </option>
-								</select> 		
-							</div>
  							<label class="control-label col-xs-2">Asset Class*</label>
 							<div class="col-xs-3">
-								<input type="text" class="form-control" data-ng-model="form.assetCategoriesMaster.assetClassMaster.name" disabled>
+								<select class="form-control" data-ng-change="assetClassChange()"  data-ng-model="assetClass" data-ng-options="asset.id as asset.name for asset in assetClasses" >
+								 	<option value="">Select </option>
+								</select> 		
+								
+							</div>							
+							<label class="control-label col-xs-2">Asset Type*</label>
+							<div class="col-xs-3">
+								<select class="form-control" data-ng-model="assetCategory" data-ng-options="assetCat.id as assetCat.name for assetCat in selectedAssets" >
+								 	<option value="">Select </option>
+								</select> 		
 							</div>
 						</div>
 						<div class="row">
@@ -104,18 +107,18 @@
 												<div class="col-xs-3">
 													<select class="form-control"  >
 														<option value="">Select </option>
-														<option value="2017">2017</option>
-														<option value="2018">2018</option>
+														<option value="1">2017-18</option>
+														<option value="2">2018-19</option>
 												
 													</select> 		
 												</div>
 												<label class="control-label col-xs-2">Month*</label>
 												<div class="col-xs-3">
 													<select class="form-control"  >
-														<option value="">Jan-Mar </option>
-														<option value="">Apr-Jun </option>
-														<option value="">Jul-Sep </option>
-														<option value="">Oct-Dec </option>
+														<option value="">Jan-Mar Q1</option>
+														<option value="">Apr-Jun Q2</option>
+														<option value="">Jul-Sep Q3</option>
+														<option value="">Oct-Dec Q4</option>
 													</select> 		
 												</div>
 											</div>
@@ -146,7 +149,7 @@
 												</div>
  												<label class="control-label col-xs-2">Total Cost/Tax*</label>
 												<div class="col-xs-2" style="margin-top : 7px">
-													<label>	{{form.rate*form.qty/form.tax}} </label>
+													<label>	{{form.rate*form.qty+(form.rate*form.qty*form.tax)/100}} </label>
 												</div>
   											</div>
 										<div class="panel-body">

@@ -190,9 +190,10 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   controller: 'capexRegCtrl',
   	   resolve: { 
  		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}],
-		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){console.log(resp.data); return resp.data})}],
+		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){return resp.data})}],
    		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}],
   		   uoms : ['$http','$rootScope',function($http,$rootScope){return $http.get('uom/all').then(function(resp){return resp.data})}],
+   		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){return resp.data})}],
 
 
   	   },
@@ -270,7 +271,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
 			id:null
 		},
        resolve: {
-  				unit:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('units/getUnit/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log(resp.data); return resp.data; });}],
+  				unit:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('units/getUnit/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {  return resp.data; });}],
   	   },
        controller:'unitViewCtrl'
     })
