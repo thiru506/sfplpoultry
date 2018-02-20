@@ -192,6 +192,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
  		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}],
 		   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){console.log(resp.data); return resp.data})}],
    		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}],
+  		   uoms : ['$http','$rootScope',function($http,$rootScope){return $http.get('uom/all').then(function(resp){return resp.data})}],
 
 
   	   },
@@ -253,6 +254,14 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
       	   },
       	   templateUrl:'views/locationNames.html',
       	   url:'/locationNames'
+     })
+     .state('dashboard.uom',{
+    	   controller: 'uomCtrl',
+      	   resolve: {
+      		   uoms : ['$http','$rootScope',function($http,$rootScope){return $http.get('uom/all').then(function(resp){return resp.data})}],
+      	   },
+      	   templateUrl:'views/uom.html',
+      	   url:'/unitsOfMeasurement'
      })
       .state('dashboard.viewUnit',{
        templateUrl:'views/viewUnit.html',

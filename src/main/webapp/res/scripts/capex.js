@@ -29,6 +29,61 @@ angular.module('sbAdminApp')
   
  	
 }])
+.controller('uomCtrl',['$scope',"$rootScope",'modals','uoms','$http','$state', function($scope,$rootScope,modals,uoms,$http,$state) {
+	$scope.form={};
+	$scope.uoms=uoms;
+	$scope.pagi=$rootScope.pagination.init($scope.uoms);
+ 	
+	$scope.addUOM=function(){
+		
+   		if($scope.form.name==null || $scope.form.name==""){
+			$rootScope.notify.showError("Unit Name is Mandatory");
+		}else{
+ 			$http.post('uom/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess(" Added Successfully");
+				$scope.form=null;
+				$state.go('dashboard.uom',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+ 		}
+		
+	}
+ 	
+	 $scope.editUOMClass = function (uom) {
+ 	    		$scope.editUOM={};
+	    		$scope.editUOM=uom;
+   	 }
+	 
+	 $scope.updateUOM=function(){	
+		 
+  			if($scope.editUOM.name==null || $scope.editUOM.name==""){
+				$rootScope.notify.showError("Name is Mandatory");
+			}else{
+ 				$http.post('uom/update/'+$rootScope.userInfo.id,$scope.editUOM).success(function(data){
+					$rootScope.notify.showSuccess("details Updated Successfully");
+					$state.go('dashboard.uom',{},{reload:true});
+	    			}).error(function(data){
+	    				$rootScope.notify.handleError(data);
+	    			})	
+			}		
+	}
+	 
+	 $scope.deleteUOM=function(uom){
+ 			var promise = modals.open("confirm",{ message: "Are you sure to delete "+uom.name+" ?"});
+	        promise.then(
+	        		function handleResolve( response ) {
+	        			$http.post('uom/delete/'+$rootScope.userInfo.id+"/"+uom.id).success(function(data){
+	        				$rootScope.notify.showSuccess("Deleted Successfully");
+	        				$state.go('dashboard.uom',{},{reload:true});
+	            		}).error(function(data){
+	            				$rootScope.notify.handleError(data);
+	            		})
+	            });
+		}
+	
+ 	
+}])
 .controller('locationsCtrl',['$scope',"$rootScope",'modals','locations','$http','$state', function($scope,$rootScope,modals,locations,$http,$state) {
 	$scope.form={};
 	$scope.locations=locations;
@@ -511,27 +566,32 @@ angular.module('sbAdminApp')
 	
  	
 }])
-.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','assetCategories','$http','$state',
-				function($scope,$rootScope,modals,subdivisions,units,assetCategories,$http,$state) {
+.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','assetCategories','uoms','$http','$state',
+				function($scope,$rootScope,modals,subdivisions,units,assetCategories,uoms,$http,$state) {
 	$scope.subdivisons=subdivisions;
 	$scope.units=units;
 	$scope.form={};
+	$scope.uoms=uoms
 	$scope.assetCategories=assetCategories;
 	$scope.locations=[];
+	
+	$scope.form.cost=$scope.form.rate*$scope.form.qty;
 
 	var date = new Date();
 	$scope.sysDate = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
  
 	$scope.unitChange=function(){
   		$scope.form.unit=$rootScope.getById(units,$scope.unitt);
-  		console.log($scope.form.unit);
-   		$scope.locations=$scope.form.unit.unitLocations;
-   		console.log($scope.locations);
- 	}
+    		$scope.locations=$scope.form.unit.unitLocations;
+  	}
 
 	$scope.assetCatChange=function(){
   		$scope.form.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCat);
  	}
+	
+	$scope.changeLoc=function(){
+  		$scope.form.location=$rootScope.getById($scope.locations,$scope.loc);
+  	}
 	
  	
 }])

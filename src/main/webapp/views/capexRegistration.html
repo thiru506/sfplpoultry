@@ -70,51 +70,20 @@
 								<input type="text" class="form-control" data-ng-model="form.unit.subDivisionMaster.divisionMaster.divisionId" disabled>
 							</div>
 						</div>
-  						<div class="form-group">
-							<label class="control-label col-xs-2">Capex Description*</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control"   placeholder="Capex Description" required>
-  							</div>
- 						</div>
-						
-					<div class="panel-footer">
+ 					<div class="panel-footer">
 						<div class="form-group">
 							<label class="control-label col-xs-2">Location*</label>
 							<div class="col-xs-3">
-								<select class="form-control" data-ng-model="loc"  data-ng-options="location.id as location.locations.name for location in locations">
+								<select class="form-control" data-ng-model="loc" data-ng-change="changeLoc()" data-ng-options="location.id as location.locations.name for location in locations">
 								 	<option value="">Select </option>
 								</select> 		
 							</div>
-							<label class="control-label col-xs-2">Cold Room*</label>
-							<div class="col-xs-3">
-								<select class="form-control"  >
-								 	<option value="">Select </option>
-								</select> 		
+							<label class="control-label col-xs-2">Location Name*</label>
+ 							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="form.location.locationName.name" disabled>
 							</div>
 						</div>
- 						<div class="form-group">
-							<label class="control-label col-xs-2">Shed*</label>
-							<div class="col-xs-3">
-								<select class="form-control"  >
-								 	<option value="">Select </option>
-								</select> 		
-							</div>
-							<label class="control-label col-xs-2">Facilities*</label>
-							<div class="col-xs-3">
-								<select class="form-control"  >
-								 	<option value="">Select </option>
-								</select> 		
-							</div>
-						</div>
- 						<div class="form-group">
-							<label class="control-label col-xs-2">Building*</label>
-							<div class="col-xs-3">
-								<select class="form-control"  >
-								 	<option value="">Select </option>
-								</select> 		
-							</div>
- 						</div>
- 						<div class="form-group">
+  						<div class="form-group">
 							<label class="control-label col-xs-2">Asset Type*</label>
 							<div class="col-xs-3">
 								<select class="form-control" data-ng-model="assetCat" data-ng-change="assetCatChange()" data-ng-options="asset.id as asset.name for asset in assetCategories" >
@@ -131,36 +100,61 @@
 									<div class="panel panel-default">
  										<div class="panel-body">
 											<div class="form-group">
-												<label class="control-label col-xs-2">Year*</label>
+												<label class="control-label col-xs-3">Year*</label>
 												<div class="col-xs-3">
 													<select class="form-control"  >
 														<option value="">Select </option>
+														<option value="2017">2017</option>
+														<option value="2018">2018</option>
+												
 													</select> 		
 												</div>
 												<label class="control-label col-xs-2">Month*</label>
 												<div class="col-xs-3">
 													<select class="form-control"  >
-														<option value="">Select </option>
+														<option value="">Jan-Mar </option>
+														<option value="">Apr-Jun </option>
+														<option value="">Jul-Sep </option>
+														<option value="">Oct-Dec </option>
 													</select> 		
 												</div>
 											</div>
 											<div class="form-group">
+												<label class="control-label col-xs-2">Qty*</label>
+												<div class="col-xs-2">
+													<input type="text" class="form-control" data-ng-model="form.rate" >
+												</div>
+												<label class="control-label col-xs-2">Rate(per unit)*</label>
+												<div class="col-xs-2">
+													<input type="text" class="form-control" data-ng-model="form.qty" >
+												</div>
+ 												<label class="control-label col-xs-2">UOM*</label>
+												<div class="col-xs-2">
+ 													<select class="form-control" data-ng-model="uom" data-ng-change="uomChange()" data-ng-options="uom.id as uom.name for uom in uoms" >
+													 	<option value="">Select </option>
+													</select> 		
+ 												</div>
+  											</div>
+ 											<div class="form-group">
 												<label class="control-label col-xs-2">Cost*</label>
-												<div class="col-xs-3">
-													<input type="text" class="form-control"  >
+												<div class="col-xs-2" style="margin-top : 7px">
+												<label>	{{form.rate*form.qty}} </label>
 												</div>
-												<label class="control-label col-xs-2">Taxes*</label>
-												<div class="col-xs-3">
-													<input type="text" class="form-control"  >
+												<label class="control-label col-xs-2" >Taxes*</label>
+												<div class="col-xs-2">
+													<input type="text" class="form-control" data-ng-model="form.tax" >
 												</div>
-											</div>
-											<div class="form-group">
-												<label class="control-label col-xs-2">Total Cost/Tax*</label>
-												<div class="col-xs-3">
-													<input type="text" class="form-control"  >
+ 												<label class="control-label col-xs-2">Total Cost/Tax*</label>
+												<div class="col-xs-2" style="margin-top : 7px">
+													<label>	{{form.rate*form.qty/form.tax}} </label>
 												</div>
   											</div>
+										<div class="panel-body">
+ 												<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addQuarter()">Save</button>
+										</div>
+ 									
  									</div>
+ 										
  								</div>
  							</div>
    							<div class="row">
