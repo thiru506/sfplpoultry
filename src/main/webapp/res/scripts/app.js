@@ -31,7 +31,18 @@ var app=angular
 	  $rootScope.usertype[0]="Admin";
 	  $rootScope.usertype[1]="User";
 	  
+	  $rootScope.years={};
+	  $rootScope.years[1]="2017-18";
+	  $rootScope.years[2]="2018-19";
+	  $rootScope.years[3]="2019-20";
   
+	  $rootScope.quartersList={};
+	  $rootScope.quartersList[0]="Yearly";
+	  $rootScope.quartersList[1]="Jan-Mar";
+	  $rootScope.quartersList[2]="Apr-Jun";
+	  $rootScope.quartersList[3]="Jul-Sep";
+	  $rootScope.quartersList[4]="Oct-Dec";
+	  
 	  $rootScope.collapseVar = 0;
 	  $rootScope.multiCollapseVar = 0;
       

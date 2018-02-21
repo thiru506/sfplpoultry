@@ -21,7 +21,7 @@
    							</div>
 							<label class="inline control-label col-xs-2">Capex Requisition Date*</label>
 							<div class="col-xs-3">
-								<input type="text" class="form-control" data-ng-model="sysDate" disabled>
+								<input type="text" class="form-control" data-ng-model="form.sysDate" disabled>
 							</div>
 						</div>
  						<div class="form-group">
@@ -103,37 +103,38 @@
 									<div class="panel panel-default">
  										<div class="panel-body">
 											<div class="form-group">
-												<label class="control-label col-xs-3">Year*</label>
+												<label class="control-label col-xs-3">Financial Year*</label>
 												<div class="col-xs-3">
-													<select class="form-control"  >
+													<select class="form-control" data-ng-model="form1.year" >
 														<option value="">Select </option>
 														<option value="1">2017-18</option>
 														<option value="2">2018-19</option>
 												
 													</select> 		
 												</div>
-												<label class="control-label col-xs-2">Month*</label>
+												<label class="control-label col-xs-2">Quarter*</label>
 												<div class="col-xs-3">
-													<select class="form-control"  >
-														<option value="">Jan-Mar Q1</option>
-														<option value="">Apr-Jun Q2</option>
-														<option value="">Jul-Sep Q3</option>
-														<option value="">Oct-Dec Q4</option>
+													<select class="form-control" data-ng-model="form1.quarter" >
+														<option value="">Select </option>
+														<option value="1">Jan-Mar Q1</option>
+														<option value="2">Apr-Jun Q2</option>
+														<option value="3">Jul-Sep Q3</option>
+														<option value="4">Oct-Dec Q4</option>
 													</select> 		
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="control-label col-xs-2">Qty*</label>
 												<div class="col-xs-2">
-													<input type="text" class="form-control" data-ng-model="form.rate" >
+													<input type="text" class="form-control" data-ng-model="form1.qty" >
 												</div>
 												<label class="control-label col-xs-2">Rate(per unit)*</label>
 												<div class="col-xs-2">
-													<input type="text" class="form-control" data-ng-model="form.qty" >
+													<input type="text" class="form-control" data-ng-model="form1.rate" >
 												</div>
  												<label class="control-label col-xs-2">UOM*</label>
 												<div class="col-xs-2">
- 													<select class="form-control" data-ng-model="uom" data-ng-change="uomChange()" data-ng-options="uom.id as uom.name for uom in uoms" >
+ 													<select class="form-control" data-ng-model="form1.uom" data-ng-change="uomChange()" data-ng-options="uom.id as uom.name for uom in uoms" >
 													 	<option value="">Select </option>
 													</select> 		
  												</div>
@@ -141,19 +142,19 @@
  											<div class="form-group">
 												<label class="control-label col-xs-2">Cost*</label>
 												<div class="col-xs-2" style="margin-top : 7px">
-												<label>	{{form.rate*form.qty}} </label>
+												<label>:		{{form1.rate*form1.qty}} </label>
 												</div>
 												<label class="control-label col-xs-2" >Taxes*</label>
 												<div class="col-xs-2">
-													<input type="text" class="form-control" data-ng-model="form.tax" >
+													<input type="text" class="form-control" data-ng-model="form1.tax" >
 												</div>
- 												<label class="control-label col-xs-2">Total Cost/Tax*</label>
+ 												<label class="control-label col-xs-2">Total Cost including Tax*</label>
 												<div class="col-xs-2" style="margin-top : 7px">
-													<label>	{{form.rate*form.qty+(form.rate*form.qty*form.tax)/100}} </label>
+													<label>:		{{(form1.rate*form1.qty)+(form1.rate*form1.qty*form1.tax)/100}} </label>
 												</div>
   											</div>
 										<div class="panel-body">
- 												<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addQuarter()">Save</button>
+ 												<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addQuarter()">Add</button>
 										</div>
  									
  									</div>
@@ -169,8 +170,7 @@
 														<tr>
 															<th>Asset Class</th>
 															<th>Asset Type</th>
-															<th>Period</th>
-															<th>Year</th>															
+ 															<th>Year</th>															
 															<th>Month</th>
 															<th>Qty</th>
 															<th>Cost</th>
@@ -178,25 +178,26 @@
 															<th>UOM</th>
 															<th>Tax</th>
 															<th>Total Cost</th>
+															<th>Actions</th>
 															
 												 		</tr>
 													</thead>
 													<tbody>
-													<tr>
-															<td>XXXX</td>
-															<td>XXX</td>
-															<td>XXX</td>
-															<td>XXX</td>															
-															<td>XXXX</td>
-															<td>XXXX</td>
-															<td>XX</td>
-															<td>XX</td>
-															<td>XX</td>
-															<td>XX</td>
-															<td>XX XX</td>
+													<tr data-ng-repeat="quarter in quarters">
+															<td>{{quarter.assetClassMaster.name}}</td>
+															<td>{{quarter.assetCategoriesMaster.name}}</td>
+															<td>{{years[quarter.year]}}</td>
+															<td>{{quartersList[quarter.quarter]}}</td>															
+															<td>{{quarter.qty}}</td>
+															<td>{{quarter.cost}}</td>
+															<td>{{quarter.rate}}</td>
+															<td>{{quarter.uom.name}}</td>
+															<td>{{quarter.tax}}</td>
+															<td>{{quarter.total}}</td>
+ 															<td><button type="button" class="btn btn-danger btn-circle btn-sl" data-ng-click="deleteRow($index)">
+															<i class="fa fa-close"></i></button></td>
 														</tr>	
-													
-  													</tbody>
+   													</tbody>
 												</table>
 												</div>
 											<!-- /.table-responsive -->
@@ -208,7 +209,7 @@
 						</div>
 						<div class="panel-body">
  							<button type="button" class="btn btn-warning pull-left cancel-btn" data-ng-click="cancelAdd()">Cancel</button>
-							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addUnit()">Save</button>
+							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addBudgetForm()">Save</button>
 						</div>
 					</div>
 				</div>

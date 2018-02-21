@@ -586,26 +586,82 @@ angular.module('sbAdminApp')
     		$scope.locations=$scope.form.unit.unitLocations;
   	}
 
-	$scope.assetCategoriesMaster=[];
+ 	
 	$scope.assetClassChange=function(){
   		$scope.form.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
   		$scope.getAssetCategoriesByAssetClassId(assetCategories,$scope.form.assetClassMaster.assetClassId);
  	}
-	
-	
-	
-	  $scope.getAssetCategoriesByAssetClassId=function(list,id){
+ 	
+	$scope.getAssetCategoriesByAssetClassId=function(list,id){
 		  $scope.selectedAssets=[];
   			angular.forEach(list, function(obj){
  	        		if(obj.assetClassMaster.assetClassId==id){
  	        			$scope.selectedAssets.push(obj);
 	        		}
  			});
- 	  }
+	}
+	
 	$scope.changeLoc=function(){
   		$scope.form.location=$rootScope.getById($scope.locations,$scope.loc);
   	}
+
+	$scope.quarters=[];
+	$scope.form1={};
+	$scope.addQuarter=function(){
+		 
+				$scope.addedQuarter={};
+				var a=parseInt($scope.form1.qty);
+				var b=parseFloat($scope.form1.rate);
+				var c=parseFloat($scope.form1.tax);
+				$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
+				$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
+				$scope.addedQuarter.year=$scope.form1.year;
+				$scope.addedQuarter.quarter=$scope.form1.quarter;
+				$scope.addedQuarter.qty=$scope.form1.qty;
+				$scope.addedQuarter.rate=$scope.form1.rate;
+				$scope.addedQuarter.uom=$rootScope.getById(uoms,$scope.form1.uom);
+				$scope.addedQuarter.cost=(a*b);
+				$scope.addedQuarter.tax=$scope.form1.tax;
+				$scope.addedQuarter.total=(a*b)+((a*b*c)/100);
+				
+				$scope.quarters.push($scope.addedQuarter);
+				console.log('quarter',$scope.quarters)
+
+				if($scope.quarters.length==4){
+					$scope.addedQuarter={};
+  					var a=parseInt($scope.quarters[0].qty) + parseInt($scope.quarters[1].qty) + parseInt($scope.quarters[2].qty) + parseInt($scope.quarters[3].qty);
+					var b=parseFloat($scope.quarters[0].rate) + parseFloat($scope.quarters[1].rate) + parseFloat($scope.quarters[2].rate) + parseFloat($scope.quarters[3].rate);
+					var c=parseFloat($scope.quarters[0].tax) + parseFloat($scope.quarters[1].tax) + parseFloat($scope.quarters[2].tax) + parseFloat($scope.quarters[3].tax);
+					var d=parseFloat($scope.quarters[0].total) + parseFloat($scope.quarters[1].total) + parseFloat($scope.quarters[2].total) + parseFloat($scope.quarters[3].total);
+					
+					$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
+					$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
+					$scope.addedQuarter.year=$scope.quarters[1].year;
+					$scope.addedQuarter.quarter=0;
+					$scope.addedQuarter.qty=a;
+					$scope.addedQuarter.rate=b;
+					$scope.addedQuarter.uom=$rootScope.getById(uoms,$scope.quarters[1].uom);
+					$scope.addedQuarter.cost=(a*b);
+					$scope.addedQuarter.tax=c;
+					$scope.addedQuarter.total=d;
+					
+					$scope.quarters.push($scope.addedQuarter);
+
+				}
+ 				$scope.form1=null;
+	}
 	
+ 	$scope.deleteRow=function(index){
+ 		$scope.quarters.splice(index,1);	
+ 	}
+
+	
+	$scope.addBudgetForm=function(){
+		$scope.form.quarters=$scope.quarters;	
+		console.log('form',$scope.form);
+		
+		
+	}
  	
 }])
 .controller('addUnitCtrl',['$scope',"$rootScope",'companies','modals','divisions','subdivisions','facilities','buildings','coldRooms','staffQuarters','sheds','locations','locationNames','$http','$state', 
