@@ -1,5 +1,7 @@
 package com.capex.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "UnitLocations")
@@ -36,6 +40,19 @@ public class UnitLocations {
  	@ManyToOne
 	@JoinColumn(name = "locationNameId")
 	private LocationName locationName;
+ 	
+	@OneToMany(mappedBy = "unitLocations",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<CapexMaster> capexMaster;
+
+	
+	public List<CapexMaster> getCapexMaster() {
+		return capexMaster;
+	}
+
+	public void setCapexMaster(List<CapexMaster> capexMaster) {
+		this.capexMaster = capexMaster;
+	}
 
 	public int getId() {
 		return id;

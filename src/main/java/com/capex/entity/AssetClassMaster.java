@@ -30,7 +30,20 @@ public class AssetClassMaster {
 	@OneToMany(mappedBy = "assetClassMaster",cascade=CascadeType.ALL)
 	@JsonIgnore
 	private List<AssetCategoriesMaster> assetCategoriesMaster;
+	
+	@OneToMany(mappedBy = "assetClassMaster",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<Quarters> quarters;
 
+
+
+	public List<Quarters> getQuarters() {
+		return quarters;
+	}
+
+	public void setQuarters(List<Quarters> quarters) {
+		this.quarters = quarters;
+	}
 
 	public int getId() {
 		return id;

@@ -1,5 +1,6 @@
 package com.capex.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -38,6 +40,20 @@ public class UnitMaster {
  	@OneToMany(mappedBy="unitMaster",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonManagedReference
   	private Set<UnitLocations> unitLocations;
+  	
+	@OneToMany(mappedBy = "unitMaster",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<CapexMaster> capexMaster;
+
+	
+
+	public List<CapexMaster> getCapexMaster() {
+		return capexMaster;
+	}
+
+	public void setCapexMaster(List<CapexMaster> capexMaster) {
+		this.capexMaster = capexMaster;
+	}
 
 	public int getId() {
 		return id;

@@ -57,6 +57,15 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
           }
         }
       })
+  .state('dashboard.mainHome',{
+    	   controller: 'HomeCtrl',
+    	   resolve: {
+    		   capex : ['$http','$rootScope',function($http,$rootScope){return $http.get('capex/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}],
+     		   
+    	   },
+    	   templateUrl:'views/mainHome.html',
+    	   url:'/'
+   })
    .state('dashboard.addUser',{
     	   controller: 'AddUserCtrl',
     	   resolve: {},

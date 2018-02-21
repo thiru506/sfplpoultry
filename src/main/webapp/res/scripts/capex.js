@@ -576,10 +576,8 @@ angular.module('sbAdminApp')
 	$scope.assetCategories=assetCategories;
 	$scope.locations=[];
 	
-	$scope.form.cost=$scope.form.rate*$scope.form.qty;
-
-	var date = new Date();
-	$scope.sysDate = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
+ 	var date = new Date();
+	$scope.form.date = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear();
  
 	$scope.unitChange=function(){
   		$scope.form.unit=$rootScope.getById(units,$scope.unitt);
@@ -602,7 +600,7 @@ angular.module('sbAdminApp')
 	}
 	
 	$scope.changeLoc=function(){
-  		$scope.form.location=$rootScope.getById($scope.locations,$scope.loc);
+  		$scope.form.unitLocations=$rootScope.getById($scope.locations,$scope.loc);
   	}
 
 	$scope.quarters=[];
@@ -652,14 +650,23 @@ angular.module('sbAdminApp')
 	}
 	
  	$scope.deleteRow=function(index){
- 		$scope.quarters.splice(index,1);	
+ 		$scope.quarters.splice(index,1);
+ 		$scope.quarters.splice($scope.quarters.length-1,1);
  	}
 
 	
 	$scope.addBudgetForm=function(){
 		$scope.form.quarters=$scope.quarters;	
 		console.log('form',$scope.form);
-		
+ 		
+			$http.post('capex/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Budget Requested Successfully");
+				$scope.form=null;
+				$state.go('dashboard.home',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+
 		
 	}
  	

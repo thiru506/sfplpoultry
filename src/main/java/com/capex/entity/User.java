@@ -1,13 +1,18 @@
 package com.capex.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.capex.constants.DatabaseConstants;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Users")
@@ -38,6 +43,11 @@ public class User {
 	
 	@Column(name = "TYPE")
 	private int userType;
+	
+	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<CapexMaster> capexMaster;
+
 
 	public int getId() {
 		return id;
@@ -102,5 +112,15 @@ public class User {
 	public void setUserType(int userType) {
 		this.userType = userType;
 	}
+
+	public List<CapexMaster> getCapexMaster() {
+		return capexMaster;
+	}
+
+	public void setCapexMaster(List<CapexMaster> capexMaster) {
+		this.capexMaster = capexMaster;
+	}
+	
+	
  
 }
