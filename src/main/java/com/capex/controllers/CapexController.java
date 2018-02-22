@@ -42,7 +42,7 @@ public class CapexController {
 	}
 
 	@RequestMapping(value = { "/getCapex/{token}/{id}" }, method = RequestMethod.GET)
- 	public CapexMaster getCapex(@PathVariable("token")int token,@PathVariable("id")int id) {
+ 	public CapexMaster getCapex(@PathVariable("token")String token,@PathVariable("id")int id) {
  		return service.getCapex(id);
  	}
 

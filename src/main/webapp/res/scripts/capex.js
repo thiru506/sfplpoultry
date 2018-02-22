@@ -56,6 +56,11 @@ angular.module('sbAdminApp')
   
  	
 }])
+.controller('budgetViewCtrl',['$scope',"$rootScope",'modals','budget','$http','$state', function($scope,$rootScope,modals,budget,$http,$state) {
+ 	$scope.budget=budget;
+  
+ 	
+}])
 .controller('uomCtrl',['$scope',"$rootScope",'modals','uoms','$http','$state', function($scope,$rootScope,modals,uoms,$http,$state) {
 	$scope.form={};
 	$scope.uoms=uoms;
@@ -749,7 +754,7 @@ angular.module('sbAdminApp')
 			$http.post('capex/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("Budget Requested Successfully");
 				$scope.form=null;
-				$state.go('dashboard.home',{},{reload:true});
+				$state.go('dashboard.mainHome',{},{reload:true});
     			}).error(function(data){
     				$rootScope.notify.handleError(data);
     			})

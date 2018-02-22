@@ -1,0 +1,132 @@
+
+<div class="row">
+	<div class="col-lg-12 head-margin"><br><br>
+		<ul class="breadcrumb breadgrum-margin">
+			<li><a data-ui-sref="dashboard.home">Home</a></li>
+			<li><a data-ui-sref="dashboard.capexReg">CAPEX Budget Registration </a></li>
+		</ul>
+		<h1 class="page-header no-margin">CAPEX Budget requested by {{budget.user.name}}</h1>
+	</div>
+</div>
+	<div class="row">
+		<form class="form-horizontal" name="userform">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">CAPEX Budget</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="inline control-label col-xs-2">Capex Requisition No*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.id}}
+   							</div>
+							<label class="inline control-label col-xs-2">Capex Requisition Date*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.date}}
+							</div>
+						</div>
+ 						<div class="form-group">
+							<label class="control-label col-xs-2">Unit*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitMaster.name}}
+ 							</div>
+							<label class="control-label col-xs-2">Department*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.department.name}}
+ 							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-xs-2">Sub Division*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitMaster.subDivisionMaster.name}}
+ 							</div>
+							<label class="control-label col-xs-2">Sub Division ID*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitMaster.subDivisionMaster.id}}
+							</div>
+						</div>
+						
+ 						<div class="form-group">
+							<label class="control-label col-xs-2">Capex to be incured by*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitMaster.subDivisionMaster.divisionMaster.companyMaster.name}}	 	
+  							</div>
+							<label class="control-label col-xs-2">Company ID*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitMaster.subDivisionMaster.divisionMaster.companyMaster.id}}
+							</div>
+						</div>
+ 						<div class="form-group">
+							<label class="control-label col-xs-2">Division*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitMaster.subDivisionMaster.divisionMaster.name}}	 	
+							</div>
+							<label class="control-label col-xs-2">Division ID*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitMaster.subDivisionMaster.divisionMaster.id}}
+							</div>
+						</div>
+ 					<div class="panel-footer">
+						<div class="form-group">
+							<label class="control-label col-xs-2">Location*</label>
+							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitLocations.locations.name}}
+ 							</div>
+							<label class="control-label col-xs-2">Location Name*</label>
+ 							<div class="col-xs-3" style="margin-top: 6px">
+								:	{{budget.unitLocations.locationName.name}}		
+							</div>
+						</div>
+ 						<div class="row">
+ 								<div class="col-lg-12">
+									<div class="panel panel-default">
+ 											<div class="table-responsive">
+												 <table class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th>Asset Class</th>
+															<th>Asset Type</th>
+ 															<th>Year</th>															
+															<th>Month</th>
+															<th>Qty</th>
+															<th>Cost</th>
+															<th>Rate</th>
+															<th>UOM</th>
+															<th>Tax</th>
+															<th>Total Cost</th>
+ 															
+												 		</tr>
+													</thead>
+													<tbody>
+													<tr data-ng-repeat="quarter in budget.quarters">
+															<td>{{quarter.assetClassMaster.name}}</td>
+															<td>{{quarter.assetCategoriesMaster.name}}</td>
+															<td>{{years[quarter.year]}}</td>
+															<td>{{quartersList[quarter.quarter]}}</td>															
+															<td>{{quarter.qty}}</td>
+															<td>{{quarter.cost}}</td>
+															<td>{{quarter.rate}}</td>
+															<td>{{quarter.uom.name}}</td>
+															<td>{{quarter.tax}}</td>
+															<td>{{quarter.total}}</td>
+ 														</tr>	
+   													</tbody>
+												</table>
+												</div>
+											<!-- /.table-responsive -->
+ 									</div>
+									<!-- /.panel -->
+								</div>
+ 						</div>
+						<div class="panel-body">
+ 							<button type="button" class="btn btn-info pull-left cancel-btn" data-ui-sref="dashboard.mainHome">Back</button>
+ 							<button type="button" class="btn btn-warning pull-left cancel-btn" data-ng-click="">Reject</button>
+							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="">Approve</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</form>
+	</div>
+ 

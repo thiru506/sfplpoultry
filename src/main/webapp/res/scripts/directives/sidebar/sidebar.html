@@ -32,7 +32,7 @@
                 <i class="fa fa-user fa-fw"></i> Asset Class Master<span></span></a>
             </li>
              <li ui-sref-active="active">
-                <a ui-sref="dashboard.assetCategories" data-ng-if="userInfo.userType==0 userInfo.userType==2">
+                <a ui-sref="dashboard.assetCategories" data-ng-if="userInfo.userType==0 || userInfo.userType==2">
                 <i class="fa fa-user fa-fw"></i> Asset Categories Master<span></span></a>
             </li>
              <li ng-class="{active: collapseVar==1}" data-ng-if="userInfo.userType==0 || userInfo.userType==2">

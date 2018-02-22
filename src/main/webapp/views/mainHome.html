@@ -30,7 +30,7 @@
  						 		</tr>
 							</thead>
 							<tbody>
-									<tr data-ng-repeat="bud in budgets">
+									<tr data-ui-sref="dashboard.viewBudgetForm({id:bud.id})" data-ng-repeat="bud in budgets">
 										<td>{{$index+1}}</td>
 										<td>{{bud.id}}</td>
 										<td>{{bud.date}}</td>

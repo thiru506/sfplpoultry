@@ -312,5 +312,15 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
     	   templateUrl:'views/departments.html',
     	   url:'/Departments'
    })
-
+      .state('dashboard.viewBudgetForm',{
+       templateUrl:'views/viewBudgetForm.html',
+       url:'/budget/view/:id',
+       params: { 
+			id:null
+		},
+       resolve: {
+  				budget : ['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('capex/getCapex/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { console.log(resp.data); return resp.data; });}],
+  	   },
+       controller:'budgetViewCtrl'
+    })
 }]);
