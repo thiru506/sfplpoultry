@@ -742,6 +742,8 @@ angular.module('sbAdminApp')
 	$scope.addBudgetForm=function(){
 		$scope.form.user=$rootScope.userInfo;
 		$scope.form.quarters=$scope.quarters;	
+		$scope.form.department=$rootScope.getById(departments,$scope.department);
+		$scope.form.unitMaster=$rootScope.getById(units,$scope.unitt);
 		console.log('form',$scope.form);
  		
 			$http.post('capex/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){

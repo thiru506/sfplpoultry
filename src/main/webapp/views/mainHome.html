@@ -17,6 +17,7 @@
 									<th>S.No</th>
 									<th>Req No</th>
 									<th>Capex Date</th>
+									<th data-ng-if="userInfo.userType==2">Request From</th>
 									<th>Company Name</th>															
 									<th>Division</th>
 									<th>Sub Division</th>
@@ -33,6 +34,7 @@
 										<td>{{$index+1}}</td>
 										<td>{{bud.id}}</td>
 										<td>{{bud.date}}</td>
+										<td data-ng-if="userInfo.userType==2">{{bud.user.name}}</td>
 										<td>{{bud.unitMaster.subDivisionMaster.divisionMaster.companyMaster.name}}</td>															
 										<td>{{bud.unitMaster.subDivisionMaster.divisionMaster.name}}</td>
 										<td>{{bud.unitMaster.subDivisionMaster.name}}</td>

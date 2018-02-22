@@ -7,6 +7,7 @@ import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
 
 import com.capex.entity.CapexMaster;
+import com.capex.entity.Department;
 import com.capex.entity.Quarters;
 import com.capex.entity.UnitLocations;
 import com.capex.entity.UnitMaster;
@@ -30,6 +31,9 @@ public class CapexDAO extends BaseDAO{
 		
 		UnitMaster um=capex.getUnitMaster();
 		capex.setUnitMaster(um);
+		
+		Department dept=capex.getDepartment();
+		capex.setDepartment(dept);
 		
 		User user=capex.getUser();
 		capex.setUser(user);
