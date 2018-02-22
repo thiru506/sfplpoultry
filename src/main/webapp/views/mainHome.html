@@ -3,7 +3,7 @@
 		<ul class="breadcrumb breadgrum-margin">
 			<li><a data-ui-sref="dashboard.home">Home</a></li>
  		</ul>
-		<h1 class="page-header no-margin">Welcome to CAPEX Application(Budgeting Tool)</h1>
+		<h1 class="page-header no-margin">Welcome to CAPEX Application(Budgeting Tool)..</h1>
 	</div>
 </div>
       <div class="row">
@@ -15,7 +15,7 @@
 							<thead>
 								<tr>
 									<th>S.No</th>
-									<th>Capex Req No</th>
+									<th>Req No</th>
 									<th>Capex Date</th>
 									<th>Company Name</th>															
 									<th>Division</th>
@@ -26,25 +26,23 @@
 									<th>Asset Class</th>
 									<th>Asset Type	</th>
 									<th>Status</th>
-									<th></th>
-						 		</tr>
+ 						 		</tr>
 							</thead>
 							<tbody>
-									<tr>
-										<td>XXXX</td>
-										<td>XXX</td>
-										<td>XXX</td>
-										<td>XXX</td>															
-										<td>XXXX</td>
-										<td>XXXX</td>
-										<td>XX</td>
-										<td>XX</td>
-										<td>XX</td>
-										<td>XX</td>
-										<td>XX XX</td>
-										<td>aa</td>
-										<td></td>
-									</tr>	
+									<tr data-ng-repeat="bud in budgets">
+										<td>{{$index+1}}</td>
+										<td>{{bud.id}}</td>
+										<td>{{bud.date}}</td>
+										<td>{{bud.unitMaster.subDivisionMaster.divisionMaster.companyMaster.name}}</td>															
+										<td>{{bud.unitMaster.subDivisionMaster.divisionMaster.name}}</td>
+										<td>{{bud.unitMaster.subDivisionMaster.name}}</td>
+										<td>{{bud.unitMaster.name}}</td>
+										<td>{{bud.unitLocations.locations.name}},{{bud.unitLocations.locationName.name}}</td>
+										<td>{{bud.department.name}}</td>
+										<td>{{bud.quarters[0].assetClassMaster.name}}</td>
+										<td>{{bud.quarters[0].assetCategoriesMaster.name}}</td>
+										<td>{{status[bud.status]}}</td>
+  									</tr>	
  							</tbody>
 						</table>
 						</div>

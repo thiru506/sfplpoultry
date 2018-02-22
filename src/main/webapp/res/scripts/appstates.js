@@ -40,7 +40,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
         }
     })
     .state('dashboard.home',{
-        url:'/home',
+        url:'/',
         controller: 'MainCtrl',
         templateUrl:'views/dashboard/home.html',
         resolve: {
@@ -60,15 +60,17 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   .state('dashboard.mainHome',{
     	   controller: 'HomeCtrl',
     	   resolve: {
-    		   capex : ['$http','$rootScope',function($http,$rootScope){return $http.get('capex/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}],
+    		   capexs : ['$http','$rootScope',function($http,$rootScope){return $http.get('capex/all/'+$rootScope.userInfo.id).then(function(resp){console.log(resp.data); return resp.data})}],
      		   
     	   },
     	   templateUrl:'views/mainHome.html',
-    	   url:'/'
+    	   url:'/home'
    })
    .state('dashboard.addUser',{
     	   controller: 'AddUserCtrl',
-    	   resolve: {},
+    	   resolve: {
+    		   users : ['$http','$rootScope',function($http,$rootScope){return $http.get('user/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}]
+    	   },
     	   templateUrl:'views/adduser.html',
     	   url:'/addUser'
    })
@@ -203,6 +205,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
    		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}],
   		   uoms : ['$http','$rootScope',function($http,$rootScope){return $http.get('uom/all').then(function(resp){return resp.data})}],
    		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){return resp.data})}],
+  		   departments : ['$http','$rootScope',function($http,$rootScope){return $http.get('departments/all').then(function(resp){return resp.data})}],
 
 
   	   },
@@ -284,4 +287,30 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   },
        controller:'unitViewCtrl'
     })
+    .state('dashboard.hods',{
+    	   controller: 'hodCtrl',
+      	   resolve: {
+      		   hods : ['$http','$rootScope',function($http,$rootScope){return $http.get('hods/all').then(function(resp){return resp.data})}],
+      	   },
+      	   templateUrl:'views/hodMaster.html',
+      	   url:'/HODMaster'
+     })
+     .state('dashboard.managers',{
+    	   controller: 'managerCtrl',
+      	   resolve: {
+      		   managers : ['$http','$rootScope',function($http,$rootScope){return $http.get('managers/all').then(function(resp){return resp.data})}],
+      	   },
+      	   templateUrl:'views/managerMaster.html',
+      	   url:'/managerMaster'
+     })
+     
+     .state('dashboard.departments',{
+  	   controller: 'departmentCtrl',
+    	   resolve: {
+    		   departments : ['$http','$rootScope',function($http,$rootScope){return $http.get('departments/all').then(function(resp){return resp.data})}],
+    	   },
+    	   templateUrl:'views/departments.html',
+    	   url:'/Departments'
+   })
+
 }]);

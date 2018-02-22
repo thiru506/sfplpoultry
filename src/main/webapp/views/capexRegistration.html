@@ -33,7 +33,7 @@
 							</div>
 							<label class="control-label col-xs-2">Department*</label>
 							<div class="col-xs-3">
-								<select class="form-control"  >
+								<select class="form-control" data-ng-model="department "data-ng-options="dept.id as dept.name for dept in departments" >
 								 	<option value="">Select </option>
 								</select> 		
 							</div>

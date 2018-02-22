@@ -8,7 +8,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.capex.constants.DatabaseConstants;
@@ -47,7 +49,31 @@ public class User {
 	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
 	@JsonIgnore
 	private List<CapexMaster> capexMaster;
+	
+     @Column(name = "hodId")
+    private String hodId;
 
+      
+    @Column(name = "managerId")
+    private String managerId;
+    
+    
+
+ 	public String getHodId() {
+		return hodId;
+	}
+
+	public void setHodId(String hodId) {
+		this.hodId = hodId;
+	}
+
+	public String getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
 
 	public int getId() {
 		return id;

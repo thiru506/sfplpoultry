@@ -16,6 +16,33 @@ angular.module('sbAdminApp')
     $scope.confirm = modals.resolve;
     $scope.deny = modals.reject;
 }])	
+.controller('HomeCtrl',['$scope',"$rootScope",'modals','capexs','$http','$state', function($scope,$rootScope,modals,capexs,units,$http,$state) {
+	$scope.form={};
+	$scope.capexs=capexs;
+	$scope.pagi=$rootScope.pagination.init($scope.capexs);
+	$scope.budgets=[];
+		
+	if($rootScope.userInfo.userType==0){
+		$scope.budgets=$scope.capexs;
+	}
+	if($rootScope.userInfo.userType==1){
+		angular.forEach(capexs, function(obj){
+	        		if(obj.user.id==$rootScope.userInfo.id){
+	        			$scope.budgets.push(obj);
+	        		}
+			});
+ 	}
+	
+	if($rootScope.userInfo.userType==2){
+		angular.forEach(capexs, function(obj){
+	        		if(obj.user.hodId==$rootScope.userInfo.id){
+	        			$scope.budgets.push(obj);
+	        		}
+			});
+ 	}
+	
+ 	
+}])
 .controller('unitMasterCtrl',['$scope',"$rootScope",'modals','units','$http','$state', function($scope,$rootScope,modals,units,$http,$state) {
 	$scope.form={};
 	$scope.units=units;
@@ -76,6 +103,61 @@ angular.module('sbAdminApp')
 	        			$http.post('uom/delete/'+$rootScope.userInfo.id+"/"+uom.id).success(function(data){
 	        				$rootScope.notify.showSuccess("Deleted Successfully");
 	        				$state.go('dashboard.uom',{},{reload:true});
+	            		}).error(function(data){
+	            				$rootScope.notify.handleError(data);
+	            		})
+	            });
+		}
+	
+ 	
+}])
+.controller('departmentCtrl',['$scope',"$rootScope",'modals','departments','$http','$state', function($scope,$rootScope,modals,departments,$http,$state) {
+	$scope.form={};
+	$scope.departments=departments;
+	$scope.pagi=$rootScope.pagination.init($scope.departments);
+ 	
+	$scope.addDepartment=function(){
+		
+   		if($scope.form.name==null || $scope.form.name==""){
+			$rootScope.notify.showError("Department Name is Mandatory");
+		}else{
+ 			$http.post('departments/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess(" Added Successfully");
+				$scope.form=null;
+				$state.go('dashboard.departments',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+ 		}
+		
+	}
+ 	
+	 $scope.editDepartmentClass = function (dept) {
+ 	    		$scope.editDepartment={};
+	    		$scope.editDepartment=dept;
+   	 }
+	 
+	 $scope.updateDepartment=function(){	
+		 
+  			if($scope.editDepartment.name==null || $scope.editDepartment.name==""){
+				$rootScope.notify.showError("Name is Mandatory");
+			}else{
+ 				$http.post('departments/update/'+$rootScope.userInfo.id,$scope.editUOM).success(function(data){
+					$rootScope.notify.showSuccess("details Updated Successfully");
+					$state.go('dashboard.departments',{},{reload:true});
+	    			}).error(function(data){
+	    				$rootScope.notify.handleError(data);
+	    			})	
+			}		
+	}
+	 
+	 $scope.deleteDepartment=function(dept){
+ 			var promise = modals.open("confirm",{ message: "Are you sure to delete "+dept.name+" ?"});
+	        promise.then(
+	        		function handleResolve( response ) {
+	        			$http.post('departments/delete/'+$rootScope.userInfo.id+"/"+dept.id).success(function(data){
+	        				$rootScope.notify.showSuccess("Deleted Successfully");
+	        				$state.go('dashboard.departments',{},{reload:true});
 	            		}).error(function(data){
 	            				$rootScope.notify.handleError(data);
 	            		})
@@ -566,14 +648,16 @@ angular.module('sbAdminApp')
 	
  	
 }])
-.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','assetCategories','assetClasses','uoms','$http','$state',
-				function($scope,$rootScope,modals,subdivisions,units,assetCategories,assetClasses,uoms,$http,$state) {
+.controller('capexRegCtrl',['$scope',"$rootScope",'modals','subdivisions','units','assetCategories','assetClasses','uoms','departments','$http','$state',
+				function($scope,$rootScope,modals,subdivisions,units,assetCategories,assetClasses,uoms,departments,$http,$state) {
 	$scope.subdivisons=subdivisions;
 	$scope.units=units;
 	$scope.form={};
 	$scope.uoms=uoms;
 	$scope.assetClasses=assetClasses;
 	$scope.assetCategories=assetCategories;
+	$scope.departments=departments;
+	
 	$scope.locations=[];
 	
  	var date = new Date();
@@ -656,6 +740,7 @@ angular.module('sbAdminApp')
 
 	
 	$scope.addBudgetForm=function(){
+		$scope.form.user=$rootScope.userInfo;
 		$scope.form.quarters=$scope.quarters;	
 		console.log('form',$scope.form);
  		
@@ -955,11 +1040,32 @@ angular.module('sbAdminApp')
    		
  	 
 }])
-.controller('AddUserCtrl',['$scope',"$rootScope",'modals','$http','$state', function($scope,$rootScope,modals,$http,$state) {
+.controller('AddUserCtrl',['$scope',"$rootScope",'modals','users','$http','$state', function($scope,$rootScope,modals,users,$http,$state) {
 	$scope.form={};
+	$scope.users=users;
+ 
+	$scope.getHODList=function(list){
+		$scope.hods=[];
+			angular.forEach(list, function(obj){
+	        		if(obj.userType==2){
+	        			$scope.hods.push(obj);
+	        		}
+			});
+	}
+
+	$scope.getManagerList=function(list){
+ 		$scope.managers=[];
+			angular.forEach(list, function(obj){
+ 	        		if(obj.userType==3){
+	        			$scope.managers.push(obj);
+ 	        		}
+			});
+	}
+
 	
 	$scope.addUser=function(){
-		if($scope.form.name==null || $scope.form.name==""){
+		
+ 		if($scope.form.name==null || $scope.form.name==""){
 			$rootScope.notify.showError("Users Name is Mandatory");
 		}else if($scope.form.email==null||$scope.form.email==""){
 			$rootScope.notify.showError("Email Address is Mandatory");
@@ -972,7 +1078,8 @@ angular.module('sbAdminApp')
 		}else if($scope.form.password!=$scope.conpass){
 			$rootScope.notify.showError("Password and Confirm Password Should be Same");
 		}else{
-			 
+			console.log('form',$scope.form); 
+			
 			$http.post('user/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("User Added Successfully");
 				$state.go('dashboard.user',{},{reload:true});

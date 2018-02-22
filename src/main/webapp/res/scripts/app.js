@@ -30,6 +30,8 @@ var app=angular
 	  $rootScope.usertype={};
 	  $rootScope.usertype[0]="Admin";
 	  $rootScope.usertype[1]="User";
+	  $rootScope.usertype[2]="HOD";
+	  $rootScope.usertype[3]="Manager";
 	  
 	  $rootScope.years={};
 	  $rootScope.years[1]="2017-18";
@@ -42,6 +44,12 @@ var app=angular
 	  $rootScope.quartersList[2]="Apr-Jun";
 	  $rootScope.quartersList[3]="Jul-Sep";
 	  $rootScope.quartersList[4]="Oct-Dec";
+	  
+	  $rootScope.status={};
+	  $rootScope.status[0]="in review";
+	  $rootScope.status[1]="approved";
+	  $rootScope.status[2]="Rejected";
+	  
 	  
 	  $rootScope.collapseVar = 0;
 	  $rootScope.multiCollapseVar = 0;

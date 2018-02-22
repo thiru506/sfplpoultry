@@ -50,8 +50,20 @@ public class CapexMaster {
 	@JoinColumn(name = "userId")
 	private User user;
 
+	@ManyToOne
+	@JoinColumn(name = "departmentId")
+	private Department department;
+
 	
 	
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 	public User getUser() {
 		return user;
 	}

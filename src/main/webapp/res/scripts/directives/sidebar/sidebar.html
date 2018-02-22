@@ -11,25 +11,31 @@
                 <a ui-sref="dashboard.user"><i class="fa fa-users fa-fw"></i> User Management<span></span></a>
             </li>
              <li ui-sref-active="active">
-                <a ui-sref="dashboard.unitMaster"><i class="fa fa-map-marker fa-fw"></i> Unit Creation<span></span></a>
+                <a ui-sref="dashboard.unitMaster" data-ng-if="userInfo.userType==0 || userInfo.userType==2">
+                <i class="fa fa-map-marker fa-fw"></i> Unit Creation<span></span></a>
             </li>
             
              <li ui-sref-active="active">
-                <a ui-sref="dashboard.companyMaster"><i class="fa fa-cubes fa-fw"></i> Company Master<span></span></a>
+                <a ui-sref="dashboard.companyMaster" data-ng-if="userInfo.userType==0 || userInfo.userType==2">
+                <i class="fa fa-cubes fa-fw"></i> Company Master<span></span></a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.divisionMaster"><i class="fa fa-user fa-fw"></i> Division Master<span></span></a>
+                <a ui-sref="dashboard.divisionMaster" data-ng-if="userInfo.userType==0 || userInfo.userType==2">
+                <i class="fa fa-user fa-fw"></i> Division Master<span></span></a>
             </li>
              <li ui-sref-active="active">
-                <a ui-sref="dashboard.subDivisionMaster"><i class="fa fa-user fa-fw"></i> Sub Division Master<span></span></a>
+                <a ui-sref="dashboard.subDivisionMaster" data-ng-if="userInfo.userType==0 || userInfo.userType==2">
+                <i class="fa fa-user fa-fw"></i> Sub Division Master<span></span></a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.assetClass"><i class="fa fa-user fa-fw"></i> Asset Class Master<span></span></a>
+                <a ui-sref="dashboard.assetClass" data-ng-if="userInfo.userType==0 || userInfo.userType==2">
+                <i class="fa fa-user fa-fw"></i> Asset Class Master<span></span></a>
             </li>
              <li ui-sref-active="active">
-                <a ui-sref="dashboard.assetCategories"><i class="fa fa-user fa-fw"></i> Asset Categories Master<span></span></a>
+                <a ui-sref="dashboard.assetCategories" data-ng-if="userInfo.userType==0 userInfo.userType==2">
+                <i class="fa fa-user fa-fw"></i> Asset Categories Master<span></span></a>
             </li>
-             <li ng-class="{active: collapseVar==1}">
+             <li ng-class="{active: collapseVar==1}" data-ng-if="userInfo.userType==0 || userInfo.userType==2">
                 <a href="" ng-click="check(1)"><i class="fa fa-buysellads fa-fw"></i> Master Data<span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level" collapse="collapseVar!=1">
@@ -42,6 +48,9 @@
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="dashboard.uom">UOMs</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.departments">Departments</a>
                     </li>
                     
          <!--             <li ui-sref-active="active">
