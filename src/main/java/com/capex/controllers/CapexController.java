@@ -45,6 +45,15 @@ public class CapexController {
  	public CapexMaster getCapex(@PathVariable("token")String token,@PathVariable("id")int id) {
  		return service.getCapex(id);
  	}
+	
+	@RequestMapping(value = { "/setApprovalStatus/{token}/{id}/{status}" }, method = RequestMethod.POST)
+ 	public boolean setApprovalStatus(@PathVariable("token")int token,@PathVariable("id")int id,@PathVariable("status")int status) {
+ 		return service.setApprovalStatus(token,id,status);
+ 	}
 
+	@RequestMapping(value = { "/setRejectionStatus/{token}/{id}/{status}" }, method = RequestMethod.POST)
+ 	public boolean setRejectionStatus(@PathVariable("token")int token,@PathVariable("id")int id,@PathVariable("status")int status) {
+ 		return service.setRejectionStatus(token,id,status);
+ 	}
 
 }

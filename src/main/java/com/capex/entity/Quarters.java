@@ -25,6 +25,9 @@ public class Quarters {
 	@Column(name = "qty")
  	private String qty;
 	
+	@Column(name = "year")
+ 	private String year;
+
 	@Column(name = "quarter")
  	private String quarter;
 
@@ -36,6 +39,13 @@ public class Quarters {
 
 	@Column(name = "total")
  	private String total;
+	
+	@Column(name = "description")
+ 	private String description;
+
+	@Column(name = "justification")
+ 	private String justification;
+
 	
 	@ManyToOne
 	@JoinColumn(name = "assetCategoriesId")
@@ -54,7 +64,30 @@ public class Quarters {
 	@JoinColumn(name = "uomId")
 	private UOM uom;
 	
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getJustification() {
+		return justification;
+	}
+
+	public void setJustification(String justification) {
+		this.justification = justification;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
 
 	public CapexMaster getCapexMaster() {
 		return capexMaster;

@@ -39,7 +39,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
             }
         }
     })
-    .state('dashboard.home',{
+    .state('dashboard.mainHome',{
         url:'/',
         controller: 'MainCtrl',
         templateUrl:'views/dashboard/home.html',
@@ -57,7 +57,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
           }
         }
       })
-  .state('dashboard.mainHome',{
+  .state('dashboard.home',{
     	   controller: 'HomeCtrl',
     	   resolve: {
     		   capexs : ['$http','$rootScope',function($http,$rootScope){return $http.get('capex/all/'+$rootScope.userInfo.id).then(function(resp){console.log(resp.data); return resp.data})}],
@@ -90,6 +90,8 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
 		},
        resolve: {
   				user:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('user/getuser/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
+     		   users : ['$http','$rootScope',function($http,$rootScope){return $http.get('user/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}]
+
   	   },
        controller:'UserEditCtrl'
     })

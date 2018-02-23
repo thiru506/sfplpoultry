@@ -39,5 +39,21 @@ public class CapexService {
  		return capexDAO.getCapex(id);
 	}
 
+	public boolean setApprovalStatus(int token,int id, int status) {
+		
+		CapexMaster capex=(CapexMaster) capexDAO.getCapexs(id);
+		capex.setStatus(status);
+		capexDAO.update(capex);
+ 		return true;
+	}
+
+	public boolean setRejectionStatus(int token,int id, int status) {
+		
+		CapexMaster capex=(CapexMaster) capexDAO.getCapexs(id);
+		capex.setStatus(status);
+		capexDAO.update(capex);
+ 		return true;
+	}
+ 
 
 }

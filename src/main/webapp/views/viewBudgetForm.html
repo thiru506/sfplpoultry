@@ -119,9 +119,9 @@
 								</div>
  						</div>
 						<div class="panel-body">
- 							<button type="button" class="btn btn-info pull-left cancel-btn" data-ui-sref="dashboard.mainHome">Back</button>
- 							<button type="button" class="btn btn-warning pull-left cancel-btn" data-ng-click="">Reject</button>
-							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="">Approve</button>
+ 							<button type="button" class="btn btn-info pull-left cancel-btn" data-ui-sref="dashboard.home">Back</button>
+ 							<button type="button" data-ng-if="!(userInfo.userType==0 || userInfo.userType==1)" class="btn btn-warning pull-left cancel-btn" data-ng-click="rejected()">Reject</button>
+							<button type="button" data-ng-if="!(userInfo.userType==0 || userInfo.userType==1)" class="btn btn-primary pull-right save-btn" data-ng-click="approved()">Approve</button>
 						</div>
 					</div>
 				</div>

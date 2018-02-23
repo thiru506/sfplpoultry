@@ -56,4 +56,5 @@ public class CapexDAO extends BaseDAO{
 		return (CapexMaster) getSession().get(CapexMaster.class, id);
 	}
 
+ 
 }

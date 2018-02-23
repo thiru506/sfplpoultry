@@ -23,6 +23,7 @@ var app=angular
 
 	  $http.post("user/currentUser").success(function(data,status){
 		  $rootScope.userInfo=data;
+		  console.log("rootScope.userInfo",data);
  	  }).error(function(data,status){
 				
 	  });
@@ -46,10 +47,12 @@ var app=angular
 	  $rootScope.quartersList[4]="Oct-Dec";
 	  
 	  $rootScope.status={};
-	  $rootScope.status[0]="in review";
-	  $rootScope.status[1]="approved";
-	  $rootScope.status[2]="Rejected";
-	  
+	  $rootScope.status[0]="in review ";
+	  $rootScope.status[1]="approved by HOD";
+	  $rootScope.status[2]="Rejected by HOD";
+	  $rootScope.status[3]="approved by manager";
+	  $rootScope.status[4]="Rejected by manager";
+
 	  
 	  $rootScope.collapseVar = 0;
 	  $rootScope.multiCollapseVar = 0;

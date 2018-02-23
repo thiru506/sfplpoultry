@@ -60,6 +60,46 @@ angular.module('sbAdminApp')
  	$scope.budget=budget;
   
  	
+ 	$scope.approved=function(){
+ 		if($rootScope.userInfo.userType==2)
+ 			$scope.status=1
+ 		else if($rootScope.userInfo.userType==3)
+ 			$scope.status=3
+ 		
+ 		if($rootScope.userInfo.userType==1 || $rootScope.userInfo.userType==0){
+ 			$rootScope.notify.showSuccess("No Access to perform this operation");
+ 		}else{
+			$http.post('capex/setApprovalStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id+"/"+$scope.status).success(function(data){
+				$rootScope.notify.showSuccess("Budget approved & forwarded");
+				$state.go('dashboard.home',{},{reload:true});
+    		}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    		})
+ 		}
+
+ 			
+ 			
+ 	}
+ 	
+ 	$scope.rejected=function(){
+ 		if($rootScope.userInfo.userType==2)
+ 			$scope.status=2
+ 		else if($rootScope.userInfo.userType==3)
+ 			$scope.status=4
+ 		
+ 		if($rootScope.userInfo.userType==0){
+			$rootScope.notify.showError("No Access to perform this operation");
+		}else{
+			$http.post('capex/setRejectionStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id+"/"+$scope.status).success(function(data){
+				$rootScope.notify.showSuccess("Budget approved & forwarded");
+				$state.go('dashboard.home',{},{reload:true});
+    		}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    		})
+ 		}
+ 		
+ 	}
+ 	 	
 }])
 .controller('uomCtrl',['$scope',"$rootScope",'modals','uoms','$http','$state', function($scope,$rootScope,modals,uoms,$http,$state) {
 	$scope.form={};
@@ -754,7 +794,7 @@ angular.module('sbAdminApp')
 			$http.post('capex/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("Budget Requested Successfully");
 				$scope.form=null;
-				$state.go('dashboard.mainHome',{},{reload:true});
+				$state.go('dashboard.home',{},{reload:true});
     			}).error(function(data){
     				$rootScope.notify.handleError(data);
     			})
@@ -1131,12 +1171,32 @@ angular.module('sbAdminApp')
 	}
  
 }])
-.controller('UserEditCtrl',['$scope',"$rootScope",'user','$http','$state','modals',function($scope,$rootScope,user,$http,$state,modals) {
+.controller('UserEditCtrl',['$scope',"$rootScope",'user','users','$http','$state','modals',function($scope,$rootScope,user,users,$http,$state,modals) {
   		$scope.form=user;
  		$scope.form.password=null;
   		$scope.conpass=null;
+  		$scope.users=users;
   		
   		
+  		 
+  		$scope.hods=[];
+		angular.forEach(users, function(obj){
+ 				if(obj.id==$scope.form.hodId){
+					$scope.hodd=obj;
+					console.log($scope.hod);
+				}
+				else if(obj.userType==2){
+        			$scope.hods.push(obj);
+        		}
+		});
+ 
+ 		$scope.managers=[];
+		angular.forEach(users, function(obj){
+        		if(obj.userType==3){
+        			$scope.managers.push(obj);
+        		}
+		});
+    		
  		$scope.updateUser=function(){	
  						 
 			if($scope.form.name==null || $scope.form.name==""){
