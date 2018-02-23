@@ -753,35 +753,67 @@ angular.module('sbAdminApp')
 				
 				$scope.quarters.push($scope.addedQuarter);
 				console.log('quarter',$scope.quarters)
-
-				if($scope.quarters.length==4){
-					$scope.addedQuarter={};
-  					var a=parseInt($scope.quarters[0].qty) + parseInt($scope.quarters[1].qty) + parseInt($scope.quarters[2].qty) + parseInt($scope.quarters[3].qty);
-					var b=parseFloat($scope.quarters[0].rate) + parseFloat($scope.quarters[1].rate) + parseFloat($scope.quarters[2].rate) + parseFloat($scope.quarters[3].rate);
-					var c=parseFloat($scope.quarters[0].tax) + parseFloat($scope.quarters[1].tax) + parseFloat($scope.quarters[2].tax) + parseFloat($scope.quarters[3].tax);
-					var d=parseFloat($scope.quarters[0].total) + parseFloat($scope.quarters[1].total) + parseFloat($scope.quarters[2].total) + parseFloat($scope.quarters[3].total);
-					
-					$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
-					$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
+				$scope.form1=null;
+		}
+		$scope.yearly=function(){
+ 					$scope.addedQuarter={};
+ 
+ 					
+ 					var a=$scope.totalQty($scope.quarters);
+					var b=$scope.totalRate($scope.quarters);
+					var c=$scope.totalCost($scope.quarters);
+					var d=$scope.totalTotal($scope.quarters);
+ 				//	var c=parseFloat($scope.quarters[0].tax) + parseFloat($scope.quarters[1].tax) + parseFloat($scope.quarters[2].tax) + parseFloat($scope.quarters[3].tax);
+ 					
+		//			$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
+			//		$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
 					$scope.addedQuarter.year=$scope.quarters[1].year;
 					$scope.addedQuarter.quarter=0;
 					$scope.addedQuarter.qty=a;
 					$scope.addedQuarter.rate=b;
-					$scope.addedQuarter.uom=$rootScope.getById(uoms,$scope.quarters[1].uom);
-					$scope.addedQuarter.cost=(a*b);
-					$scope.addedQuarter.tax=c;
+		//			$scope.addedQuarter.uom=$rootScope.getById(uoms,$scope.quarters[1].uom);
+					$scope.addedQuarter.cost=c;
+			//		$scope.addedQuarter.tax=c;
 					$scope.addedQuarter.total=d;
 					
 					$scope.quarters.push($scope.addedQuarter);
 
-				}
- 				$scope.form1=null;
+					$scope.form1=null;
+		}
+	
+	$scope.totalQty=function(list){
+		var total=0;
+		angular.forEach(list, function(obj){
+     			total+=parseInt(obj.qty);
+ 		})
+ 		return total;
+	}
+
+	$scope.totalRate=function(list){
+		var total=0;
+		angular.forEach(list, function(obj){
+     			total+=parseInt(obj.rate);
+ 		})
+ 		return total;
+	}
+	$scope.totalCost=function(list){
+		var total=0;
+		angular.forEach(list, function(obj){
+     			total+=parseInt(obj.cost);
+ 		})
+ 		return total;
+	}
+	$scope.totalTotal=function(list){
+		var total=0;
+		angular.forEach(list, function(obj){
+     			total+=parseInt(obj.total);
+ 		})
+ 		return total;
 	}
 	
  	$scope.deleteRow=function(index){
  		$scope.quarters.splice(index,1);
- 		$scope.quarters.splice($scope.quarters.length-1,1);
- 	}
+  	}
 
 	
 	$scope.addBudgetForm=function(){
