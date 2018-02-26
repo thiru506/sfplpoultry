@@ -35,11 +35,20 @@ angular.module('sbAdminApp')
 	
 	if($rootScope.userInfo.userType==2){
 		angular.forEach(capexs, function(obj){
-	        		if(obj.user.hodId==$rootScope.userInfo.id){
+	        		if(obj.user.hodId.id==$rootScope.userInfo.id){
 	        			$scope.budgets.push(obj);
 	        		}
 			});
  	}
+	if($rootScope.userInfo.userType==3){
+		angular.forEach(capexs, function(obj){
+			alert(obj.user.hodId.managerId.id)
+			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1){
+				$scope.budgets.push(obj);
+				console.log("manager",$scope.budgets)
+			}
+		})
+	}
 	
  	
 }])
@@ -742,6 +751,9 @@ angular.module('sbAdminApp')
 				var c=parseFloat($scope.form1.tax);
 				$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
 				$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
+				$scope.addedQuarter.description=$scope.form1.description;
+				$scope.addedQuarter.justification=$scope.form1.justification;
+
 				$scope.addedQuarter.year=$scope.form1.year;
 				$scope.addedQuarter.quarter=$scope.form1.quarter;
 				$scope.addedQuarter.qty=$scope.form1.qty;
@@ -767,6 +779,10 @@ angular.module('sbAdminApp')
  					
 		//			$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
 			//		$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
+					
+					$scope.addedQuarter.description=$scope.form1.description;
+					$scope.addedQuarter.justification=$scope.form1.justification;
+
 					$scope.addedQuarter.year=$scope.quarters[1].year;
 					$scope.addedQuarter.quarter=0;
 					$scope.addedQuarter.qty=a;
@@ -1144,6 +1160,9 @@ angular.module('sbAdminApp')
 	
 	$scope.addUser=function(){
 		
+		$scope.form.hodId=$rootScope.getById(users,$scope.hodId);
+		$scope.form.managerId=$rootScope.getById(users,$scope.managerId);
+		
  		if($scope.form.name==null || $scope.form.name==""){
 			$rootScope.notify.showError("Users Name is Mandatory");
 		}else if($scope.form.email==null||$scope.form.email==""){
@@ -1186,7 +1205,7 @@ angular.module('sbAdminApp')
 	
 	$scope.users=users;
 	$scope.pagi=$rootScope.pagination.init($scope.users);
-	
+	console.log($scope.users);
 	$scope.deleteUser=function(user){
 		var promise = modals.open("confirm",{ message: "Are you sure to delete "+user.name+" ?"});
         promise.then(

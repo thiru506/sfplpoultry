@@ -181,24 +181,27 @@
 												 <table class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th>Asset Class</th>
-															<th>Asset Type</th>
- 															<th>Year</th>															
-															<th>Month</th>
-															<th>Qty</th>
-															<th>Cost</th>
-															<th>Rate</th>
-															<th>UOM</th>
-															<th>Tax</th>
-															<th>Total Cost</th>
-															<th>Actions</th>
-															
-												 		</tr>
+															<th width="9%">Asset Class</th>
+															<th width="9%">Asset Type</th>
+															<th width="15%">Decsription</th>
+															<th width="15%">Justification</th>
+ 															<th width="8%">Year</th>															
+															<th width="8%">Month</th>
+															<th width="4%">Qty</th>
+															<th width="5%">Cost</th>
+															<th width="5%">Rate</th>
+															<th width="5%">UOM</th>
+															<th width="5%">Tax</th>
+															<th width="8%">Total Cost</th>
+															<th width="4%">Actions</th>
+ 												 		</tr>
 													</thead>
 													<tbody>
 													<tr data-ng-repeat="quarter in quarters">
 															<td>{{quarter.assetClassMaster.name}}</td>
 															<td>{{quarter.assetCategoriesMaster.name}}</td>
+															<td>{{quarter.description}}</td>
+															<td>{{quarter.justification}}</td>
 															<td>{{years[quarter.year]}}</td>
 															<td>{{quartersList[quarter.quarter]}}</td>															
 															<td>{{quarter.qty}}</td>

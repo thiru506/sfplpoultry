@@ -1,6 +1,8 @@
 package com.capex.entity;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,8 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.capex.constants.DatabaseConstants;
@@ -50,28 +52,58 @@ public class User {
 	@JsonIgnore
 	private List<CapexMaster> capexMaster;
 	
-     @Column(name = "hodId")
-    private String hodId;
-
-      
-    @Column(name = "managerId")
-    private String managerId;
+//    @Column(name = "hodId")
+//    private String hodId;
+       
+ //   @Column(name = "managerId")
+ //   private String managerId;
     
-    
+	@OneToMany(mappedBy="hodId")
+	@JsonIgnore
+	private Set<User> hods= new HashSet<User>();
+	
+	@ManyToOne
+	@JoinColumn(name = "hodId")
+	private User hodId;
 
- 	public String getHodId() {
+	@OneToMany(mappedBy="managerId")
+	@JsonIgnore
+	private Set<User> managers= new HashSet<User>();
+	
+	@ManyToOne
+	@JoinColumn(name = "managerId")
+	private User managerId;
+
+  
+	public Set<User> getHods() {
+		return hods;
+	}
+
+	public void setHods(Set<User> hods) {
+		this.hods = hods;
+	}
+
+	public User getHodId() {
 		return hodId;
 	}
 
-	public void setHodId(String hodId) {
+	public void setHodId(User hodId) {
 		this.hodId = hodId;
 	}
 
-	public String getManagerId() {
+	public Set<User> getManagers() {
+		return managers;
+	}
+
+	public void setManagers(Set<User> managers) {
+		this.managers = managers;
+	}
+
+	public User getManagerId() {
 		return managerId;
 	}
 
-	public void setManagerId(String managerId) {
+	public void setManagerId(User managerId) {
 		this.managerId = managerId;
 	}
 

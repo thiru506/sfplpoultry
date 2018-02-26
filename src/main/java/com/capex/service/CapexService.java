@@ -41,7 +41,7 @@ public class CapexService {
 
 	public boolean setApprovalStatus(int token,int id, int status) {
 		
-		CapexMaster capex=(CapexMaster) capexDAO.getCapexs(id);
+		CapexMaster capex=capexDAO.getCapex(id);
 		capex.setStatus(status);
 		capexDAO.update(capex);
  		return true;
@@ -49,7 +49,7 @@ public class CapexService {
 
 	public boolean setRejectionStatus(int token,int id, int status) {
 		
-		CapexMaster capex=(CapexMaster) capexDAO.getCapexs(id);
+		CapexMaster capex=capexDAO.getCapex(id);
 		capex.setStatus(status);
 		capexDAO.update(capex);
  		return true;

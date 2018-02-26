@@ -84,6 +84,11 @@ public class UserService {
 		/** Initialize Audit Information */
 		user.setAuditInfo(AuditInfo.getInstance(userid));
 		
+		User h=user.getHodId();
+		user.setHodId(h);
+		
+		User m=user.getManagerId();
+		user.setManagerId(m);
  		
 		userDAO.save(user);
 

@@ -45,7 +45,8 @@
 										<td>{{bud.quarters[0].assetCategoriesMaster.name}}</td>
 										<td>{{status[bud.status]}}</td>
   									</tr>	
- 							</tbody>
+   									<tr data-ng-if="budgets.length==0"> <td colspan="12" style="text-align:center;"> --NO RECORDS--</td></tr>	
+  							</tbody>
 						</table>
 						</div>
 					<!-- /.table-responsive -->
