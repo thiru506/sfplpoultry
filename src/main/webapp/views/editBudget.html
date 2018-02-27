@@ -1,0 +1,236 @@
+
+<div class="row">
+	<div class="col-lg-12 head-margin"><br><br>
+		<ul class="breadcrumb breadgrum-margin">
+			<li><a data-ui-sref="dashboard.home">Home</a></li>
+			<li><a data-ui-sref="dashboard.capexReg">CAPEX Budget Registration </a></li>
+		</ul>
+		<h1 class="page-header no-margin">CAPEX Budget Registration</h1>
+	</div>
+</div>
+	<div class="row">
+		<form class="form-horizontal" name="userform">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">CAPEX Budget Registration</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="inline control-label col-xs-2">Capex Requisition No*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control"  data-ng-model="budget.id" disabled>
+   							</div>
+							<label class="inline control-label col-xs-2">Capex Requisition Date*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="budget.date" disabled>
+							</div>
+						</div>
+ 						<div class="form-group">
+							<label class="control-label col-xs-2">Unit*</label>
+							<div class="col-xs-3">
+								<select class="form-control" data-ng-model="budget.unitMaster.id" data-ng-options="unit.id as unit.name for unit in units">
+								 	<option value="">Select </option>
+								</select> 		
+							</div>
+							<label class="control-label col-xs-2">Department*</label>
+							<div class="col-xs-3">
+								<select class="form-control" data-ng-model="budget.department.id "data-ng-options="dept.id as dept.name for dept in departments" >
+								 	<option value="">Select </option>
+								</select> 		
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-xs-2">Sub Division*</label>
+							<div class="col-xs-3">
+								 <input type="text" class="form-control" data-ng-model="budget.unitMaster.subDivisionMaster.name" disabled>
+ 							</div>
+							<label class="control-label col-xs-2">Sub Division ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="budget.unitMaster.subDivisionMaster.subDivisionId" disabled>
+							</div>
+						</div>
+						 						<div class="form-group">
+							<label class="control-label col-xs-2">Division*</label>
+							<div class="col-xs-3">
+							<input type="text" class="form-control" data-ng-model="budget.unitMaster.subDivisionMaster.divisionMaster.name" disabled>
+ 							</div>
+							<label class="control-label col-xs-2">Division ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="budget.unitMaster.subDivisionMaster.divisionMaster.divisionId" disabled>
+							</div>
+						</div>
+						
+ 						<div class="form-group">
+							<label class="control-label col-xs-2">Capex to be incured by*</label>
+							<div class="col-xs-3">
+								 <input type="text" class="form-control" data-ng-model="budget.unitMaster.subDivisionMaster.divisionMaster.companyMaster.name" disabled>
+  							</div>
+							<label class="control-label col-xs-2">Company ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="budget.unitMaster.subDivisionMaster.divisionMaster.companyMaster.companyId" disabled>
+							</div>
+						</div>
+ 					<div class="panel-footer">
+						<div class="form-group">
+							<label class="control-label col-xs-2">Location*</label>
+							<div class="col-xs-3">
+								<select class="form-control" data-ng-model="budget.unitLocations.locations.id" data-ng-options="location.id as location.locations.name for location in locations">
+								 	<option value="">Select </option>
+								</select> 		
+							</div>
+							<label class="control-label col-xs-2">Location Name*</label>
+ 							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="budget.unitLocations.locationName.name" disabled>
+							</div>
+						</div>
+  						<div class="form-group">
+ 							<label class="control-label col-xs-2">Asset Class*</label>
+							<div class="col-xs-3">
+								<select class="form-control" data-ng-change="assetClassChange()"  data-ng-model="assetClass" data-ng-options="asset.id as asset.name for asset in assetClasses" >
+								 	<option value="">Select </option>
+								</select> 		
+								
+							</div>							
+							<label class="control-label col-xs-2">Asset Type*</label>
+							<div class="col-xs-3">
+								<select class="form-control" data-ng-model="assetCategory" data-ng-options="assetCat.id as assetCat.name for assetCat in selectedAssets" >
+								 	<option value="">Select </option>
+								</select> 		
+							</div>
+						</div>
+						<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+ 										<div class="panel-body">
+											<div class="form-group">
+												<label class="control-label col-xs-3">Financial Year*</label>
+												<div class="col-xs-3">
+													<select class="form-control" data-ng-model="form1.year" >
+														<option value="">Select </option>
+														<option value="1">2017-18</option>
+														<option value="2">2018-19</option>
+												
+													</select> 		
+												</div>
+												<label class="control-label col-xs-2">Quarter*</label>
+												<div class="col-xs-3">
+													<select class="form-control" data-ng-model="form1.quarter" >
+														<option value="">Select </option>
+														<option value="1">Jan-Mar Q1</option>
+														<option value="2">Apr-Jun Q2</option>
+														<option value="3">Jul-Sep Q3</option>
+														<option value="4">Oct-Dec Q4</option>
+													</select> 		
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label col-xs-1">Qty*</label>
+												<div class="col-xs-2">
+													<input type="text" class="form-control" data-ng-model="form1.qty" >
+												</div>
+												<label class="control-label col-xs-1">Rate(per unit)*</label>
+												<div class="col-xs-2">
+													<input type="text" class="form-control" data-ng-model="form1.rate" >
+												</div>
+ 												<label class="control-label col-xs-2">UOM*</label>
+												<div class="col-xs-2">
+ 													<select class="form-control" data-ng-model="form1.uom" data-ng-change="uomChange()" data-ng-options="uom.id as uom.name for uom in uoms" >
+													 	<option value="">Select </option>
+													</select> 		
+ 												</div>
+  											</div>
+ 											<div class="form-group">
+												<label class="control-label col-xs-1">Cost*</label>
+												<div class="col-xs-2" style="margin-top : 7px">
+												<label>:		{{form1.rate*form1.qty}} </label>
+												</div>
+												<label class="control-label col-xs-1" >Taxes*</label>
+												<div class="col-xs-2">
+													<input type="text" class="form-control" data-ng-model="form1.tax" >
+												</div>
+ 												<label class="control-label col-xs-3">Total Cost including Tax*</label>
+												<div class="col-xs-2" style="margin-top : 7px">
+													<label>:		{{(form1.rate*form1.qty)+(form1.rate*form1.qty*form1.tax)/100}} </label>
+												</div>
+  											</div>
+  											<div class="form-group">
+												<label class="control-label col-xs-2">Description*</label>
+												<div class="col-xs-4">
+					 								<textarea rows="3" cols="50" class="form-control"data-ng-model="form1.description" placeholder="Description(max 255 Characters)" required></textarea>
+  												</div>
+												<label class="control-label col-xs-2">Justification*</label>
+												<div class="col-xs-4">
+					 								<textarea rows="3" cols="50" class="form-control"data-ng-model="form1.justification" placeholder="Justification(max 255 Characters)" required></textarea>
+  												</div>
+											</div>
+  											
+  											
+										<div class="panel-body">
+ 												<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="yearly()">Yearly</button>
+ 												<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addQuarter()">Add</button> 												
+										</div>
+ 									
+ 									</div>
+ 										
+ 								</div>
+ 							</div>
+   							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+ 											<div class="table-responsive">
+												 <table class="table table-striped table-bordered">
+													<thead>
+														<tr>
+															<th width="9%">Asset Class</th>
+															<th width="9%">Asset Type</th>
+															<th width="15%">Decsription</th>
+															<th width="15%">Justification</th>
+ 															<th width="8%">Year</th>															
+															<th width="8%">Month</th>
+															<th width="4%">Qty</th>
+															<th width="5%">Cost</th>
+															<th width="5%">Rate</th>
+															<th width="5%">UOM</th>
+															<th width="5%">Tax</th>
+															<th width="8%">Total Cost</th>
+															<th width="4%">Actions</th>
+ 												 		</tr>
+													</thead>
+													<tbody>
+													<tr data-ng-repeat="quarter in quarters">
+															<td>{{quarter.assetClassMaster.name}}</td>
+															<td>{{quarter.assetCategoriesMaster.name}}</td>
+															<td>{{quarter.description}}</td>
+															<td>{{quarter.justification}}</td>
+															<td>{{years[quarter.year]}}</td>
+															<td>{{quartersList[quarter.quarter]}}</td>															
+															<td>{{quarter.qty}}</td>
+															<td>{{quarter.cost}}</td>
+															<td>{{quarter.rate}}</td>
+															<td>{{quarter.uom.name}}</td>
+															<td>{{quarter.tax}}</td>
+															<td>{{quarter.total}}</td>
+ 															<td><button type="button" class="btn btn-danger btn-circle btn-sl" data-ng-click="deleteRow($index)">
+															<i class="fa fa-close"></i></button></td>
+														</tr>	
+   													</tbody>
+												</table>
+												</div>
+											<!-- /.table-responsive -->
+ 									</div>
+									<!-- /.panel -->
+								</div>
+								<!-- /.col-lg-6 -->
+							</div>
+						</div>
+						<div class="panel-body">
+ 							<button type="button" class="btn btn-warning pull-left cancel-btn" data-ng-click="cancelAdd()">Cancel</button>
+							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="addBudgetForm()">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</form>
+	</div>
+ 

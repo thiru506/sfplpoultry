@@ -325,4 +325,23 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   },
        controller:'budgetViewCtrl'
     })
+    .state('dashboard.editBudget',{
+        templateUrl:'views/editBudget.html',
+        url:'/budget/edit/:id',
+        params: { 
+ 			id:null
+ 		},
+        resolve: {
+   				budget : ['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('capex/getCapex/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { console.log(resp.data); return resp.data; });}],
+   	 		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}],
+   			   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){return resp.data})}],
+   	   		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}],
+   	  		   uoms : ['$http','$rootScope',function($http,$rootScope){return $http.get('uom/all').then(function(resp){return resp.data})}],
+   	   		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){return resp.data})}],
+   	  		   departments : ['$http','$rootScope',function($http,$rootScope){return $http.get('departments/all').then(function(resp){return resp.data})}],
+
+   	   },
+        controller:'budgetEditCtrl'
+     })
+
 }]);

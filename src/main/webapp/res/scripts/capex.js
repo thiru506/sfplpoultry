@@ -21,12 +21,20 @@ angular.module('sbAdminApp')
 	$scope.capexs=capexs;
 	$scope.pagi=$rootScope.pagination.init($scope.capexs);
 	$scope.budgets=[];
-		
+	
+	angular.forEach(capexs, function(obj){
+		for(var i=0;i<obj.quarters.length;i++){
+			if(obj.quarters[i].quarter==0){
+				obj.total=obj.quarters[i].total;
+			}
+		}
+	});
+
 	if($rootScope.userInfo.userType==0){
 		$scope.budgets=$scope.capexs;
 	}
 	if($rootScope.userInfo.userType==1){
-		angular.forEach(capexs, function(obj){
+ 		angular.forEach(capexs, function(obj){
 	        		if(obj.user.id==$rootScope.userInfo.id){
 	        			$scope.budgets.push(obj);
 	        		}
@@ -34,23 +42,21 @@ angular.module('sbAdminApp')
  	}
 	
 	if($rootScope.userInfo.userType==2){
-		angular.forEach(capexs, function(obj){
+ 		angular.forEach(capexs, function(obj){
 	        		if(obj.user.hodId.id==$rootScope.userInfo.id){
 	        			$scope.budgets.push(obj);
 	        		}
 			});
  	}
 	if($rootScope.userInfo.userType==3){
-		angular.forEach(capexs, function(obj){
+ 		angular.forEach(capexs, function(obj){
 			alert(obj.user.hodId.managerId.id)
 			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1){
 				$scope.budgets.push(obj);
 				console.log("manager",$scope.budgets)
 			}
 		})
-	}
-	
- 	
+	} 	
 }])
 .controller('unitMasterCtrl',['$scope',"$rootScope",'modals','units','$http','$state', function($scope,$rootScope,modals,units,$http,$state) {
 	$scope.form={};
@@ -65,6 +71,24 @@ angular.module('sbAdminApp')
   
  	
 }])
+.controller('budgetEditCtrl',['$scope',"$rootScope",'modals','budget','subdivisions','units','assetCategories','assetClasses','uoms','departments','$http','$state',
+						function($scope,$rootScope,modals,budget,subdivisions,units,assetCategories,assetClasses,uoms,departments,$http,$state) {
+ 	$scope.budget=budget;
+	$scope.subdivisons=subdivisions;
+	$scope.units=units;
+ 	$scope.uoms=uoms;
+	$scope.assetClasses=assetClasses;
+	$scope.assetCategories=assetCategories;
+	$scope.departments=departments;
+
+	
+	
+	$scope.unit=$rootScope.getById(units,$scope.budget.unitMaster.id);
+	$scope.locations=$scope.unit.unitLocations;
+ 
+   	 	
+}])
+
 .controller('budgetViewCtrl',['$scope',"$rootScope",'modals','budget','$http','$state', function($scope,$rootScope,modals,budget,$http,$state) {
  	$scope.budget=budget;
   
@@ -76,7 +100,7 @@ angular.module('sbAdminApp')
  			$scope.status=3
  		
  		if($rootScope.userInfo.userType==1 || $rootScope.userInfo.userType==0){
- 			$rootScope.notify.showSuccess("No Access to perform this operation");
+ 			$rootScope.notify.showError("No Access to perform this operation");
  		}else{
 			$http.post('capex/setApprovalStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id+"/"+$scope.status).success(function(data){
 				$rootScope.notify.showSuccess("Budget approved & forwarded");
@@ -780,8 +804,8 @@ angular.module('sbAdminApp')
 		//			$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
 			//		$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
 					
-					$scope.addedQuarter.description=$scope.form1.description;
-					$scope.addedQuarter.justification=$scope.form1.justification;
+					$scope.addedQuarter.description=null;
+					$scope.addedQuarter.justification=null;
 
 					$scope.addedQuarter.year=$scope.quarters[1].year;
 					$scope.addedQuarter.quarter=0;
