@@ -1157,8 +1157,60 @@ angular.module('sbAdminApp')
 .controller('CompanyEditCtrl',['$scope',"$rootScope",'company','$http','$state','modals',function($scope,$rootScope,company,$http,$state,modals) {
   		$scope.form=company;
    		
+  		
+  		$scope.update=function(){
+  			
+			$http.post('companies/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Company details Updated Successfully");
+				$state.go('dashboard.companyMaster',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+
+  		}
  	 
 }])
+.controller('DivisionEditCtrl',['$scope',"$rootScope",'division','companies','$http','$state','modals',function($scope,$rootScope,division,companies,$http,$state,modals) {
+  		$scope.form=division;
+   		$scope.companies=companies;
+  		
+   		$scope.changeCompany=function(){
+   			$scope.form.companyMaster=$rootScope.getById(companies,$scope.form.companyMaster.id);
+   		}
+
+  		$scope.update=function(){
+  			
+			$http.post('divisions/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Division details Updated Successfully");
+				$state.go('dashboard.divisionMaster',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+
+  		}
+ 	 
+}])
+.controller('SubDivisionEditCtrl',['$scope',"$rootScope",'subdivision','divisions','$http','$state','modals',function($scope,$rootScope,subdivision,divisions,$http,$state,modals) {
+  		$scope.form=subdivision;
+   		$scope.divisions=divisions;
+  		
+   		$scope.changeDivision=function(){
+   			$scope.form.divisionMaster=$rootScope.getById(divisions,$scope.form.divisionMaster.id);
+   		}
+   		
+  		$scope.update=function(){
+  			
+			$http.post('subdivisions/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Sub-Division details Updated Successfully");
+				$state.go('dashboard.subDivisionMaster',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+
+  		}
+ 	 
+}])
+
 .controller('AddUserCtrl',['$scope',"$rootScope",'modals','users','$http','$state', function($scope,$rootScope,modals,users,$http,$state) {
 	$scope.form={};
 	$scope.users=users;

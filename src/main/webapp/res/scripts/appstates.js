@@ -136,7 +136,19 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   templateUrl:'views/addDivision.html',
   	   url:'/addDivision'
      })
-     .state('dashboard.subDivisionMaster',{
+     .state('dashboard.editDivision',{
+        templateUrl:'views/editDivision.html',
+        url:'/division/edit/:id',
+        params: { 
+ 			id:null
+ 		},
+        resolve: {
+			division:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('divisions/getDivision/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log(resp.data); return resp.data; });}],
+ 		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){  return resp.data})}],     				
+   	   },
+        controller:'DivisionEditCtrl'
+     })
+      .state('dashboard.subDivisionMaster',{
          templateUrl:'views/subDivisionMaster.html',
          url:'/subDivisionMaster',
           resolve: {
@@ -154,6 +166,19 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   templateUrl:'views/addSubDivision.html',
   	   url:'/addSubDivision'
      })
+      .state('dashboard.editSubDivision',{
+        templateUrl:'views/editSubDivision.html',
+        url:'/subdivision/edit/:id',
+        params: { 
+ 			id:null
+ 		},
+        resolve: {
+			subdivision:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('subdivisions/getSubDivision/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log(resp.data); return resp.data; });}],
+ 		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){  return resp.data})}]
+   	   },
+        controller:'SubDivisionEditCtrl'
+     })
+
       .state('dashboard.unitMaster',{
          templateUrl:'views/unitMaster.html',
          url:'/unitMaster',
