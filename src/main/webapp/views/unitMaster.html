@@ -12,7 +12,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
   		 	 <label><input class="form-control" data-ng-model="searchKeyword" placeholder="Search..."></label>    
-                <a ui-sref="dashboard.addUnit"
+                <a ui-sref="dashboard.addUnit" data-ng-if="userInfo.userType==0"
                  class="table-head-btn btn btn-info btn-circle pull-right"><i class="fa fa-plus"></i></a>
             </div>
             <!-- /.panel-heading -->
@@ -26,7 +26,7 @@
                                  <th>Company Name</th>
                                  <th>Division Name</th>
                                  <th>Sub Division Name</th>
-                                     <th></th>
+                                     <th data-ng-if="userInfo.userType==0"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,7 +36,7 @@
           	                    <td data-ui-sref="dashboard.viewUnit({id:unit.id})">{{unit.subDivisionMaster.divisionMaster.companyMaster.name}}</td>
                                  <td data-ui-sref="dashboard.viewUnit({id:unit.id})">{{unit.subDivisionMaster.divisionMaster.name}}</td>
                                  <td data-ui-sref="dashboard.viewUnit({id:unit.id})">{{unit.subDivisionMaster.name}}</td>
-     								<td>
+     								<td data-ng-if="userInfo.userType==0">
                                 		<div class="dropdown">
                                 			<a class="dropdown-toggle" data-toggle="dropdown">
   											<div class="dot"></div><div class="dot"></div><div class="dot"></div>

@@ -50,8 +50,7 @@ angular.module('sbAdminApp')
  	}
 	if($rootScope.userInfo.userType==3){
  		angular.forEach(capexs, function(obj){
-			alert(obj.user.hodId.managerId.id)
-			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1){
+ 			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1){
 				$scope.budgets.push(obj);
 				console.log("manager",$scope.budgets)
 			}
@@ -870,9 +869,18 @@ angular.module('sbAdminApp')
     			}).error(function(data){
     				$rootScope.notify.handleError(data);
     			})
-
+ 	}
+	$scope.cancelAdd=function(){
+		if($scope.userform.$dirty){
+			var promise = modals.open("confirm",{ message: "Unsaved Data! Are you sure to Cancel ?"});
+			promise.then(function handleResolve( response ) {$state.go('dashboard.home',{},{reload:true});},
+					function handleReject( error ) {});
+		}else{
+			$state.go('dashboard.home',{},{reload:true});
+		}
 		
 	}
+
  	
 }])
 .controller('addUnitCtrl',['$scope',"$rootScope",'companies','modals','divisions','subdivisions','facilities','buildings','coldRooms','staffQuarters','sheds','locations','locationNames','$http','$state', 

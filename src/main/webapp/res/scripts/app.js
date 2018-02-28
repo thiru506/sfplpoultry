@@ -48,7 +48,7 @@ var app=angular
 	  
 	  $rootScope.status={};
 	  $rootScope.status[0]="in review ";
-	  $rootScope.status[1]="approved by HOD";
+	  $rootScope.status[1]="approved by HOD processed to Manager";
 	  $rootScope.status[2]="Rejected by HOD";
 	  $rootScope.status[3]="approved by manager";
 	  $rootScope.status[4]="Rejected by manager";

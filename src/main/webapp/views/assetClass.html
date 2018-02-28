@@ -20,11 +20,11 @@
 								<th>S.No</th>
 								<th>Asset Class ID</th>
 								<th>Asset Class Name</th>
-								<th>Actions</th>
+								<th data-ng-if="userInfo.userType==0">Actions</th>
 				 			</tr>
                         </thead>
                         <tbody>
- 						<tr>
+ 						<tr data-ng-if="userInfo.userType==0">
 							<td></td>	
 							<td><input type="text" data-ng-model="form.assetClassId" class="form-control" placeholder="Asset Class Id"></td>
 							<td><input type="text" data-ng-model="form.name" class="form-control" placeholder="Asset Class Name"></td>
@@ -36,7 +36,7 @@
 							<td>{{$index+1}}</td>
 							<td>{{asset.assetClassId}}</td>
 							<td>{{asset.name}}</td>
-   							<td> 
+   							<td data-ng-if="userInfo.userType==0"> 
 								<button type="button" data-ng-click="editAssetClass(asset)" 
 								class="btn ink-reaction btn-icon-toggle btn-warning" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i></button>
 								<button type="button" data-ng-click="deleteAsset(asset)" 
