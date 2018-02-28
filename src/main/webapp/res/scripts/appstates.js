@@ -40,7 +40,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
         }
     })
     .state('dashboard.mainHome',{
-        url:'/',
+        url:'/testttt',
         controller: 'MainCtrl',
         templateUrl:'views/dashboard/home.html',
         resolve: {
@@ -218,8 +218,8 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
      .state('dashboard.assetCategories',{
   	   controller: 'assetCategoriesCtrl',
   	   resolve: {
-   		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){return resp.data})}],
-   		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}]
+   		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){console.log('classes',resp.data); return resp.data})}],
+   		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){console.log('categories',resp.data); return resp.data})}]
    	   },
   	   templateUrl:'views/assetCategories.html',
   	   url:'/assetCategories'

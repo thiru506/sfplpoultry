@@ -689,9 +689,8 @@ angular.module('sbAdminApp')
 	$scope.assetClasses=assetClasses;
 	$scope.pagi=$rootScope.pagination.init($scope.assetCategories);
 	
-	$scope.changeAsset=function(){
-		console.log('ssss',$scope.asset);
- 		$scope.form.assetClassMaster=$rootScope.getById(assetClasses,$scope.asset);
+	$scope.changeAsset=function(asClass){
+  		$scope.form.assetClassMaster=$rootScope.getById(assetClasses,asClass);
  	}
  	
 	$scope.addAssetCategory=function(){
@@ -1101,7 +1100,7 @@ angular.module('sbAdminApp')
 	$scope.form={};
 	$scope.companies=companies;
 	
-	$scope.changeCompany=function(){
+	$scope.changeCompany=function(){ 
 		$scope.form.companyMaster=$rootScope.getById(companies,$scope.comp);
 	}
  	

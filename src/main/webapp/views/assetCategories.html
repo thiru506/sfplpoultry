@@ -17,7 +17,7 @@
 						<div class="form-group">
 							<label class="inline control-label col-xs-2">Asset Class Name*</label>
 							<div class="col-xs-3">
-							 	<select class="form-control" data-ng-model="asset" data-ng-change="changeAsset()" data-ng-options="assets.id as assets.name for assets in assetClasses">
+							 	<select class="form-control" data-ng-model="asClass" data-ng-change="changeAsset(asClass)" data-ng-options="asset.id as asset.name for asset in assetClasses">
 								 	<option value="">Select Asset</option>
 								</select>
    							</div>

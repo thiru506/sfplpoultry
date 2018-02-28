@@ -17,7 +17,7 @@
 									<th>S.No</th>
 									<th>Req No</th>
 									<th>Capex Date</th>
-									<th data-ng-if="userInfo.userType==2">Request From</th>
+									<th data-ng-if="userInfo.userType!==1">Request From</th>
 									<th>Company Name</th>															
 									<th>Division</th>
 									<th>Sub Division</th>
@@ -35,7 +35,7 @@
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{$index+1}}</td>
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.id}}</td>
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.date}}</td>
-										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})" data-ng-if="userInfo.userType==2">{{bud.user.name}}</td>
+										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})" data-ng-if="userInfo.userType!==1">{{bud.user.name}}</td>
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.unitMaster.subDivisionMaster.divisionMaster.companyMaster.name}}</td>															
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.unitMaster.subDivisionMaster.divisionMaster.name}}</td>
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.unitMaster.subDivisionMaster.name}}</td>
