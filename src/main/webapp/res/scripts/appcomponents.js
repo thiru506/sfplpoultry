@@ -21,6 +21,16 @@ app.directive("bnModals",function( $rootScope, modals ) {
         });
 	}
 });
+app.directive('preventRightClick', function() {  
+    return {  
+        restrict: 'A',  
+        link: function(scope, element, attr) {  
+            element.bind('contextmenu', function(e) {  
+                e.preventDefault();  
+            })  
+        }  
+    }  
+})  
 
 app.service("modals",function( $rootScope, $q ) {
 	// I represent the currently active modal window instance.

@@ -47,7 +47,7 @@
     
 
     <div ng-app="sbAdminApp" class="mydiv">
-         <div ui-view></div>
+         <div ui-view prevent-right-click></div>
     </div>
 
     </body>
