@@ -74,39 +74,6 @@ public class User {
 	@JoinColumn(name = "managerId")
 	private User managerId;
 
-  
-	public Set<User> getHods() {
-		return hods;
-	}
-
-	public void setHods(Set<User> hods) {
-		this.hods = hods;
-	}
-
-	public User getHodId() {
-		return hodId;
-	}
-
-	public void setHodId(User hodId) {
-		this.hodId = hodId;
-	}
-
-	public Set<User> getManagers() {
-		return managers;
-	}
-
-	public void setManagers(Set<User> managers) {
-		this.managers = managers;
-	}
-
-	public User getManagerId() {
-		return managerId;
-	}
-
-	public void setManagerId(User managerId) {
-		this.managerId = managerId;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -178,7 +145,39 @@ public class User {
 	public void setCapexMaster(List<CapexMaster> capexMaster) {
 		this.capexMaster = capexMaster;
 	}
-	
-	
+
+	public Set<User> getHods() {
+		return hods;
+	}
+
+	public void setHods(Set<User> hods) {
+		this.hods = hods;
+	}
+
+	public User getHodId() {
+		return hodId;
+	}
+
+	public void setHodId(User hodId) {
+		this.hodId = hodId;
+	}
+
+	public Set<User> getManagers() {
+		return managers;
+	}
+
+	public void setManagers(Set<User> managers) {
+		this.managers = managers;
+	}
+
+	public User getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(User managerId) {
+		this.managerId = managerId;
+	}
+
+  
  
 }

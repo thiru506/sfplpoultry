@@ -224,6 +224,18 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   	   templateUrl:'views/assetCategories.html',
   	   url:'/assetCategories'
      })
+     .state('dashboard.editAssetCategory',{
+         templateUrl:'views/editAssetCategory.html',
+         url:'/assetCategory/view/:id',
+         params: { 
+  			id:null
+  		},
+         resolve: {
+     		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){console.log('classes',resp.data); return resp.data})}],
+    				asset:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('assetCategories/getAssetCategories/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {  return resp.data; });}],
+    	   },
+         controller:'editAssetCategoryCtrl'
+      })
      .state('dashboard.capexReg',{
   	   controller: 'capexRegCtrl',
   	   resolve: { 

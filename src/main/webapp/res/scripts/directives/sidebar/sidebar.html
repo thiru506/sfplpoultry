@@ -5,7 +5,7 @@
                 <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="dashboard.capexReg"><i class="fa fa-users fa-fw"></i> CAPEX budget requisition form<span></span></a>
+                <a ui-sref="dashboard.capexReg" data-ng-if="userInfo.userType==1"><i class="fa fa-users fa-fw"></i> CAPEX budget requisition form<span></span></a>
             </li>
              <li ui-sref-active="active" data-ng-if="userInfo.userType==0">
                 <a ui-sref="dashboard.user"><i class="fa fa-users fa-fw"></i> User Management<span></span></a>

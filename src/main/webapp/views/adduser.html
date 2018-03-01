@@ -49,13 +49,13 @@
                      		<input type="radio"  data-ng-model="form.userType" name="optionsRadiosInline" id="optionsRadiosInline4" value="3" >Manager
                    		</label>
                  </div>
-				<div class="form-group" data-ng-if="form.userType==1">
+				<div class="form-group" data-ng-show="form.userType==1">
 					<label>Select HOD for the User*</label>
 						 	<select class="form-control" data-ng-model="hodId" data-ng-options="hod.id as hod.name for hod in hods">
 						 	<option value="">Select HOD</option>
 						</select>
 				 </div>
-				<div class="form-group" data-ng-if="form.userType==2">
+				<div class="form-group" data-ng-show="form.userType==2">
 						<label>Select Manager for HOD*</label>
 					 	<select class="form-control" data-ng-model="managerId" data-ng-options="manager.id as manager.name for manager in managers">
 						 	<option value="">Select Manager</option>

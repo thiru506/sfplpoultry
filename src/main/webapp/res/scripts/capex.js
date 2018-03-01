@@ -882,6 +882,15 @@ angular.module('sbAdminApp')
 
  	
 }])
+.controller('editAssetCategoryCtrl',['$scope',"$rootScope",'modals','assetClasses','asset','$http','$state',
+						function($scope,$rootScope,modals,assetClasses,asset,$http,$state) {
+	$scope.assetClasses=assetClasses;
+	$scope.asset=asset;
+ 
+	
+	 
+   	 	
+}])
 .controller('addUnitCtrl',['$scope',"$rootScope",'companies','modals','divisions','subdivisions','facilities','buildings','coldRooms','staffQuarters','sheds','locations','locationNames','$http','$state', 
 				function($scope,$rootScope,companies,modals,divisions,subdivisions,facilities,buildings,coldRooms,staffQuarters,sheds,locations,locationNames,$http,$state) {
 	$scope.form={};
@@ -1240,6 +1249,15 @@ angular.module('sbAdminApp')
 			});
 	}
 
+	$scope.hod=function(){
+		alert($scope.hodId);
+		$scope.managerId=null;
+	}
+	
+	$scope.manager=function(){
+		alert($scope.managerId);
+		$scope.hodId=null;
+	}
 	
 	$scope.addUser=function(){
 		
