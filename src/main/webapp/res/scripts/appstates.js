@@ -226,13 +226,13 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
      })
      .state('dashboard.editAssetCategory',{
          templateUrl:'views/editAssetCategory.html',
-         url:'/assetCategory/view/:id',
+         url:'/assetCategory/edit/:id',
          params: { 
   			id:null
   		},
          resolve: {
      		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){console.log('classes',resp.data); return resp.data})}],
-    				asset:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('assetCategories/getAssetCategories/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {  return resp.data; });}],
+    				asset:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('assetCategories/getAssetCategories/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log(resp.data); return resp.data; });}],
     	   },
          controller:'editAssetCategoryCtrl'
       })

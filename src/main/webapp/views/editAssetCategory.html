@@ -1,10 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
 
-</body>
-</html>
+<div class="row">
+	<div class="col-lg-12 head-margin"><br><br>
+		<ul class="breadcrumb breadgrum-margin">
+			<li><a data-ui-sref="dashboard.home">Home</a></li>
+			<li><a data-ui-sref="dashboard.assetCategories">Asset Categories Master</a></li>
+		</ul>
+		<h1 class="page-header no-margin">Asset Categories Master SetUp</h1>
+	</div>
+</div>
+	<div class="row">
+		<form class="form-horizontal" name="userform">
+			<div class="col-lg-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Asset Categories Master Setup</div>
+					<div class="panel-body" data-ng-if="userInfo.userType==0">
+						<div class="form-group">
+							<label class="inline control-label col-xs-2">Asset Class Name*</label>
+							<div class="col-xs-3">
+							 	<select class="form-control" data-ng-model="form.assetClassMaster.id" data-ng-change="changeAsset()" data-ng-options="asset.id as asset.name for asset in assetClasses">
+								 	<option value="">Select Asset</option>
+								</select>
+   							</div>
+							<label class="inline control-label col-xs-2">Asset Class ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="form.assetClassMaster.assetClassId" disabled>
+							</div>
+						</div>
+ 						<div class="form-group">
+							<label class="control-label col-xs-2">Asset Type Name*</label>
+							<div class="col-xs-3">
+ 								<input type="text" class="form-control" data-ng-model="form.name">
+ 							</div>
+							<label class="control-label col-xs-2">Asset Type ID*</label>
+							<div class="col-xs-3">
+								<input type="text" class="form-control" data-ng-model="form.assetCategoriesId" >
+							</div>
+						</div>
+						<div class="panel-body">
+  							<button type="reset" class="btn btn-warning pull-left cancel-btn" data-ui-sref="dashboard.assetCategories">Cancel</button>
+							<button type="button" class="btn btn-primary pull-right save-btn" data-ng-click="update()">Update</button>
+						</div>
+					</div>
+  				</div>
+			</div>
+		</form>
+	</div>
+ 

@@ -885,10 +885,23 @@ angular.module('sbAdminApp')
 .controller('editAssetCategoryCtrl',['$scope',"$rootScope",'modals','assetClasses','asset','$http','$state',
 						function($scope,$rootScope,modals,assetClasses,asset,$http,$state) {
 	$scope.assetClasses=assetClasses;
-	$scope.asset=asset;
+	$scope.form=asset;
  
-	
-	 
+	$scope.changeAsset=function(){
+   		$scope.form.assetClassMaster=$rootScope.getById(assetClasses,$scope.form.assetClassMaster.id);
+ 	}
+
+	$scope.update=function(){
+		
+		$http.post('assetCategories/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+			$rootScope.notify.showSuccess("details Updated Successfully");
+			$state.go('dashboard.assetCategories',{},{reload:true});
+			}).error(function(data){
+				$rootScope.notify.handleError(data);
+			})
+
+	}
+
    	 	
 }])
 .controller('addUnitCtrl',['$scope',"$rootScope",'companies','modals','divisions','subdivisions','facilities','buildings','coldRooms','staffQuarters','sheds','locations','locationNames','$http','$state', 
