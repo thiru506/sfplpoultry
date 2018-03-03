@@ -89,9 +89,9 @@
 															<th>Asset Type</th>
  															<th>Year</th>															
 															<th>Month</th>
-															<th>Qty</th>
 															<th>Cost</th>
-															<th>Rate</th>
+															<th>Rate/Unit</th>
+															<th>Qty</th>
 															<th>UOM</th>
 															<th>Tax</th>
 															<th>Total Cost</th>
@@ -104,12 +104,12 @@
 															<td>{{quarter.assetCategoriesMaster.name}}</td>
 															<td>{{years[quarter.year]}}</td>
 															<td>{{quartersList[quarter.quarter]}}</td>															
+															<td>{{quarter.cost | INR}}</td>
+															<td>{{quarter.rate | INR}}</td>
 															<td>{{quarter.qty}}</td>
-															<td>{{quarter.cost}}</td>
-															<td>{{quarter.rate}}</td>
 															<td>{{quarter.uom.name}}</td>
 															<td>{{quarter.tax}}</td>
-															<td>{{quarter.total}}</td>
+															<td>{{quarter.total | INR}}</td>
  														</tr>	
    													</tbody>
 												</table>

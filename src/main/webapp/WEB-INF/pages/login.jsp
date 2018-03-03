@@ -31,17 +31,14 @@
  
 	<div class="login-back">
 		<div class="col-md-6 right">
-
-			<div class="login-panel panel panel-default mbr-login">
-
-				<div class="panel-heading stylee">
+ 			<div class="login-panel panel panel-default mbr-login">
+ 				<div class="panel-heading stylee">
 					<h3 class="panel-title padding">
 						<img src="res/images/logo.png" alt="logo" />
 					</h3>
 				</div>
 				<div class="panel-body">
-
-					<form role="form" action="<c:url value='/login' />" method='POST'>
+ 					<form role="form" action="<c:url value='/login' />" method='POST'>
 						<fieldset>
 							<div class="label-cus">
 								<label>Sign In</label>
@@ -63,20 +60,15 @@
 							</div>
 							<!-- Change this to a button or input when using this as a form -->
 							<button type="submit"
-								class="btn btn-lg btn-success btn-block">Login</button>
+								class="btn btn-lg btn-primary 	btn-block">Login</button>
 						</fieldset>
 					</form>
 				</div>
-
 			</div>
-
-		</div>
+ 		</div>
+ 	</div>
+	<div class="footer" style="text-align: center;">
+		Srinivasa Farms &copy; symbol 2018. Designed and Managed By In-House Development Team
 	</div>
-
-
-
-</body>
-
-
-
-</html>
+ </body>
+ </html>

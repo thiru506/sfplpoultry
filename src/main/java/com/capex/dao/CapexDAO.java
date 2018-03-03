@@ -46,13 +46,13 @@ public class CapexDAO extends BaseDAO{
 		update(capex);
 	}
 
-	public boolean deleteCapex(int id) {
+	public boolean deleteCapex(String id) {
 		CapexMaster capex=(CapexMaster) getSession().get(CapexMaster.class, id);;
 		delete(capex);
  		return false;
 	}
 	
-	public CapexMaster getCapex(int id) {
+	public CapexMaster getCapex(String id) {
 		return (CapexMaster) getSession().get(CapexMaster.class, id);
 	}
 

@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -23,9 +24,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class CapexMaster {
 	
 	@Id
- 	@GeneratedValue
-  	@Column(name = "id", unique = true, nullable = false)
-  	private int id;
+	@GenericGenerator(strategy = "com.capex.entity.CapexIdGenerator", name = "capex_id_generator")
+	@GeneratedValue(generator="capex_id_generator")
+  	@Column(name = "id", unique = true, nullable = false,updatable = false)
+  	private String id;
 
 	@Column(name = "date")
  	private String date;
@@ -80,11 +82,12 @@ public class CapexMaster {
 		this.status = status;
 	}
 
-	public int getId() {
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

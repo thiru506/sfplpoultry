@@ -31,7 +31,7 @@ public class CapexController {
 	}
 	
 	@RequestMapping(value="/delete/{token}/{id}",method=RequestMethod.POST)
- 	public boolean deleteCapex(@PathVariable("token")String token,@PathVariable("id")int id) throws BusinessException{
+ 	public boolean deleteCapex(@PathVariable("token")String token,@PathVariable("id")String id) throws BusinessException{
  		return service.deleteCapex(token,id);
 	}
 	
@@ -42,17 +42,17 @@ public class CapexController {
 	}
 
 	@RequestMapping(value = { "/getCapex/{token}/{id}" }, method = RequestMethod.GET)
- 	public CapexMaster getCapex(@PathVariable("token")String token,@PathVariable("id")int id) {
+ 	public CapexMaster getCapex(@PathVariable("token")String token,@PathVariable("id")String id) {
  		return service.getCapex(id);
  	}
 	
 	@RequestMapping(value = { "/setApprovalStatus/{token}/{id}/{status}" }, method = RequestMethod.POST)
- 	public boolean setApprovalStatus(@PathVariable("token")int token,@PathVariable("id")int id,@PathVariable("status")int status) {
+ 	public boolean setApprovalStatus(@PathVariable("token")int token,@PathVariable("id")String id,@PathVariable("status")int status) {
  		return service.setApprovalStatus(token,id,status);
  	}
 
 	@RequestMapping(value = { "/setRejectionStatus/{token}/{id}/{status}" }, method = RequestMethod.POST)
- 	public boolean setRejectionStatus(@PathVariable("token")int token,@PathVariable("id")int id,@PathVariable("status")int status) {
+ 	public boolean setRejectionStatus(@PathVariable("token")int token,@PathVariable("id")String id,@PathVariable("status")int status) {
  		return service.setRejectionStatus(token,id,status);
  	}
 

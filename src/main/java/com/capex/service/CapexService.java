@@ -31,15 +31,15 @@ public class CapexService {
 		capexDAO.updateCapex(capex);
 	}
 
-	public boolean deleteCapex(String token, int id) {
+	public boolean deleteCapex(String token, String id) {
 		return capexDAO.deleteCapex(id);
 	}
 
-	public CapexMaster getCapex(int id) {
+	public CapexMaster getCapex(String id) {
  		return capexDAO.getCapex(id);
 	}
 
-	public boolean setApprovalStatus(int token,int id, int status) {
+	public boolean setApprovalStatus(int token,String id, int status) {
 		
 		CapexMaster capex=capexDAO.getCapex(id);
 		capex.setStatus(status);
@@ -47,7 +47,7 @@ public class CapexService {
  		return true;
 	}
 
-	public boolean setRejectionStatus(int token,int id, int status) {
+	public boolean setRejectionStatus(int token,String id, int status) {
 		
 		CapexMaster capex=capexDAO.getCapex(id);
 		capex.setStatus(status);
