@@ -1,7 +1,6 @@
 package com.capex.dao;
 
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.springframework.stereotype.Repository;
@@ -23,9 +22,9 @@ public class CapexDAO extends BaseDAO{
 	
 	public void addCapex(CapexMaster capex) {
 		
-		Set<Quarters> quar=capex.getQuarters();
+		List<Quarters> quar=capex.getQuarters();
 		capex.setQuarters(quar);
-		
+ 		
 		UnitLocations ul=capex.getUnitLocations();
 		capex.setUnitLocations(ul);
 		

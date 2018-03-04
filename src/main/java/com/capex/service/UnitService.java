@@ -1,12 +1,14 @@
 package com.capex.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capex.dao.UnitDAO;
+import com.capex.entity.UnitLocations;
 import com.capex.entity.UnitMaster;
 
 @Service
@@ -28,7 +30,15 @@ public class UnitService {
 	}
 
 	public void updateUnit(UnitMaster unit, int token) {
-		unitDAO.updateUnit(unit);
+		
+		Set<UnitLocations> unitLoc=unit.getUnitLocations();
+	//	unit.setUnitLocations(unitLoc);
+		
+		UnitMaster unitUp=unitDAO.getUnit(unit.getId());
+		
+		unitUp.setUnitLocations(unitLoc);
+		
+		unitDAO.updateUnit(unitUp);
 	}
 
 	public boolean deleteUnit(String token, int id) {

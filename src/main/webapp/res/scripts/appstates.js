@@ -69,7 +69,9 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
    .state('dashboard.addUser',{
     	   controller: 'AddUserCtrl',
     	   resolve: {
-    		   users : ['$http','$rootScope',function($http,$rootScope){return $http.get('user/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}]
+    		   users : ['$http','$rootScope',function($http,$rootScope){return $http.get('user/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}],
+      		   departments : ['$http','$rootScope',function($http,$rootScope){return $http.get('departments/all').then(function(resp){return resp.data})}],
+
     	   },
     	   templateUrl:'views/adduser.html',
     	   url:'/addUser'
@@ -188,6 +190,22 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
      	   },
          controller:'unitMasterCtrl'
       })
+      .state('dashboard.editUnit',{
+       templateUrl:'views/editUnit.html',
+       url:'/unit/edit/:id',
+       params: { 
+			id:null
+		},
+       resolve: {
+  				unit:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('units/getUnit/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
+  	  		   locations : ['$http','$rootScope',function($http,$rootScope){return $http.get('locations/all').then(function(resp){return resp.data})}],
+  	  		   locationNames : ['$http','$rootScope',function($http,$rootScope){return $http.get('locationName/all').then(function(resp){return resp.data})}],
+
+ 
+  	   },
+       controller:'UnitEditCtrl'
+    })
+
       .state('dashboard.addUnit',{
   	   controller: 'addUnitCtrl',
   	   resolve: {
@@ -380,5 +398,11 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
    	   },
         controller:'budgetEditCtrl'
      })
+     .state('dashboard.changePassword',{
+         templateUrl:'views/changepassword.html',
+         url:'/changePassword',
+         controller: 'changePasswordCtrl',
+    })
+
 
 }]);

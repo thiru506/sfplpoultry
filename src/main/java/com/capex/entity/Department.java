@@ -27,6 +27,19 @@ public class Department {
 	@OneToMany(mappedBy = "department",cascade=CascadeType.ALL)
 	@JsonIgnore
 	private List<CapexMaster> capexMaster;
+	
+	@OneToMany(mappedBy = "department",cascade=CascadeType.ALL)
+	@JsonIgnore
+	private List<User> user;
+
+
+	public List<User> getUser() {
+		return user;
+	}
+
+	public void setUser(List<User> user) {
+		this.user = user;
+	}
 
 	public int getId() {
 		return id;

@@ -83,10 +83,10 @@ public class UserController {
  		return service.getUser(token,id);
 	}
 	
-	@RequestMapping(value="/changePassword/{token}/{oldpassword}/{newpassword}",method=RequestMethod.POST)
-	public boolean changePassword(@PathVariable("token")String token,@PathVariable("oldpassword")String oldpassword,@PathVariable("newpassword")String newpassword) throws BusinessException{
+	@RequestMapping(value="/changePassword/{id}/{oldpassword}/{newpassword}",method=RequestMethod.POST)
+	public boolean changePassword(@PathVariable("id")int id,@PathVariable("oldpassword")String oldpassword,@PathVariable("newpassword")String newpassword) throws BusinessException{
 		
-		return service.changePassword(token,oldpassword,newpassword);
+		return service.changePassword(id,oldpassword,newpassword);
 	}
 
 }

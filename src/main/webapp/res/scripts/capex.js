@@ -1239,10 +1239,38 @@ angular.module('sbAdminApp')
   		}
  	 
 }])
-
-.controller('AddUserCtrl',['$scope',"$rootScope",'modals','users','$http','$state', function($scope,$rootScope,modals,users,$http,$state) {
+.controller('changePasswordCtrl',['$scope','modals','$rootScope','$http','$state',function($scope,modals,$rootScope,$http,$state) {
+	
+ 	$scope.form={};
+	$scope.user=$scope.userInfo;
+	$scope.change=function(){
+		 
+		console.log($scope.user);
+		
+		if($scope.form.oldpassword==null){
+			$rootScope.notify.showError("Enter Old Password");
+		}else if($scope.form.newpassword==null){
+			$rootScope.notify.showError("Enter new password");
+		}else if($scope.form.renewpassword==null || $scope.form.renewpassword!=$scope.form.newpassword){
+			$rootScope.notify.showError("Re-enter new password properly");
+		}else{
+			console.log($rootScope.userInfo.token,$scope.form.oldpassword,$scope.form.newpassword);
+			$http.post('user/changePassword/'+$rootScope.userInfo.id+'/'+$scope.form.oldpassword+'/'+$scope.form.newpassword).success(function(data){
+				$rootScope.notify.showSuccess("password changed successfully");
+				$state.go('dashboard.home',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+			
+		}
+	}
+	
+	
+}])
+.controller('AddUserCtrl',['$scope',"$rootScope",'modals','users','departments','$http','$state', function($scope,$rootScope,modals,users,departments,$http,$state) {
 	$scope.form={};
 	$scope.users=users;
+	$scope.departments=departments;
  
 	$scope.getHODList=function(list){
 		$scope.hods=[];
@@ -1276,6 +1304,7 @@ angular.module('sbAdminApp')
 		
 		$scope.form.hodId=$rootScope.getById(users,$scope.hodId);
 		$scope.form.managerId=$rootScope.getById(users,$scope.managerId);
+		$scope.form.department=$rootScope.getById(departments,$scope.deptId);
 		
  		if($scope.form.name==null || $scope.form.name==""){
 			$rootScope.notify.showError("Users Name is Mandatory");
@@ -1399,4 +1428,49 @@ angular.module('sbAdminApp')
 		}
 	
 	 
+}])
+.controller('UnitEditCtrl',['$scope',"$rootScope",'unit','locations','locationNames','$http','$state','modals',function($scope,$rootScope,unit,locations,locationNames,$http,$state,modals) {
+		$scope.form=unit;
+ 		console.log('unit',unit);
+		$scope.locations=locations;
+ 		$scope.locationNames=locationNames;
+		 
+ 		$scope.addRow=function(){
+ 			$scope.unitLocations={};
+ 			console.log('sel',$scope.selected);
+ 			
+ 			$scope.unitLocations.locationName=$rootScope.getById(locationNames,$scope.selected.id);
+ 			$scope.unitLocations.locations=$rootScope.getById(locations,$scope.location);
+ 			$scope.form.unitLocations.push($scope.unitLocations);
+ 			console.log($scope.form.unitLocations);
+ 			$scope.location=null;
+ 			$scope.selected=null;
+ 			$scope.unitLocations=null;
+ 	 	}
+
+ 		
+	$scope.updateUnit=function(){	
+		
+		console.log('formmm',$scope.form);
+		
+ 			$http.post('units/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+				$rootScope.notify.showSuccess("Unit Updated Successfully");
+				$state.go('dashboard.unitMaster',{},{reload:true});
+    			}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    			})
+	}
+	
+	$scope.cancelUpdate=function(){
+		if($scope.userform.$dirty){
+			var promise = modals.open("confirm",{ message: "Unsaved Data! Are you sure to Cancel ?"});
+			promise.then(function handleResolve( response ) {$state.go('dashboard.unitMaster',{},{reload:true});},
+					function handleReject( error ) {});
+		}else{
+			$state.go('dashboard.unitMaster',{},{reload:true});
+		}
+		
+	}
+
+ 
 }]);

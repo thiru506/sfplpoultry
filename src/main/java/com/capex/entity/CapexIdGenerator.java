@@ -14,7 +14,7 @@ public class CapexIdGenerator implements IdentifierGenerator{
 
 	public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
 
-        String prefix = "CAP-00";
+        String prefix = "CAP-";
         Connection connection = session.connection();
 
         try {
@@ -25,7 +25,8 @@ public class CapexIdGenerator implements IdentifierGenerator{
             if(rs.next())
             {
                 int id=rs.getInt(1)+001;
-                String generatedId = prefix + new Integer(id).toString();
+       //         String generatedId = prefix + new Integer(id).toString();
+                String generatedId = prefix + String.format("%03d%s", 0, id);
                 System.out.println("Generated Id: " + generatedId);
                 return generatedId;
             }

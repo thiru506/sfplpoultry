@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.capex.core.BusinessException;
 import com.capex.dao.UserDAO;
 import com.capex.entity.AuditInfo;
+import com.capex.entity.Department;
 import com.capex.entity.User;
 import com.capex.util.ValidationUtil;
 
@@ -72,11 +73,11 @@ public class UserService {
 			throw new BusinessException("User with same email exists");
 		}
 
-		/** Check for phone duplication */
-		dbUser = userDAO.getUserByPhone(user.getPhone());
-		if (dbUser != null) {
-			throw new BusinessException("User with same Phone number exists");
-		}
+//		/** Check for phone duplication */
+//		dbUser = userDAO.getUserByPhone(user.getPhone());
+//		if (dbUser != null) {
+//			throw new BusinessException("User with same Phone number exists");
+//		}
 		
  
 		user.setPassword(encrypt(user.getPassword()));
@@ -89,6 +90,9 @@ public class UserService {
 		
 		User m=user.getManagerId();
 		user.setManagerId(m);
+		
+		Department d=user.getDepartment();
+		user.setDepartment(d);
  		
 		userDAO.save(user);
 
@@ -236,18 +240,17 @@ public class UserService {
 		return user;
 	}
   
-	public boolean changePassword(String token, String oldpassword, String newpassword) throws BusinessException {
-		int userid = getUser(token);
-
-		User dbUser = userDAO.getUser(userid);
+	public boolean changePassword(int id, String oldpassword, String newpassword) throws BusinessException {
+ 
+		User dbUser = userDAO.getUser(id);
 		if (dbUser == null) {
 			throw new BusinessException("User Not available");
 		}
 
 		if (BCrypt.checkpw(oldpassword, dbUser.getPassword())) {
 			dbUser.setPassword(encrypt(newpassword));
-			dbUser.getAuditInfo().setUpdatedBy(userid);
-			dbUser.getAuditInfo().setUpdatedOn(new Date());
+		//	dbUser.getAuditInfo().setUpdatedBy(id);
+		//	dbUser.getAuditInfo().setUpdatedOn(new Date());
 			userDAO.update(dbUser);
 		} else {
 			throw new BusinessException("Password's Not Matching");

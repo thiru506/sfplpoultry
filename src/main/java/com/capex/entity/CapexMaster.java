@@ -1,6 +1,6 @@
 package com.capex.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,7 +43,7 @@ public class CapexMaster {
   	@LazyCollection(LazyCollectionOption.FALSE)
  	@OneToMany(mappedBy="capexMaster",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonManagedReference
-  	private Set<Quarters> quarters;
+  	private List<Quarters> quarters;
   	
 	@Column(name="status",columnDefinition = "int default 0")
 	private int status;
@@ -115,16 +115,13 @@ public class CapexMaster {
 		this.unitLocations = unitLocations;
 	}
 
-	public Set<Quarters> getQuarters() {
+	public List<Quarters> getQuarters() {
 		return quarters;
 	}
 
-	public void setQuarters(Set<Quarters> quarters) {
+	public void setQuarters(List<Quarters> quarters) {
 		this.quarters = quarters;
-	}	
-
-
-
+	}
 
 
 }

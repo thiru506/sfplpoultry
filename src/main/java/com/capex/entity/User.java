@@ -73,6 +73,21 @@ public class User {
 	@ManyToOne
 	@JoinColumn(name = "managerId")
 	private User managerId;
+	
+	@ManyToOne
+	@JoinColumn(name = "deptId")
+	private Department department;
+	
+	
+
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 
 	public int getId() {
 		return id;
