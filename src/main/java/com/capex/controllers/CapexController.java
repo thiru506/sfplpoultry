@@ -46,14 +46,14 @@ public class CapexController {
  		return service.getCapex(id);
  	}
 	
-	@RequestMapping(value = { "/setApprovalStatus/{token}/{id}/{status}" }, method = RequestMethod.POST)
- 	public boolean setApprovalStatus(@PathVariable("token")int token,@PathVariable("id")String id,@PathVariable("status")int status) {
- 		return service.setApprovalStatus(token,id,status);
+	@RequestMapping(value = { "/setApprovalStatus/{token}/{id}/{status}/{remarks}" }, method = RequestMethod.POST)
+ 	public boolean setApprovalStatus(@PathVariable("token")int token,@PathVariable("id")String id,@PathVariable("status")int status,@PathVariable("remarks")String remarks) throws BusinessException {
+ 		return service.setApprovalStatus(token,id,status,remarks);
  	}
 
-	@RequestMapping(value = { "/setRejectionStatus/{token}/{id}/{status}" }, method = RequestMethod.POST)
- 	public boolean setRejectionStatus(@PathVariable("token")int token,@PathVariable("id")String id,@PathVariable("status")int status) {
- 		return service.setRejectionStatus(token,id,status);
+	@RequestMapping(value = { "/setRejectionStatus/{token}/{id}/{status}/{remarks}" }, method = RequestMethod.POST)
+ 	public boolean setRejectionStatus(@PathVariable("token")int token,@PathVariable("id")String id,@PathVariable("status")int status,@PathVariable("remarks")String remarks) throws BusinessException {
+ 		return service.setRejectionStatus(token,id,status,remarks);
  	}
 
 }

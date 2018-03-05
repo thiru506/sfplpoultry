@@ -37,7 +37,7 @@ public class UnitMaster {
 	private SubDivisionMaster subDivisionMaster;
 	
   	@LazyCollection(LazyCollectionOption.FALSE)
- 	@OneToMany(mappedBy="unitMaster",cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+ 	@OneToMany(mappedBy="unitMaster",cascade= {CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.DETACH,CascadeType.REFRESH},fetch = FetchType.LAZY)
 	@JsonManagedReference
   	private Set<UnitLocations> unitLocations;
   	

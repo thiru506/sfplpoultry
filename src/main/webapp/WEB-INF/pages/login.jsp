@@ -68,7 +68,7 @@
  		</div>
  	</div>
 	<div class="footer" style="text-align: center;">
-		Srinivasa Farms &copy; symbol 2018. Designed and Managed By In-House Development Team
+		Srinivasa Farms &copy; 2018. Designed and Managed By In-House Development Team
 	</div>
  </body>
  </html>

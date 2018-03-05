@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.capex.core.BusinessException;
 import com.capex.dao.CapexDAO;
 import com.capex.entity.CapexMaster;
 
@@ -39,18 +40,32 @@ public class CapexService {
  		return capexDAO.getCapex(id);
 	}
 
-	public boolean setApprovalStatus(int token,String id, int status) {
+	public boolean setApprovalStatus(int token,String id, int status,String remarks) throws BusinessException{
 		
 		CapexMaster capex=capexDAO.getCapex(id);
 		capex.setStatus(status);
+		if(status==1) {
+			capex.setHodApproveRemarks(remarks);
+		}else if(status==2) {
+			capex.setManagerApproveRemarks(remarks);
+		}else {
+			throw new BusinessException("Error in status");
+		}
 		capexDAO.update(capex);
  		return true;
 	}
 
-	public boolean setRejectionStatus(int token,String id, int status) {
+	public boolean setRejectionStatus(int token,String id, int status,String remarks) throws BusinessException{
 		
 		CapexMaster capex=capexDAO.getCapex(id);
 		capex.setStatus(status);
+		if(status==2) {
+			capex.setHodRejectRemarks(remarks);
+		}else if(status==4) {
+			capex.setManagerRejectRemarks(remarks);
+		}else {
+			throw new BusinessException("Error in status");
+		}
 		capexDAO.update(capex);
  		return true;
 	}

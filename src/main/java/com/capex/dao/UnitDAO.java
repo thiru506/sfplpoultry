@@ -31,7 +31,7 @@ public class UnitDAO extends BaseDAO{
  	}
 
 	public void  updateUnit(UnitMaster unit) {
-		update(unit);
+ 		update(unit);
 	}
 
 	public boolean deleteUnit(int id) {
@@ -42,6 +42,10 @@ public class UnitDAO extends BaseDAO{
 	
 	public UnitMaster getUnit(int id) {
 		return (UnitMaster) getSession().get(UnitMaster.class, id);
+	}
+
+	public void addUnitLocation(UnitLocations unitLocation) {
+		save(unitLocation);
 	}
 
 

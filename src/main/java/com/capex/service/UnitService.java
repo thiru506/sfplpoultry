@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capex.dao.UnitDAO;
+import com.capex.entity.CapexMaster;
 import com.capex.entity.UnitLocations;
 import com.capex.entity.UnitMaster;
+import com.capex.entity.User;
 
 @Service
 @Transactional
@@ -29,16 +31,28 @@ public class UnitService {
 		 unitDAO.addUnit(unit);
 	}
 
-	public void updateUnit(UnitMaster unit, int token) {
+	public void updateUnit(UnitMaster unitUpdate, int token) {
 		
-		Set<UnitLocations> unitLoc=unit.getUnitLocations();
-	//	unit.setUnitLocations(unitLoc);
+		User user=userService.getUser(token);
+		UnitMaster unit=unitDAO.getUnit(unitUpdate.getId());
+ 
+		unit.setName(unitUpdate.getName());
+  		unitDAO.update(unit);
+  		
+  		updateUnitLocations(unitUpdate.getUnitLocations(),unitUpdate.getId(),user.getId());
+ 	}
+
+	private void updateUnitLocations(Set<UnitLocations> unitLocations, int unitId, int userId) {
+		for(UnitLocations unitLocation : unitLocations) {
+			if(unitLocation.getId()>0) {
+				unitDAO.update(unitLocation);
+			}else {
+				UnitMaster um=unitDAO.getUnit(unitId);
+				unitLocation.setUnitMaster(um);
+				unitDAO.addUnitLocation(unitLocation);
+			}
+		}
 		
-		UnitMaster unitUp=unitDAO.getUnit(unit.getId());
-		
-		unitUp.setUnitLocations(unitLoc);
-		
-		unitDAO.updateUnit(unitUp);
 	}
 
 	public boolean deleteUnit(String token, int id) {

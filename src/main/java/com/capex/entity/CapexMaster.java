@@ -55,9 +55,52 @@ public class CapexMaster {
 	@ManyToOne
 	@JoinColumn(name = "departmentId")
 	private Department department;
+	
+	@Column(name = "hodRejectRemarks")
+ 	private String hodRejectRemarks;
+
+	@Column(name = "hodApproveRemarks")
+ 	private String hodApproveRemarks;
+
+	@Column(name = "managerRejectRemarks")
+ 	private String managerRejectRemarks;
+
+	@Column(name = "managerApproveRemarks")
+ 	private String managerApproveRemarks;
 
 	
-	
+	public String getHodRejectRemarks() {
+		return hodRejectRemarks;
+	}
+
+	public void setHodRejectRemarks(String hodRejectRemarks) {
+		this.hodRejectRemarks = hodRejectRemarks;
+	}
+
+	public String getHodApproveRemarks() {
+		return hodApproveRemarks;
+	}
+
+	public void setHodApproveRemarks(String hodApproveRemarks) {
+		this.hodApproveRemarks = hodApproveRemarks;
+	}
+
+	public String getManagerRejectRemarks() {
+		return managerRejectRemarks;
+	}
+
+	public void setManagerRejectRemarks(String managerRejectRemarks) {
+		this.managerRejectRemarks = managerRejectRemarks;
+	}
+
+	public String getManagerApproveRemarks() {
+		return managerApproveRemarks;
+	}
+
+	public void setManagerApproveRemarks(String managerApproveRemarks) {
+		this.managerApproveRemarks = managerApproveRemarks;
+	}
+
 	public Department getDepartment() {
 		return department;
 	}

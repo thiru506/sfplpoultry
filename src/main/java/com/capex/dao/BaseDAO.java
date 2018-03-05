@@ -24,4 +24,9 @@ public class BaseDAO {
 		
 		getSession().delete(object);
 	}
+	
+	public void saveOrUpdate(Object object){
+		
+		getSession().saveOrUpdate(object);
+	}
 }

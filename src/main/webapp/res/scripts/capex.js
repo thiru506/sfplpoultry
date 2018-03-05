@@ -90,18 +90,31 @@ angular.module('sbAdminApp')
 
 .controller('budgetViewCtrl',['$scope',"$rootScope",'modals','budget','$http','$state', function($scope,$rootScope,modals,budget,$http,$state) {
  	$scope.budget=budget;
-  
+ 	$scope.showApprove=false;
+ 	$scope.showReject=false;
+ 	
+ 	$scope.approveButton=function(){
+ 		$scope.showApprove=true;
+ 		$scope.showReject=false;
+ 	}
+ 	
+ 	$scope.rejectButton=function(){
+ 		$scope.showReject=true;
+ 		$scope.showApprove=false;	
+ 	}
  	
  	$scope.approved=function(){
- 		if($rootScope.userInfo.userType==2)
- 			$scope.status=1
- 		else if($rootScope.userInfo.userType==3)
- 			$scope.status=3
- 		
+ 		if($rootScope.userInfo.userType==2){
+ 			$scope.status=1;
+ 			$scope.remarks=$scope.form.remarks;
+ 		}else if($rootScope.userInfo.userType==3){
+ 			$scope.status=3;
+ 			$scope.remarks=$scope.form.remarks;
+ 		}
  		if($rootScope.userInfo.userType==1 || $rootScope.userInfo.userType==0){
  			$rootScope.notify.showError("No Access to perform this operation");
  		}else{
-			$http.post('capex/setApprovalStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id+"/"+$scope.status).success(function(data){
+			$http.post('capex/setApprovalStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id+"/"+$scope.status+"/"+$scope.remarks).success(function(data){
 				$rootScope.notify.showSuccess("Budget approved & forwarded");
 				$state.go('dashboard.home',{},{reload:true});
     		}).error(function(data){
@@ -114,15 +127,19 @@ angular.module('sbAdminApp')
  	}
  	
  	$scope.rejected=function(){
- 		if($rootScope.userInfo.userType==2)
- 			$scope.status=2
- 		else if($rootScope.userInfo.userType==3)
+ 		if($rootScope.userInfo.userType==2){
+ 			$scope.status=2;
+ 			$scope.remarks=$scope.form.remarks;
+ 		}
+ 		else if($rootScope.userInfo.userType==3){
  			$scope.status=4
+ 			$scope.remarks=$scope.form.remarks;
+ 		}	
  		
  		if($rootScope.userInfo.userType==0){
 			$rootScope.notify.showError("No Access to perform this operation");
 		}else{
-			$http.post('capex/setRejectionStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id+"/"+$scope.status).success(function(data){
+			$http.post('capex/setRejectionStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id+"/"+$scope.status+"/"+$scope.remarks).success(function(data){
 				$rootScope.notify.showSuccess("Budget approved & forwarded");
 				$state.go('dashboard.home',{},{reload:true});
     		}).error(function(data){
