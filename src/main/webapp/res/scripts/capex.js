@@ -79,7 +79,22 @@ angular.module('sbAdminApp')
 	$scope.assetClasses=assetClasses;
 	$scope.assetCategories=assetCategories;
 	$scope.departments=departments;
-
+	
+	$scope.editQuarter=function(quarter){
+		$scope.form={};
+		$scope.form.quarter=quarter;
+ 	}
+	$scope.deleteQuarter=function(quarter){
+		
+	}
+	$scope.quarterEditRateChange=function(){
+		var a=parseFloat($scope.form.quarter.qty);
+		var b=parseFloat($scope.form.quarter.rate);
+		var c=parseFloat($scope.form.quarter.tax)
+		$scope.form.quarter.cost=a*b;
+		$scope.form.quarter.total=(a*b)+((a*b*c)/100);
+	}
+	
 	
 	
 	$scope.unit=$rootScope.getById(units,$scope.budget.unitMaster.id);
@@ -140,7 +155,7 @@ angular.module('sbAdminApp')
 			$rootScope.notify.showError("No Access to perform this operation");
 		}else{
 			$http.post('capex/setRejectionStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id+"/"+$scope.status+"/"+$scope.remarks).success(function(data){
-				$rootScope.notify.showSuccess("Budget approved & forwarded");
+				$rootScope.notify.showSuccess("Budget Rejected");
 				$state.go('dashboard.home',{},{reload:true});
     		}).error(function(data){
     				$rootScope.notify.handleError(data);
@@ -839,7 +854,7 @@ angular.module('sbAdminApp')
 	$scope.totalQty=function(list){
 		var total=0;
 		angular.forEach(list, function(obj){
-     			total+=parseInt(obj.qty);
+     			total+=parseFloat(obj.qty);
  		})
  		return total;
 	}
@@ -847,21 +862,21 @@ angular.module('sbAdminApp')
 	$scope.totalRate=function(list){
 		var total=0;
 		angular.forEach(list, function(obj){
-     			total+=parseInt(obj.rate);
+     			total+=parseFloat(obj.rate);
  		})
  		return total;
 	}
 	$scope.totalCost=function(list){
 		var total=0;
 		angular.forEach(list, function(obj){
-     			total+=parseInt(obj.cost);
+     			total+=parseFloat(obj.cost);
  		})
  		return total;
 	}
 	$scope.totalTotal=function(list){
 		var total=0;
 		angular.forEach(list, function(obj){
-     			total+=parseInt(obj.total);
+     			total+=parseFloat(obj.total);
  		})
  		return total;
 	}

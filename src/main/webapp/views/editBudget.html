@@ -183,36 +183,65 @@
 														<tr>
 															<th width="9%">Asset Class</th>
 															<th width="9%">Asset Type</th>
-															<th width="15%">Decsription</th>
-															<th width="15%">Justification</th>
- 															<th width="8%">Year</th>															
-															<th width="8%">Month</th>
-															<th width="4%">Qty</th>
-															<th width="5%">Cost</th>
-															<th width="5%">Rate</th>
-															<th width="5%">UOM</th>
+															<th width="13%">Decsription</th>
+															<th width="13%">Justification</th>
+ 															<th width="7%">Year</th>															
+															<th width="7%">Month</th>
+															<th width="5%">Qty</th>
+															<th width="7%">Cost</th>
+															<th width="6%">Rate</th>
+															<th width="4%">UOM</th>
 															<th width="5%">Tax</th>
 															<th width="8%">Total Cost</th>
-															<th width="4%">Actions</th>
+															<th width="7%">Actions</th>
  												 		</tr>
 													</thead>
 													<tbody>
-													<tr data-ng-repeat="quarter in quarters">
+													<tr data-ng-repeat="quarter in budget.quarters">
 															<td>{{quarter.assetClassMaster.name}}</td>
 															<td>{{quarter.assetCategoriesMaster.name}}</td>
-															<td>{{quarter.description}}</td>
-															<td>{{quarter.justification}}</td>
-															<td>{{years[quarter.year]}}</td>
+															<td data-ng-if="form.quarter!=quarter">{{quarter.description}}</td>
+															<td data-ng-if="form.quarter==quarter">
+																<textarea data-ng-model="form.quarter.description" class="form-control" rows="2"></textarea>
+															</td>
+															<td data-ng-if="form.quarter!=quarter">{{quarter.justification}}</td>
+															<td data-ng-if="form.quarter==quarter">
+																<textarea data-ng-model="form.quarter.justification" class="form-control" rows="2"></textarea>
+															</td>
+ 															<td>{{years[quarter.year]}}</td>
 															<td>{{quartersList[quarter.quarter]}}</td>															
-															<td>{{quarter.qty}}</td>
-															<td>{{quarter.cost}}</td>
-															<td>{{quarter.rate}}</td>
-															<td>{{quarter.uom.name}}</td>
-															<td>{{quarter.tax}}</td>
-															<td>{{quarter.total}}</td>
- 															<td><button type="button" class="btn btn-danger btn-circle btn-sl" data-ng-click="deleteRow($index)">
-															<i class="fa fa-close"></i></button></td>
-														</tr>	
+															<td data-ng-if="form.quarter!=quarter">{{quarter.qty}}</td>
+															<td data-ng-if="form.quarter==quarter">
+																<input data-ng-model="form.quarter.qty" data-ng-change="quarterEditRateChange()" class="form-control" >
+															</td>
+ 															<td data-ng-if="form.quarter!=quarter">{{quarter.cost}}</td>
+															<td data-ng-if="form.quarter==quarter">
+																<input data-ng-model="form.quarter.cost" class="form-control" disabled>
+															</td>
+ 															
+															<td data-ng-if="form.quarter!=quarter">{{quarter.rate}}</td>
+															<td data-ng-if="form.quarter==quarter">
+																<input data-ng-model="form.quarter.rate" data-ng-change="quarterEditRateChange()" class="form-control" >
+															</td>
+ 															<td>{{quarter.uom.name}}</td> 															
+															<td data-ng-if="form.quarter!=quarter">{{quarter.tax}}</td>
+															<td data-ng-if="form.quarter==quarter">
+																<input data-ng-model="form.quarter.tax" class="form-control" data-ng-change="quarterEditRateChange()">
+															</td>
+ 															<td data-ng-if="form.quarter!=quarter">{{quarter.total}}</td>
+															<td data-ng-if="form.quarter==quarter">
+																<input data-ng-model="form.quarter.total" class="form-control" disabled>
+															</td>
+ 															
+ 															<td data-ng-if="form.quarter!=quarter">
+																<button data-ng-click="editQuarter(quarter)" type="button" class="btn btn-xs ink-reaction btn-icon-toggle btn-warning"><i class="fa fa-pencil"></i></button>
+																<button data-ng-click="deleteQuarter(quarter)" type="button" class="btn btn-xs ink-reaction btn-icon-toggle btn-danger"><i class="fa fa-trash"></i></button>
+															</td>
+															<td data-ng-if="form.quarter==quarter" style="margin-top: 3px">
+																<button type="button" class="btn btn-xs ink-reaction btn-primary" data-ng-click="updateQuarter(quarter)"><i class="fa fa-check"></i></button>
+																<button type="button" class="btn btn-xs ink-reaction btn-warning" data-ng-click="form.quarter={}"><i class="fa fa-close"></i></button>
+															</td>
+ 														</tr>	
    													</tbody>
 												</table>
 												</div>
