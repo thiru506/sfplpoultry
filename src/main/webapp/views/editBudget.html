@@ -202,35 +202,35 @@
 															<td>{{quarter.assetCategoriesMaster.name}}</td>
 															<td data-ng-if="form.quarter!=quarter">{{quarter.description}}</td>
 															<td data-ng-if="form.quarter==quarter">
-																<textarea data-ng-model="form.quarter.description" class="form-control" rows="2"></textarea>
+																<textarea data-ng-model="form.description" class="form-control" data-ng-change="setUnsave()" rows="2"></textarea>
 															</td>
 															<td data-ng-if="form.quarter!=quarter">{{quarter.justification}}</td>
 															<td data-ng-if="form.quarter==quarter">
-																<textarea data-ng-model="form.quarter.justification" class="form-control" rows="2"></textarea>
+																<textarea data-ng-model="form.justification" class="form-control" data-ng-change="setUnsave()" rows="2"></textarea>
 															</td>
  															<td>{{years[quarter.year]}}</td>
 															<td>{{quartersList[quarter.quarter]}}</td>															
 															<td data-ng-if="form.quarter!=quarter">{{quarter.qty}}</td>
 															<td data-ng-if="form.quarter==quarter">
-																<input data-ng-model="form.quarter.qty" data-ng-change="quarterEditRateChange()" class="form-control" >
+																<input data-ng-model="form.qty" data-ng-change="quarterEditRateChange()" data-ng-change="setUnsave()" class="form-control" >
 															</td>
  															<td data-ng-if="form.quarter!=quarter">{{quarter.cost}}</td>
 															<td data-ng-if="form.quarter==quarter">
-																<input data-ng-model="form.quarter.cost" class="form-control" disabled>
+																<input data-ng-model="form.cost" class="form-control" disabled>
 															</td>
  															
 															<td data-ng-if="form.quarter!=quarter">{{quarter.rate}}</td>
 															<td data-ng-if="form.quarter==quarter">
-																<input data-ng-model="form.quarter.rate" data-ng-change="quarterEditRateChange()" class="form-control" >
+																<input data-ng-model="form.rate" data-ng-change="quarterEditRateChange();setUnsave()"  class="form-control" >
 															</td>
  															<td>{{quarter.uom.name}}</td> 															
 															<td data-ng-if="form.quarter!=quarter">{{quarter.tax}}</td>
 															<td data-ng-if="form.quarter==quarter">
-																<input data-ng-model="form.quarter.tax" class="form-control" data-ng-change="quarterEditRateChange()">
+																<input data-ng-model="form.tax" class="form-control" data-ng-change="quarterEditRateChange();setUnsave()">
 															</td>
  															<td data-ng-if="form.quarter!=quarter">{{quarter.total}}</td>
 															<td data-ng-if="form.quarter==quarter">
-																<input data-ng-model="form.quarter.total" class="form-control" disabled>
+																<input data-ng-model="form.total" class="form-control" disabled>
 															</td>
  															
  															<td data-ng-if="form.quarter!=quarter">
@@ -239,7 +239,7 @@
 															</td>
 															<td data-ng-if="form.quarter==quarter" style="margin-top: 3px">
 																<button type="button" class="btn btn-xs ink-reaction btn-primary" data-ng-click="updateQuarter(quarter)"><i class="fa fa-check"></i></button>
-																<button type="button" class="btn btn-xs ink-reaction btn-warning" data-ng-click="form.quarter={}"><i class="fa fa-close"></i></button>
+																<button type="button" class="btn btn-xs ink-reaction btn-warning" data-ng-click="cancelEditQuarter()"><i class="fa fa-close"></i></button>
 															</td>
  														</tr>	
    													</tbody>

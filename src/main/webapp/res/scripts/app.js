@@ -56,7 +56,8 @@ var app=angular
 	  
 	  $rootScope.collapseVar = 0;
 	  $rootScope.multiCollapseVar = 0;
-      
+	  $rootScope.unsave=false;
+	  
 	  $rootScope.check = function(x){
         
         if(x==$rootScope.collapseVar)
@@ -97,6 +98,30 @@ var app=angular
 			  }
 	  };
 	  
+	    $rootScope.setUnsave=function(){
+	    	$rootScope.unsave=true;
+	    }
+	    $rootScope.resetUnsave=function(){
+	   	 	$rootScope.unsave=false;
+	    }
+		  $rootScope.checkUnsave=function(){
+			  var result=true;
+			  if($rootScope.unsave==true){
+				  if (confirm("Unsaved data will be lost by exiting page. Are you sure you want to Exit ?")) {
+					  $rootScope.unsave=false;
+					  result=true;
+				  }
+				  else {
+					  result=false;
+				  }
+			  }else{
+				  $rootScope.unsave=false;
+				  result=true;
+			  }
+		    	return result;
+		    }
+
+
 	
 	  $rootScope.getById=function(list,id){
 		  var selected=null;
