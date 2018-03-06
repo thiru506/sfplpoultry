@@ -151,6 +151,9 @@ public class UserService {
 		dbUser.setName(user.getName());
  		dbUser.setUserType(user.getUserType());
   		dbUser.setStatus(user.isStatus());
+  		dbUser.setDepartment(user.getDepartment());
+  		dbUser.setHodId(user.getHodId());
+  		dbUser.setManagerId(user.getManagerId());
 
 		if (user.getPassword() != null && !user.getPassword().isEmpty()) {
 			dbUser.setPassword(encrypt(user.getPassword()));

@@ -91,8 +91,9 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
 			id:null
 		},
        resolve: {
-  				user:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('user/getuser/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
-     		   users : ['$http','$rootScope',function($http,$rootScope){return $http.get('user/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}]
+  				user:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('user/getuser/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log("user edit",resp.data); return resp.data; });}],
+     		   users : ['$http','$rootScope',function($http,$rootScope){return $http.get('user/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}],
+		   departments : ['$http','$rootScope',function($http,$rootScope){return $http.get('departments/all').then(function(resp){return resp.data})}],
 
   	   },
        controller:'UserEditCtrl'

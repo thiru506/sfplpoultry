@@ -1397,8 +1397,9 @@ angular.module('sbAdminApp')
 	}
  
 }])
-.controller('UserEditCtrl',['$scope',"$rootScope",'user','users','$http','$state','modals',function($scope,$rootScope,user,users,$http,$state,modals) {
+.controller('UserEditCtrl',['$scope',"$rootScope",'user','users','departments','$http','$state','modals',function($scope,$rootScope,user,users,departments,$http,$state,modals) {
   		$scope.form=user;
+  		$scope.departments=departments;
  		$scope.form.password=null;
   		$scope.conpass=null;
   		$scope.users=users;
@@ -1424,7 +1425,19 @@ angular.module('sbAdminApp')
 		});
     		
  		$scope.updateUser=function(){	
- 						 
+  			if($scope.form.hodId.id!=null){
+ 	 			$scope.form.hodId=$rootScope.getById(users,$scope.form.hodId.id);
+ 	 			$scope.form.managerId=null;
+  			}else if($scope.form.managerId.id!=null){
+ 	 			$scope.form.managerId=$rootScope.getById(users,$scope.form.managerId.id);
+ 	 			$scope.form.hodId=null;
+  			}
+  			
+ 			if($scope.form.department.id!=null){
+ 	 			$scope.form.department=$rootScope.getById(departments,$scope.form.department.id);
+ 	 			console.log("dept",$scope.form.department);
+ 			}
+		 
 			if($scope.form.name==null || $scope.form.name==""){
 				$rootScope.notify.showError("Users Name is Mandatory");
 			}else if($scope.form.email==null||$scope.form.email==""){
@@ -1437,6 +1450,8 @@ angular.module('sbAdminApp')
 				$rootScope.notify.showError("Password and Confirm Password Should be Same");
 			}else{
  			 
+				console.log("edited user form",$scope.form);
+				
 				$http.post('user/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 					$rootScope.notify.showSuccess("User Updated Successfully");
 					$state.go('dashboard.user',{},{reload:true});
