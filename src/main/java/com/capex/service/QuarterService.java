@@ -20,13 +20,14 @@ public class QuarterService {
 	public void updateQuarter(Quarters quarter) {
 		
 		Quarters q=quarterDAO.getQuarter(quarter.getId());
+		System.out.println(quarter.getId());
  		q.setCost(quarter.getCost());
 		q.setDescription(quarter.getDescription());
 		q.setJustification(quarter.getJustification());
 		q.setQty(quarter.getQty());
 		q.setRate(quarter.getRate());
 		q.setTax(quarter.getTax());
-		q.setTotal(q.getTotal());
+		q.setTotal(quarter.getTotal());
 		quarterDAO.updateQuarter(q);
 	}
 

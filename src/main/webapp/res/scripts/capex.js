@@ -70,8 +70,8 @@ angular.module('sbAdminApp')
   
  	
 }])
-.controller('budgetEditCtrl',['$scope',"$rootScope",'modals','budget','subdivisions','units','assetCategories','assetClasses','uoms','departments','$http','$state',
-						function($scope,$rootScope,modals,budget,subdivisions,units,assetCategories,assetClasses,uoms,departments,$http,$state) {
+.controller('budgetEditCtrl',['$scope',"$rootScope",'$window','modals','budget','subdivisions','units','assetCategories','assetClasses','uoms','departments','$http','$state',
+						function($scope,$rootScope,$window,modals,budget,subdivisions,units,assetCategories,assetClasses,uoms,departments,$http,$state) {
  	$scope.budget=budget;
 	$scope.subdivisons=subdivisions;
 	$scope.units=units;
@@ -84,14 +84,27 @@ angular.module('sbAdminApp')
 	$scope.isEdit=false;
 
 	$scope.form={};
+	$scope.year=[];
+	$scope.quarters=[];
+	
+	angular.forEach(budget.quarters, function(obj){
+ 		if(obj.quarter==0){
+			$scope.year.push(obj);
+ 		}
+	});
+ 	
+	angular.forEach(budget.quarters, function(obj){
+ 			$scope.quarters.push(obj);
+ 	});
 
-	$scope.editQuarter=function(quarter){
- 		$scope.form.quarter=quarter;
-		
+	
+ 	$scope.editQuarter=function(quarter){
+ 		
      	if($scope.isEdit){
-     		$scope.showError("Criteria Already open for Edit.");
+       		$rootScope.notify.showError("A row is already open for edit");
      	}else{
-     		
+      		$scope.isEdit=true;
+     		$scope.form.quarter=quarter;
      		$scope.form.qty=quarter.qty;
      		$scope.form.rate=quarter.rate;
      		$scope.form.description=quarter.description;
@@ -102,6 +115,7 @@ angular.module('sbAdminApp')
      		
       	}
  	}
+ 	
 	$scope.deleteQuarter=function(quarter){
 		
 	}
@@ -113,15 +127,31 @@ angular.module('sbAdminApp')
 		$scope.form.total=(a*b)+((a*b*c)/100);
 	}
 
-	 $scope.cancelEditQuarter=function(){
+	$scope.cancelEditQuarter=function(){
 	     	if($scope.checkUnsave($scope.unsave)){
 	     		$scope.form={};
 	      		$scope.isEdit=false;
 	     	}
-     }
+	}
+ 
+	$scope.assetClassChange=function(){
+  		$scope.form.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
+  		$scope.getAssetCategoriesByAssetClassId(assetCategories,$scope.form.assetClassMaster.assetClassId);
+ 	}
+	
+	$scope.getAssetCategoriesByAssetClassId=function(list,id){
+		  $scope.selectedAssets=[];
+			angular.forEach(list, function(obj){
+	        		if(obj.assetClassMaster.assetClassId==id){
+	        			$scope.selectedAssets.push(obj);
+	        		}
+			});
+	}
+
+
 	 $scope.updateQuarter=function(quarter){
 	     	var updateQuarter={
-	     			"id":$scope.form.quarter.id,
+     			"id":$scope.form.quarter.id,
 	     		"uom":$scope.form.quarter.uom,
 	     		"assetCategoriesMaster":$scope.form.quarter.assetCategoriesMaster,
 	     		"assetClassMaster":$scope.form.quarter.assetClassMaster,
@@ -133,8 +163,7 @@ angular.module('sbAdminApp')
 	     		"tax":$scope.form.tax,
 	     		"total":$scope.form.total,
 	     	};
-	     	console.log('sss',updateQuarter);
-			$http.post('quarter/update/'+$rootScope.userInfo.id,updateQuarter).success(function(data,status){
+ 			$http.post('quarter/update/'+$rootScope.userInfo.id,updateQuarter).success(function(data,status){
 	     		$rootScope.notify.showSuccess('Quarter Updated Successfully');
 	     		$scope.form={};
 	      		$scope.isEdit=false;
@@ -146,10 +175,68 @@ angular.module('sbAdminApp')
 	      		quarter.rate=updateQuarter.rate;
 	      		quarter.tax=updateQuarter.tax;
 	      		quarter.total=updateQuarter.total;
+	      		
+	      		$scope.updateYearlyQuarter($scope.year);	/**update year quarter*/
     		}).error(function(data){
     				$rootScope.notify.handleError(data);
     		})
 	 }
+	 
+	 $scope.updateYearlyQuarter=function(quarter){
+			var a=$scope.totalQty($scope.quarters);
+			var b=$scope.totalRate($scope.quarters);
+			var c=$scope.totalCost($scope.quarters);
+			var d=$scope.totalTotal($scope.quarters);
+			alert(a);alert(b);alert(c);alert(d);		 
+		 var updateYearly={
+	     			"id":quarter.id,
+		     		"uom":quarter.uom,
+ 		     		"month":quarter.month,
+		     		"cost":c,
+ 		     		"qty":a,
+		     		"rate":b,
+ 		     		"total":d,
+ 		     		"year":quarter.year,
+				 
+		 };
+			$http.post('quarter/update/'+$rootScope.userInfo.id,updateYearly).success(function(data,status){
+	     		$rootScope.notify.showSuccess('Quarter Updated Successfully');
+	     		$window.location.reload();
+     		}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    		})
+
+	 }
+
+		$scope.totalQty=function(list){
+			var total=0;
+			angular.forEach(list, function(obj){
+				if(obj.quarter>0){total+=parseFloat(obj.qty);}
+ 	 		})
+	 		return total;
+		}
+
+		$scope.totalRate=function(list){
+			var total=0;
+			angular.forEach(list, function(obj){
+				if(obj.quarter>0){total+=parseFloat(obj.rate);}
+	 		})
+	 		return total;
+		}
+		$scope.totalCost=function(list){
+			var total=0;
+			angular.forEach(list, function(obj){
+				if(obj.quarter>0){total+=parseFloat(obj.cost);}
+	 		})
+	 		return total;
+		}
+		$scope.totalTotal=function(list){
+			var total=0;
+			angular.forEach(list, function(obj){
+				if(obj.quarter>0){total+=parseFloat(obj.total);}
+	 		})
+	 		return total;
+		}
 
    	 	
 }])
