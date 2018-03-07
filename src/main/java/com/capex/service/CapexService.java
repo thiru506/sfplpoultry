@@ -69,6 +69,13 @@ public class CapexService {
 		capexDAO.update(capex);
  		return true;
 	}
+
+	public boolean setStatus(int token, String id) {
+		CapexMaster capex=capexDAO.getCapex(id);
+		capex.setStatus(0);
+		capexDAO.update(capex);
+ 		return true;
+ 	}
  
 
 }

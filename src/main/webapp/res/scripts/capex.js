@@ -82,7 +82,7 @@ angular.module('sbAdminApp')
 	$scope.unit=$rootScope.getById(units,$scope.budget.unitMaster.id);
 	$scope.locations=$scope.unit.unitLocations;
 	$scope.isEdit=false;
-
+	$scope.form1={};
 	$scope.form={};
 	$scope.year=[];
 	$scope.quarters=[];
@@ -99,11 +99,11 @@ angular.module('sbAdminApp')
 
 	
  	$scope.editQuarter=function(quarter){
- 		
-     	if($scope.isEdit){
+      	if($scope.isEdit){
        		$rootScope.notify.showError("A row is already open for edit");
      	}else{
       		$scope.isEdit=true;
+      		$scope.form1.quarter=$scope.year[0];
      		$scope.form.quarter=quarter;
      		$scope.form.qty=quarter.qty;
      		$scope.form.rate=quarter.rate;
@@ -112,8 +112,7 @@ angular.module('sbAdminApp')
      		$scope.form.tax=quarter.tax;
      		$scope.form.cost=quarter.cost;
      		$scope.form.total=quarter.total;
-     		
-      	}
+       	}
  	}
  	
 	$scope.deleteQuarter=function(quarter){
@@ -182,24 +181,30 @@ angular.module('sbAdminApp')
     		})
 	 }
 	 
+	 $scope.updateBudgetForm=function(){
+		 
+			$http.post('capex/setStatus/'+$rootScope.userInfo.id+"/"+$scope.budget.id).success(function(data){
+				$rootScope.notify.showSuccess("Budget forwarded to HoD");
+				$state.go('dashboard.home',{},{reload:true});
+    		}).error(function(data){
+    				$rootScope.notify.handleError(data);
+    		})
+
+	 }
+	 
 	 $scope.updateYearlyQuarter=function(quarter){
-			var a=$scope.totalQty($scope.quarters);
-			var b=$scope.totalRate($scope.quarters);
-			var c=$scope.totalCost($scope.quarters);
-			var d=$scope.totalTotal($scope.quarters);
-			alert(a);alert(b);alert(c);alert(d);		 
 		 var updateYearly={
-	     			"id":quarter.id,
-		     		"uom":quarter.uom,
- 		     		"month":quarter.month,
-		     		"cost":c,
- 		     		"qty":a,
-		     		"rate":b,
- 		     		"total":d,
- 		     		"year":quarter.year,
+	     			"id":$scope.form1.quarter.id,
+  		     		"quarter":$scope.form1.quarter.quarter,
+		     		"cost":$scope.totalCost($scope.quarters),
+ 		     		"qty":$scope.totalQty($scope.quarters),
+		     		"rate":$scope.totalRate($scope.quarters),
+ 		     		"total":$scope.totalTotal($scope.quarters),
+ 		     		"year":$scope.form1.quarter.year,
 				 
 		 };
-			$http.post('quarter/update/'+$rootScope.userInfo.id,updateYearly).success(function(data,status){
+		 
+ 			$http.post('quarter/update/'+$rootScope.userInfo.id,updateYearly).success(function(data,status){
 	     		$rootScope.notify.showSuccess('Quarter Updated Successfully');
 	     		$window.location.reload();
      		}).error(function(data){
@@ -240,7 +245,6 @@ angular.module('sbAdminApp')
 
    	 	
 }])
-
 .controller('budgetViewCtrl',['$scope',"$rootScope",'modals','budget','$http','$state', function($scope,$rootScope,modals,budget,$http,$state) {
  	$scope.budget=budget;
  	$scope.showApprove=false;

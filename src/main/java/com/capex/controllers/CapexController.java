@@ -56,4 +56,9 @@ public class CapexController {
  		return service.setRejectionStatus(token,id,status,remarks);
  	}
 
+	@RequestMapping(value = { "/setStatus/{token}/{id}" }, method = RequestMethod.POST)
+ 	public boolean setStatus(@PathVariable("token")int token,@PathVariable("id")String id) throws BusinessException {
+ 		return service.setStatus(token,id);
+ 	}
+
 }
