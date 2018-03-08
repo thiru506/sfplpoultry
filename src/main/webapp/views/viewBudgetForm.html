@@ -156,6 +156,10 @@
  							 class="btn btn-danger pull-left cancel-btn" data-toggle="modal" data-target="#myModal" data-ng-click="rejectButton()">Reject</button>
 							<button type="button" data-ng-show="(userInfo.userType==3) && (budget.status==1)"
 							 class="btn btn-primary pull-right save-btn" data-toggle="modal" data-target="#myModal" data-ng-click="approveButton()">Approve</button>
+ 							<button type="button" data-ng-show="(userInfo.userType==5) && (budget.status==3)"
+ 							 class="btn btn-danger pull-left cancel-btn" data-toggle="modal" data-target="#myModal" data-ng-click="rejectButton()">Reject</button>
+							<button type="button" data-ng-show="(userInfo.userType==5) && (budget.status==3)"
+							 class="btn btn-primary pull-right save-btn" data-toggle="modal" data-target="#myModal" data-ng-click="approveButton()">Approve</button>
 
 						</div>
 					</div>

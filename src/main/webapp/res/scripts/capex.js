@@ -52,10 +52,17 @@ angular.module('sbAdminApp')
  		angular.forEach(capexs, function(obj){
  			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1){
 				$scope.budgets.push(obj);
-				console.log("manager",$scope.budgets)
-			}
+ 			}
 		})
 	} 	
+	if($rootScope.userInfo.userType==5){
+ 		angular.forEach(capexs, function(obj){
+ 			if(obj.status==3){
+				$scope.budgets.push(obj);
+ 			}
+		})
+	} 	
+
 }])
 .controller('unitMasterCtrl',['$scope',"$rootScope",'modals','units','$http','$state', function($scope,$rootScope,modals,units,$http,$state) {
 	$scope.form={};
@@ -267,7 +274,12 @@ angular.module('sbAdminApp')
  		}else if($rootScope.userInfo.userType==3){
  			$scope.status=3;
  			$scope.remarks=$scope.form.remarks;
+ 		}else if($rootScope.userInfo.userType==5){
+ 			$scope.status=5;
+ 			$scope.remarks=$scope.form.remarks;
  		}
+ 		
+ 		
  		if($rootScope.userInfo.userType==1 || $rootScope.userInfo.userType==0){
  			$rootScope.notify.showError("No Access to perform this operation");
  		}else{
@@ -290,6 +302,9 @@ angular.module('sbAdminApp')
  		}
  		else if($rootScope.userInfo.userType==3){
  			$scope.status=4
+ 			$scope.remarks=$scope.form.remarks;
+ 		}else if($rootScope.userInfo.userType==5){
+ 			$scope.status=6;
  			$scope.remarks=$scope.form.remarks;
  		}	
  		

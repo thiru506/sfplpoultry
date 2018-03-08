@@ -68,7 +68,29 @@ public class CapexMaster {
 	@Column(name = "managerApproveRemarks")
  	private String managerApproveRemarks;
 
+	@Column(name = "cfoRejectRemarks")
+ 	private String cfoRejectRemarks;
+
+	@Column(name = "cfoApproveRemarks")
+ 	private String cfoApproveRemarks;
 	
+ 	
+	public String getCfoRejectRemarks() {
+		return cfoRejectRemarks;
+	}
+
+	public void setCfoRejectRemarks(String cfoRejectRemarks) {
+		this.cfoRejectRemarks = cfoRejectRemarks;
+	}
+
+	public String getCfoApproveRemarks() {
+		return cfoApproveRemarks;
+	}
+
+	public void setCfoApproveRemarks(String cfoApproveRemarks) {
+		this.cfoApproveRemarks = cfoApproveRemarks;
+	}
+
 	public String getHodRejectRemarks() {
 		return hodRejectRemarks;
 	}

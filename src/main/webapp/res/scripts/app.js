@@ -34,6 +34,8 @@ var app=angular
 	  $rootScope.usertype[2]="HOD";
 	  $rootScope.usertype[3]="Manager";
 	  
+	  $rootScope.usertype[5]="CFO";
+	  
 	  $rootScope.years={};
 	  $rootScope.years[1]="2017-18";
 	  $rootScope.years[2]="2018-19";
@@ -53,6 +55,8 @@ var app=angular
 	  $rootScope.status[3]="Approved";				//"approved by manager";
 	  $rootScope.status[4]="Rejected";				//"Rejected by manager";
 
+	  $rootScope.status[5]="Budget Approved";
+	  $rootScope.status[6]="Rejected by CFO";
 	  
 	  $rootScope.collapseVar = 0;
 	  $rootScope.multiCollapseVar = 0;

@@ -46,9 +46,11 @@ public class CapexService {
 		capex.setStatus(status);
 		if(status==1) {
 			capex.setHodApproveRemarks(remarks);
-		}else if(status==2) {
+		}else if(status==3) {
 			capex.setManagerApproveRemarks(remarks);
-		}else {
+		}else if(status==5){
+			capex.setCfoApproveRemarks(remarks);
+ 		}else {
 			throw new BusinessException("Error in status");
 		}
 		capexDAO.update(capex);
@@ -63,6 +65,8 @@ public class CapexService {
 			capex.setHodRejectRemarks(remarks);
 		}else if(status==4) {
 			capex.setManagerRejectRemarks(remarks);
+		}else if(status==6) {
+			capex.setCfoRejectRemarks(remarks);
 		}else {
 			throw new BusinessException("Error in status");
 		}
