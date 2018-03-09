@@ -61,13 +61,13 @@ public class CapexService {
 		
 		CapexMaster capex=capexDAO.getCapex(id);
 		capex.setStatus(status);
-		if(status==2) {
+		if(status==2){
 			capex.setHodRejectRemarks(remarks);
-		}else if(status==4) {
+		}else if(status==4){
 			capex.setManagerRejectRemarks(remarks);
-		}else if(status==6) {
+		}else if(status==6){
 			capex.setCfoRejectRemarks(remarks);
-		}else {
+		}else{
 			throw new BusinessException("Error in status");
 		}
 		capexDAO.update(capex);

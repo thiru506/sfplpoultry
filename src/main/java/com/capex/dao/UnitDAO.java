@@ -20,12 +20,6 @@ public class UnitDAO extends BaseDAO{
 	
 	public void addUnit(UnitMaster unit) {
  
-		Set<UnitLocations> ul=unit.getUnitLocations();
-		unit.setUnitLocations(ul);
-			
-		SubDivisionMaster sdm=unit.getSubDivisionMaster();
-		unit.setSubDivisionMaster(sdm);
-		 
   		save(unit);
   		
  	}

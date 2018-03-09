@@ -50,7 +50,7 @@ angular.module('sbAdminApp')
  	}
 	if($rootScope.userInfo.userType==3){
  		angular.forEach(capexs, function(obj){
- 			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1){
+ 			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1 || obj.status==6){
 				$scope.budgets.push(obj);
  			}
 		})
@@ -930,8 +930,24 @@ angular.module('sbAdminApp')
  
 	$scope.unitChange=function(){
   		$scope.form.unit=$rootScope.getById(units,$scope.unitt);
-    		$scope.locations=$scope.form.unit.unitLocations;
-  	}
+		$scope.selectedLocations=$scope.form.unit.unitLocations;
+		
+		console.log("$scope.selectedLocations",$scope.selectedLocations);
+		$scope.locations=$scope.newArrayy($scope.selectedLocations);
+ 	}
+	$scope.newArrayy=function(list){
+		var newArray=[];
+		angular.forEach(list, function(obj1,key){
+			var exists=false;
+			angular.forEach(newArray, function(obj2,key){
+				if(angular.equals(obj1.locations.id,obj2.locations.id)){exists= true};
+			});
+			if(exists== false && obj1.locations.id !=""){
+				newArray.push(obj1);
+			}
+		});
+		return newArray;
+   	}
 
  	
 	$scope.assetClassChange=function(){
@@ -947,10 +963,26 @@ angular.module('sbAdminApp')
 	        		}
  			});
 	}
-	
+	$scope.locationNames=[];
 	$scope.changeLoc=function(){
-  		$scope.form.unitLocations=$rootScope.getById($scope.locations,$scope.loc);
+  		$scope.sampleLocations=$rootScope.getById($scope.locations,$scope.loc);
+  		
+  		console.log("$scope.selectedLocations111",$scope.selectedLocations);
+  		
+			angular.forEach($scope.selectedLocations, function(obj){
+				console.log("loc",$scope.sampleLocations.locations.id);	
+ 	        		if(obj.locations.id==$scope.sampleLocations.locations.id){
+	        			$scope.locationNames.push(obj);
+        		}
+			});
+
+			console.log("$scope.locationNames",$scope.locationNames);
   	}
+	
+	$scope.changeLocName=function(){
+  		$scope.form.unitLocations=$rootScope.getById($scope.locations,$scope.locName);
+  		console.log("$scope.form.unitLocations",$scope.form.unitLocations);
+	}
 
 	$scope.quarters=[];
 	$scope.form1={};

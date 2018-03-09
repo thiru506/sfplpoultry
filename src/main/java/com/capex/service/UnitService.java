@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.capex.dao.UnitDAO;
 import com.capex.entity.CapexMaster;
+import com.capex.entity.SubDivisionMaster;
 import com.capex.entity.UnitLocations;
 import com.capex.entity.UnitMaster;
 import com.capex.entity.User;
@@ -28,7 +29,20 @@ public class UnitService {
 	}
  
 	public void addUnit(UnitMaster unit, int token) {
-		 unitDAO.addUnit(unit);
+		
+		User user=userService.getUser(token);
+		
+		Set<UnitLocations> ul=unit.getUnitLocations();
+//		unit.setUnitLocations(ul);
+			
+		SubDivisionMaster sdm=unit.getSubDivisionMaster();
+		unit.setSubDivisionMaster(sdm);
+ 	
+		unitDAO.addUnit(unit);
+		
+  		updateUnitLocations(ul,unit.getId(),user.getId());
+
+		 
 	}
 
 	public void updateUnit(UnitMaster unitUpdate, int token) {

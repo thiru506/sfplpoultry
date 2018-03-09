@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
@@ -13,8 +15,10 @@ import org.hibernate.id.IdentifierGenerator;
 public class CapexIdGenerator implements IdentifierGenerator{
 
 	public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
-
-        String prefix = "CAP-";
+		
+		String year=Year.now().format(DateTimeFormatter.ofPattern("uu"));
+        String s1 = "FY";
+        String prefix=s1.concat(year).concat("-");
         Connection connection = session.connection();
 
         try {

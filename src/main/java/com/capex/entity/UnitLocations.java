@@ -45,15 +45,6 @@ public class UnitLocations {
 	@JsonIgnore
 	private List<CapexMaster> capexMaster;
 
-	
-	public List<CapexMaster> getCapexMaster() {
-		return capexMaster;
-	}
-
-	public void setCapexMaster(List<CapexMaster> capexMaster) {
-		this.capexMaster = capexMaster;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -94,6 +85,14 @@ public class UnitLocations {
 		this.locationName = locationName;
 	}
 
- 	
- 
+	public List<CapexMaster> getCapexMaster() {
+		return capexMaster;
+	}
+
+	public void setCapexMaster(List<CapexMaster> capexMaster) {
+		this.capexMaster = capexMaster;
+	}
+
+	
+  
 }
