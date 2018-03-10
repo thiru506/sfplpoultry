@@ -60,7 +60,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   .state('dashboard.home',{
     	   controller: 'HomeCtrl',
     	   resolve: {
-    		   capexs : ['$http','$rootScope',function($http,$rootScope){return $http.get('capex/all/'+$rootScope.userInfo.id).then(function(resp){console.log(resp.data); return resp.data})}],
+    		   capexs : ['$http','$rootScope',function($http,$rootScope){return $http.get('capex/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}],
      		   
     	   },
     	   templateUrl:'views/mainHome.html',
@@ -91,7 +91,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
 			id:null
 		},
        resolve: {
-  				user:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('user/getuser/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log("user edit",resp.data); return resp.data; });}],
+  				user:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('user/getuser/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
      		   users : ['$http','$rootScope',function($http,$rootScope){return $http.get('user/all/'+$rootScope.userInfo.id).then(function(resp){ return resp.data})}],
 		   departments : ['$http','$rootScope',function($http,$rootScope){return $http.get('departments/all').then(function(resp){return resp.data})}],
 
@@ -146,7 +146,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
  			id:null
  		},
         resolve: {
-			division:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('divisions/getDivision/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log(resp.data); return resp.data; });}],
+			division:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('divisions/getDivision/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
  		   companies : ['$http','$rootScope',function($http,$rootScope){return $http.get('companies/all').then(function(resp){  return resp.data})}],     				
    	   },
         controller:'DivisionEditCtrl'
@@ -176,7 +176,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
  			id:null
  		},
         resolve: {
-			subdivision:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('subdivisions/getSubDivision/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log(resp.data); return resp.data; });}],
+			subdivision:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('subdivisions/getSubDivision/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
  		   divisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('divisions/all').then(function(resp){  return resp.data})}]
    	   },
         controller:'SubDivisionEditCtrl'
@@ -237,8 +237,8 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
      .state('dashboard.assetCategories',{
   	   controller: 'assetCategoriesCtrl',
   	   resolve: {
-   		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){console.log('classes',resp.data); return resp.data})}],
-   		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){console.log('categories',resp.data); return resp.data})}]
+   		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){return resp.data})}],
+   		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}]
    	   },
   	   templateUrl:'views/assetCategories.html',
   	   url:'/assetCategories'
@@ -250,8 +250,8 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
   			id:null
   		},
          resolve: {
-     		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){console.log('classes',resp.data); return resp.data})}],
-    				asset:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('assetCategories/getAssetCategories/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) {console.log(resp.data); return resp.data; });}],
+     		   assetClasses : ['$http','$rootScope',function($http,$rootScope){return $http.get('assetClass/all').then(function(resp){return resp.data})}],
+    				asset:['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('assetCategories/getAssetCategories/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
     	   },
          controller:'editAssetCategoryCtrl'
       })
@@ -377,7 +377,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
 			id:null
 		},
        resolve: {
-  				budget : ['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('capex/getCapex/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { console.log(resp.data); return resp.data; });}],
+  				budget : ['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('capex/getCapex/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
   	   },
        controller:'budgetViewCtrl'
     })
@@ -388,7 +388,7 @@ app.config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function
  			id:null
  		},
         resolve: {
-   				budget : ['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('capex/getCapex/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { console.log(resp.data); return resp.data; });}],
+   				budget : ['$http','$rootScope','$stateParams',function($http,$rootScope,$stateParams){return $http.get('capex/getCapex/'+$rootScope.userInfo.id+'/'+ $stateParams.id).then(function(resp) { return resp.data; });}],
    	 		   subdivisions : ['$http','$rootScope',function($http,$rootScope){return $http.get('subdivisions/all').then(function(resp){  return resp.data})}],
    			   units : ['$http','$rootScope',function($http,$rootScope){return $http.get('units/all').then(function(resp){return resp.data})}],
    	   		   assetCategories: ['$http','$rootScope',function($http,$rootScope){return $http.get('assetCategories/all').then(function(resp){return resp.data})}],

@@ -932,8 +932,7 @@ angular.module('sbAdminApp')
   		$scope.form.unit=$rootScope.getById(units,$scope.unitt);
 		$scope.selectedLocations=$scope.form.unit.unitLocations;
 		
-		console.log("$scope.selectedLocations",$scope.selectedLocations);
-		$scope.locations=$scope.newArrayy($scope.selectedLocations);
+ 		$scope.locations=$scope.newArrayy($scope.selectedLocations);
  	}
 	$scope.newArrayy=function(list){
 		var newArray=[];
@@ -967,22 +966,16 @@ angular.module('sbAdminApp')
 	$scope.changeLoc=function(){
   		$scope.sampleLocations=$rootScope.getById($scope.locations,$scope.loc);
   		
-  		console.log("$scope.selectedLocations111",$scope.selectedLocations);
-  		
-			angular.forEach($scope.selectedLocations, function(obj){
-				console.log("loc",$scope.sampleLocations.locations.id);	
- 	        		if(obj.locations.id==$scope.sampleLocations.locations.id){
+ 			angular.forEach($scope.selectedLocations, function(obj){
+  	        		if(obj.locations.id==$scope.sampleLocations.locations.id){
 	        			$scope.locationNames.push(obj);
         		}
 			});
-
-			console.log("$scope.locationNames",$scope.locationNames);
-  	}
+   	}
 	
 	$scope.changeLocName=function(){
   		$scope.form.unitLocations=$rootScope.getById($scope.locations,$scope.locName);
-  		console.log("$scope.form.unitLocations",$scope.form.unitLocations);
-	}
+ 	}
 
 	$scope.quarters=[];
 	$scope.form1={};
@@ -1007,8 +1000,7 @@ angular.module('sbAdminApp')
 				$scope.addedQuarter.total=(a*b)+((a*b*c)/100);
 				
 				$scope.quarters.push($scope.addedQuarter);
-				console.log('quarter',$scope.quarters)
-				$scope.form1=null;
+ 				$scope.form1=null;
 		}
 		$scope.yearly=function(){
  					$scope.addedQuarter={};
@@ -1080,8 +1072,7 @@ angular.module('sbAdminApp')
 		$scope.form.quarters=$scope.quarters;	
 		$scope.form.department=$rootScope.getById(departments,$scope.department);
 		$scope.form.unitMaster=$rootScope.getById(units,$scope.unitt);
-		console.log('form',$scope.form);
- 		
+  		
 			$http.post('capex/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("Budget Requested Successfully");
 				$scope.form=null;
@@ -1194,9 +1185,7 @@ angular.module('sbAdminApp')
 	
 	$scope.addUnit=function(){
 		
-		console.log($scope.form);
-   
-  			$http.post('units/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+   			$http.post('units/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("Unit Added Successfully");
 				$state.go('dashboard.unitMaster',{},{reload:true});
     			}).error(function(data){
@@ -1273,13 +1262,11 @@ angular.module('sbAdminApp')
 	$scope.form.unitLocations=[];
 	$scope.addRow=function(){
 		$scope.unitLocations={};
-		console.log('sel',$scope.selected);
-		
+ 		
 		$scope.unitLocations.locationName=$rootScope.getById(locationNames,$scope.selected.id);
 		$scope.unitLocations.locations=$rootScope.getById(locations,$scope.location);
 		$scope.form.unitLocations.push($scope.unitLocations);
-		console.log($scope.form.unitLocations);
-		$scope.location=null;
+ 		$scope.location=null;
 		$scope.selected=null;
 		$scope.unitLocations=null;
  	}
@@ -1302,9 +1289,7 @@ angular.module('sbAdminApp')
 	$scope.form={};
 	$scope.companies=companies;
 	$scope.divisons=divisions;
-	console.log('divi',$scope.divisons);
-	
-	
+ 	
 	$scope.changeDivision=function(){
 		$scope.form.divisionMaster=$rootScope.getById(divisions,$scope.divi);
 	}
@@ -1466,17 +1451,14 @@ angular.module('sbAdminApp')
 	$scope.user=$scope.userInfo;
 	$scope.change=function(){
 		 
-		console.log($scope.user);
-		
-		if($scope.form.oldpassword==null){
+ 		if($scope.form.oldpassword==null){
 			$rootScope.notify.showError("Enter Old Password");
 		}else if($scope.form.newpassword==null){
 			$rootScope.notify.showError("Enter new password");
 		}else if($scope.form.renewpassword==null || $scope.form.renewpassword!=$scope.form.newpassword){
 			$rootScope.notify.showError("Re-enter new password properly");
 		}else{
-			console.log($rootScope.userInfo.token,$scope.form.oldpassword,$scope.form.newpassword);
-			$http.post('user/changePassword/'+$rootScope.userInfo.id+'/'+$scope.form.oldpassword+'/'+$scope.form.newpassword).success(function(data){
+ 			$http.post('user/changePassword/'+$rootScope.userInfo.id+'/'+$scope.form.oldpassword+'/'+$scope.form.newpassword).success(function(data){
 				$rootScope.notify.showSuccess("password changed successfully");
 				$state.go('dashboard.home',{},{reload:true});
     			}).error(function(data){
@@ -1512,13 +1494,11 @@ angular.module('sbAdminApp')
 	}
 
 	$scope.hod=function(){
-		alert($scope.hodId);
-		$scope.managerId=null;
+ 		$scope.managerId=null;
 	}
 	
 	$scope.manager=function(){
-		alert($scope.managerId);
-		$scope.hodId=null;
+ 		$scope.hodId=null;
 	}
 	
 	$scope.addUser=function(){
@@ -1540,9 +1520,7 @@ angular.module('sbAdminApp')
 		}else if($scope.form.password!=$scope.conpass){
 			$rootScope.notify.showError("Password and Confirm Password Should be Same");
 		}else{
-			console.log('form',$scope.form); 
-			
-			$http.post('user/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+ 			$http.post('user/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("User Added Successfully");
 				$state.go('dashboard.user',{},{reload:true});
     			}).error(function(data){
@@ -1569,8 +1547,7 @@ angular.module('sbAdminApp')
 	
 	$scope.users=users;
 	$scope.pagi=$rootScope.pagination.init($scope.users);
-	console.log($scope.users);
-	$scope.deleteUser=function(user){
+ 	$scope.deleteUser=function(user){
 		var promise = modals.open("confirm",{ message: "Are you sure to delete "+user.name+" ?"});
         promise.then(
         		function handleResolve( response ) {
@@ -1599,8 +1576,7 @@ angular.module('sbAdminApp')
 		angular.forEach(users, function(obj){
  				if(obj.id==$scope.form.hodId){
 					$scope.hodd=obj;
-					console.log($scope.hod);
-				}
+ 				}
 				else if(obj.userType==2){
         			$scope.hods.push(obj);
         		}
@@ -1624,8 +1600,7 @@ angular.module('sbAdminApp')
   			
  			if($scope.form.department.id!=null){
  	 			$scope.form.department=$rootScope.getById(departments,$scope.form.department.id);
- 	 			console.log("dept",$scope.form.department);
- 			}
+  			}
 		 
 			if($scope.form.name==null || $scope.form.name==""){
 				$rootScope.notify.showError("Users Name is Mandatory");
@@ -1638,9 +1613,7 @@ angular.module('sbAdminApp')
 			}else if($scope.form.password!=$scope.conpass){
 				$rootScope.notify.showError("Password and Confirm Password Should be Same");
 			}else{
- 			 
-				console.log("edited user form",$scope.form);
-				
+ 				
 				$http.post('user/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 					$rootScope.notify.showSuccess("User Updated Successfully");
 					$state.go('dashboard.user',{},{reload:true});
@@ -1667,19 +1640,16 @@ angular.module('sbAdminApp')
 }])
 .controller('UnitEditCtrl',['$scope',"$rootScope",'unit','locations','locationNames','$http','$state','modals',function($scope,$rootScope,unit,locations,locationNames,$http,$state,modals) {
 		$scope.form=unit;
- 		console.log('unit',unit);
-		$scope.locations=locations;
+ 		$scope.locations=locations;
  		$scope.locationNames=locationNames;
 		 
  		$scope.addRow=function(){
  			$scope.unitLocations={};
- 			console.log('sel',$scope.selected);
- 			
+  			
  			$scope.unitLocations.locationName=$rootScope.getById(locationNames,$scope.selected.id);
  			$scope.unitLocations.locations=$rootScope.getById(locations,$scope.location);
  			$scope.form.unitLocations.push($scope.unitLocations);
- 			console.log($scope.form.unitLocations);
- 			$scope.location=null;
+  			$scope.location=null;
  			$scope.selected=null;
  			$scope.unitLocations=null;
  	 	}
@@ -1687,9 +1657,7 @@ angular.module('sbAdminApp')
  		
 	$scope.updateUnit=function(){	
 		
-		console.log('formmm',$scope.form);
-		
- 			$http.post('units/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
+  			$http.post('units/update/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("Unit Updated Successfully");
 				$state.go('dashboard.unitMaster',{},{reload:true});
     			}).error(function(data){

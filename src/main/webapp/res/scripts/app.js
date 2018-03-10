@@ -23,8 +23,7 @@ var app=angular
 
 	  $http.post("user/currentUser").success(function(data,status){
 		  $rootScope.userInfo=data;
-		  console.log("rootScope.userInfo",data);
- 	  }).error(function(data,status){
+  	  }).error(function(data,status){
 				
 	  });
 	  
