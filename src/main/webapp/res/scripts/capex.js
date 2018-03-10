@@ -50,7 +50,7 @@ angular.module('sbAdminApp')
  	}
 	if($rootScope.userInfo.userType==3){
  		angular.forEach(capexs, function(obj){
- 			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1 || obj.status==6){
+ 			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1 || obj.status==6 || obj.status==5){
 				$scope.budgets.push(obj);
  			}
 		})
