@@ -254,6 +254,7 @@ angular.module('sbAdminApp')
 }])
 .controller('budgetViewCtrl',['$scope',"$rootScope",'modals','budget','$http','$state', function($scope,$rootScope,modals,budget,$http,$state) {
  	$scope.budget=budget;
+ 	console.log("budget",$scope.budget);
  	$scope.showApprove=false;
  	$scope.showReject=false;
  	
@@ -962,11 +963,10 @@ angular.module('sbAdminApp')
 	        		}
  			});
 	}
-	$scope.locationNames=[];
-	$scope.changeLoc=function(){
+ 	$scope.changeLoc=function(){
+		$scope.locationNames=[];
   		$scope.sampleLocations=$rootScope.getById($scope.locations,$scope.loc);
-  		
- 			angular.forEach($scope.selectedLocations, function(obj){
+  			angular.forEach($scope.selectedLocations, function(obj){
   	        		if(obj.locations.id==$scope.sampleLocations.locations.id){
 	        			$scope.locationNames.push(obj);
         		}
@@ -974,18 +974,30 @@ angular.module('sbAdminApp')
    	}
 	
 	$scope.changeLocName=function(){
-  		$scope.form.unitLocations=$rootScope.getById($scope.locations,$scope.locName);
- 	}
+		$scope.form.unitLocations={};
+   		$scope.form.unitLocations=$rootScope.getById($scope.selectedLocations,$scope.locName);
+  	}
+	
+	$scope.changeCost=function(){
+		var a=parseInt($scope.form1.qty);
+		var b=parseFloat($scope.form1.rate);
+		var c=parseFloat($scope.form1.tax);
+		
+		$scope.form1.cost=a*b;
+		if($scope.form1.tax==null)
+			$scope.form1.total=(a*b);
+		else
+			$scope.form1.total=(a*b)+((a*b*c)/100);
+	}
 
+	
+	
 	$scope.quarters=[];
 	$scope.form1={};
 	$scope.addQuarter=function(){
 		 
 				$scope.addedQuarter={};
-				var a=parseInt($scope.form1.qty);
-				var b=parseFloat($scope.form1.rate);
-				var c=parseFloat($scope.form1.tax);
-				$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
+ 				$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
 				$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
 				$scope.addedQuarter.description=$scope.form1.description;
 				$scope.addedQuarter.justification=$scope.form1.justification;
@@ -995,37 +1007,28 @@ angular.module('sbAdminApp')
 				$scope.addedQuarter.qty=$scope.form1.qty;
 				$scope.addedQuarter.rate=$scope.form1.rate;
 				$scope.addedQuarter.uom=$rootScope.getById(uoms,$scope.form1.uom);
-				$scope.addedQuarter.cost=(a*b);
+				$scope.addedQuarter.cost=$scope.form1.cost;
 				$scope.addedQuarter.tax=$scope.form1.tax;
-				$scope.addedQuarter.total=(a*b)+((a*b*c)/100);
+				$scope.addedQuarter.total=$scope.form1.total;
 				
 				$scope.quarters.push($scope.addedQuarter);
  				$scope.form1=null;
 		}
 		$scope.yearly=function(){
  					$scope.addedQuarter={};
- 
- 					
- 					var a=$scope.totalQty($scope.quarters);
+  					var a=$scope.totalQty($scope.quarters);
 					var b=$scope.totalRate($scope.quarters);
 					var c=$scope.totalCost($scope.quarters);
 					var d=$scope.totalTotal($scope.quarters);
- 				//	var c=parseFloat($scope.quarters[0].tax) + parseFloat($scope.quarters[1].tax) + parseFloat($scope.quarters[2].tax) + parseFloat($scope.quarters[3].tax);
  					
-		//			$scope.addedQuarter.assetClassMaster=$rootScope.getById(assetClasses,$scope.assetClass);
-			//		$scope.addedQuarter.assetCategoriesMaster=$rootScope.getById(assetCategories,$scope.assetCategory);
-					
 					$scope.addedQuarter.description=null;
 					$scope.addedQuarter.justification=null;
-
-					$scope.addedQuarter.year=$scope.quarters[1].year;
+ 					$scope.addedQuarter.year=$scope.quarters[1].year;
 					$scope.addedQuarter.quarter=0;
 					$scope.addedQuarter.qty=a;
 					$scope.addedQuarter.rate=b;
-		//			$scope.addedQuarter.uom=$rootScope.getById(uoms,$scope.quarters[1].uom);
-					$scope.addedQuarter.cost=c;
-			//		$scope.addedQuarter.tax=c;
-					$scope.addedQuarter.total=d;
+ 					$scope.addedQuarter.cost=c;
+ 					$scope.addedQuarter.total=d;
 					
 					$scope.quarters.push($scope.addedQuarter);
 
@@ -1072,6 +1075,8 @@ angular.module('sbAdminApp')
 		$scope.form.quarters=$scope.quarters;	
 		$scope.form.department=$rootScope.getById(departments,$scope.department);
 		$scope.form.unitMaster=$rootScope.getById(units,$scope.unitt);
+		
+		console.log("form",$scope.form);
   		
 			$http.post('capex/add/'+$rootScope.userInfo.id,$scope.form).success(function(data){
 				$rootScope.notify.showSuccess("Budget Requested Successfully");

@@ -129,11 +129,11 @@
 											<div class="form-group">
 												<label class="control-label col-xs-1">Qty*</label>
 												<div class="col-xs-2">
-													<input type="number" class="form-control" data-ng-model="form1.qty" >
+													<input type="number" data-ng-change="changeCost()" class="form-control" data-ng-model="form1.qty" >
 												</div>
 												<label class="control-label col-xs-1">Rate(per unit)*</label>
 												<div class="col-xs-2">
-													<input type="number" class="form-control" data-ng-model="form1.rate" >
+													<input type="number" data-ng-change="changeCost()" class="form-control" data-ng-model="form1.rate" >
 												</div>
  												<label class="control-label col-xs-2">UOM*</label>
 												<div class="col-xs-2">
@@ -145,16 +145,16 @@
  											<div class="form-group">
 												<label class="control-label col-xs-1">Cost*</label>
 												<div class="col-xs-2" style="margin-top : 7px">
-												<label>:		{{form1.rate*form1.qty | INR}} </label>
-												</div>
+													<input type="number"  class="form-control" data-ng-model="form1.cost" disabled>
+ 												</div>
 												<label class="control-label col-xs-1" >Taxes*</label>
 												<div class="col-xs-2">
-													<input type="number" class="form-control" data-ng-model="form1.tax" >
+													<input type="number" data-ng-change="changeCost()" class="form-control" data-ng-model="form1.tax" >
 												</div>
  												<label class="control-label col-xs-3">Total Cost including Tax*</label>
 												<div class="col-xs-2" style="margin-top : 7px">
-													<label>:		{{(form1.rate*form1.qty)+(form1.rate*form1.qty*form1.tax)/100 | INR}} </label>
-												</div>
+												<input type="number"  class="form-control" data-ng-model="form1.total" disabled>
+ 												</div>
   											</div>
   											<div class="form-group">
 												<label class="control-label col-xs-2">Description*</label>
@@ -208,11 +208,11 @@
 															<td>{{years[quarter.year]}}</td>
 															<td>{{quartersList[quarter.quarter]}}</td>															
 															<td>{{quarter.qty}}</td>
-															<td>{{quarter.cost}}</td>
-															<td>{{quarter.rate}}</td>
+															<td>{{quarter.cost | INR}}</td>
+															<td>{{quarter.rate | INR}}</td>
 															<td>{{quarter.uom.name}}</td>
 															<td>{{quarter.tax}}</td>
-															<td>{{quarter.total}}</td>
+															<td>{{quarter.total | INR}}</td>
  															<td><button type="button" class="btn btn-danger btn-circle btn-sl" data-ng-click="deleteRow($index)">
 															<i class="fa fa-close"></i></button></td>
 														</tr>	
