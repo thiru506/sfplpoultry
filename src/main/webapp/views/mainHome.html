@@ -40,8 +40,9 @@
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.unitMaster.subDivisionMaster.divisionMaster.name}}</td>
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.unitMaster.subDivisionMaster.name}}</td>
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.unitMaster.name}}</td>
-										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.unitLocations.locations.name}},{{bud.unitLocations.locationName.name}}</td>
-										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.department.name}}</td>
+										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})" data-ng-if="bud.unitLocations!=null">{{bud.unitLocations.locations.name}},{{bud.unitLocations.locationName.name}}</td>
+										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})" data-ng-if="bud.unitLocations==null">NA</td>
+ 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.department.name}}</td>
  										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.quarters[0].assetCategoriesMaster.name}}</td>
  										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})">{{bud.total}}</td>
 										<td data-ui-sref="dashboard.viewBudgetForm({id:bud.id})" data-ng-if="bud.status==0 || bud.status==2 || bud.status==4 || bud.status==6"><a style="color:red;"><strong> {{status[bud.status]}} </strong></a></td>
