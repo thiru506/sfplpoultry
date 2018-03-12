@@ -67,6 +67,12 @@
 						 	<option value="">Select Department</option>
 						</select>
 				</div>                 
+     			<div class="form-group" data-ng-show="form.userType==1">
+					<label>Select Units for the User*</label>
+						 	<select class="form-control" data-ng-model="units"  multiple="multiple"  multi-select data-ng-options="hod.id as hod.name for hod in hods">
+						 	<option value="">Select HOD</option>
+						</select>
+				 </div>
 	                 
             </div>
             <!-- /.panel-body -->

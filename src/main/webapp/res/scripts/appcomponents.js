@@ -21,6 +21,25 @@ app.directive("bnModals",function( $rootScope, modals ) {
         });
 	}
 });
+app.directive('multiSelect', function() {
+  	  function link(scope, element,attributes) {
+	    var options = {
+	      enableClickableOptGroups: true,
+	      onChange: function() {
+	        element.change();
+	      }
+	    };
+	    element.multiselect(options);
+	    scope.$watch(attributes.ngModel, function () {
+          element.multiselect('refresh');
+      });
+	  }
+
+	  return {
+	    restrict: 'A',
+	    link: link
+	  };
+});
 app.filter('INR', function () {        
     return function (input) {
         if (! isNaN(input)) {
