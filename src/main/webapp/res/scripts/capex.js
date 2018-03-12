@@ -1475,11 +1475,12 @@ angular.module('sbAdminApp')
 	
 	
 }])
-.controller('AddUserCtrl',['$scope',"$rootScope",'modals','users','departments','$http','$state', function($scope,$rootScope,modals,users,departments,$http,$state) {
+.controller('AddUserCtrl',['$scope',"$rootScope",'modals','users','units','departments','$http','$state', function($scope,$rootScope,modals,users,units,departments,$http,$state) {
 	$scope.form={};
 	$scope.users=users;
 	$scope.departments=departments;
- 
+	$scope.units=units;
+	
 	$scope.getHODList=function(list){
 		$scope.hods=[];
 			angular.forEach(list, function(obj){

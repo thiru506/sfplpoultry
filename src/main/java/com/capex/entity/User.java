@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.capex.constants.DatabaseConstants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -78,8 +79,18 @@ public class User {
 	@JoinColumn(name = "deptId")
 	private Department department;
 	
-	
+	@Transient
+	private List<UnitMaster> unitMaster;
 
+
+
+	public List<UnitMaster> getUnitMaster() {
+		return unitMaster;
+	}
+
+	public void setUnitMaster(List<UnitMaster> unitMaster) {
+		this.unitMaster = unitMaster;
+	}
 
 	public Department getDepartment() {
 		return department;
