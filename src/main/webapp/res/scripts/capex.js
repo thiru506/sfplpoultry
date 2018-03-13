@@ -21,6 +21,9 @@ angular.module('sbAdminApp')
 	$scope.capexs=capexs;
 	$scope.pagi=$rootScope.pagination.init($scope.capexs);
 	$scope.budgets=[];
+	$scope.inReviewBudgets=[];
+	$scope.rejectedBudgets=[];
+	$scope.approvedBudgets=[];
 	
 	angular.forEach(capexs, function(obj){
 		for(var i=0;i<obj.quarters.length;i++){
@@ -32,13 +35,34 @@ angular.module('sbAdminApp')
 
 	if($rootScope.userInfo.userType==0){
 		$scope.budgets=$scope.capexs;
-	}
+		angular.forEach($scope.budgets, function(obj){
+ 				if(obj.status==0 || obj.status==1 || obj.status==3){
+					$scope.inReviewBudgets.push(obj);
+					console.log("$scope.inReviewBudgets",$scope.inReviewBudgets);
+				}else if(obj.status==2 || obj.status==4 || obj.status==6){
+					$scope.rejectedBudgets.push(obj);
+					console.log("$scope.rejectedBudgets",$scope.rejectedBudgets);
+				}else if(obj.status==5){
+					$scope.approvedBudgets.push(obj);
+					console.log("$scope.approvedBudgets",$scope.approvedBudgets);
+				}
+ 		});
+ 	}
 	if($rootScope.userInfo.userType==1){
  		angular.forEach(capexs, function(obj){
 	        		if(obj.user.id==$rootScope.userInfo.id){
 	        			$scope.budgets.push(obj);
 	        		}
 			});
+		angular.forEach($scope.budgets, function(obj){
+ 				if(obj.status==0 || obj.status==1 || obj.status==3){
+					$scope.inReviewBudgets.push(obj);
+				}else if(obj.status==2 || obj.status==4 || obj.status==6){
+					$scope.rejectedBudgets.push(obj);
+				}else if(obj.status==5){
+					$scope.approvedBudgets.push(obj);
+				}
+ 		});
  	}
 	
 	if($rootScope.userInfo.userType==2){
@@ -47,20 +71,48 @@ angular.module('sbAdminApp')
 	        			$scope.budgets.push(obj);
 	        		}
 			});
+		angular.forEach($scope.budgets, function(obj){
+ 				if(obj.status==0 || obj.status==1 || obj.status==3){
+					$scope.inReviewBudgets.push(obj);
+				}else if(obj.status==2 || obj.status==4 || obj.status==6){
+					$scope.rejectedBudgets.push(obj);
+				}else if(obj.status==5){
+					$scope.approvedBudgets.push(obj);
+				}
+ 		});
  	}
+	
 	if($rootScope.userInfo.userType==3){
  		angular.forEach(capexs, function(obj){
- 			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1 || obj.status==6 || obj.status==5){
+ 			if(obj.user.hodId.managerId.id==$rootScope.userInfo.id && obj.status==1 || obj.status==6 || obj.status==5 || obj.status==3){
 				$scope.budgets.push(obj);
  			}
-		})
+		});
+		angular.forEach($scope.budgets, function(obj){
+ 				if(obj.status==1 || obj.status==3){
+					$scope.inReviewBudgets.push(obj);
+				}else if(obj.status==4 || obj.status==6){
+					$scope.rejectedBudgets.push(obj);
+				}else if(obj.status==5){
+					$scope.approvedBudgets.push(obj);
+				}
+ 		});
 	} 	
 	if($rootScope.userInfo.userType==5){
  		angular.forEach(capexs, function(obj){
- 			if(obj.status==3){
+ 			if(obj.status==3 || obj.status==6 || obj.status==5){
 				$scope.budgets.push(obj);
  			}
-		})
+		});
+		angular.forEach($scope.budgets, function(obj){
+ 				if(obj.status==3){
+					$scope.inReviewBudgets.push(obj);
+				}else if(obj.status==6){
+					$scope.rejectedBudgets.push(obj);
+				}else if(obj.status==5){
+					$scope.approvedBudgets.push(obj);
+				}
+ 		});
 	} 	
 
 }])
@@ -1475,12 +1527,11 @@ angular.module('sbAdminApp')
 	
 	
 }])
-.controller('AddUserCtrl',['$scope',"$rootScope",'modals','users','units','departments','$http','$state', function($scope,$rootScope,modals,users,units,departments,$http,$state) {
+.controller('AddUserCtrl',['$scope',"$rootScope",'modals','users','departments','$http','$state', function($scope,$rootScope,modals,users,departments,$http,$state) {
 	$scope.form={};
 	$scope.users=users;
 	$scope.departments=departments;
-	$scope.units=units;
-	
+ 
 	$scope.getHODList=function(list){
 		$scope.hods=[];
 			angular.forEach(list, function(obj){
